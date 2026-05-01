@@ -31,7 +31,9 @@ export default function Navbar() {
         <nav className="flex items-center justify-between h-18 py-4">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group">
-            <Image src="/al-taqa-logo.png" alt="Al Taqa Technical Logo" width={110} height={60} priority />
+            <div style={{ position: 'relative', width: '110px', height: '60px' }}>
+              <Image src="/al-taqa-logo.png" alt="Al Taqa Technical Logo" fill priority style={{ objectFit: 'contain' }} />
+            </div>
             <div>
               <span
                 className="block text-white font-semibold text-sm leading-tight"
