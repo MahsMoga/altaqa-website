@@ -84,7 +84,7 @@ export default function Contact() {
                   <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
                     Emergency Support
                   </div>
-                  <div className="text-slate-500 text-sm">24/7 for AMC contract clients</div>
+                  <div className="text-slate-500 text-sm">24/7 for AMC cleints over phone for Emergency issues</div>
                 </div>
               </div>
             </div>
