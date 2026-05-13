@@ -17,7 +17,7 @@ const META = {
     'Premier provider of Building Management Systems, automation, and energy management solutions in Abu Dhabi. 20+ years of expertise across Johnson Controls, Schneider Electric, Honeywell, and Tridium platforms.',
   keywords:
     'BMS Abu Dhabi, Building Management System UAE, Building Automation Abu Dhabi, Energy Management, Johnson Controls, Schneider Electric EcoStruxure, Honeywell Alerton, Tridium Niagara, Smart Metering, HVAC Controls',
-  url: 'https://www.altaqauae.com',
+  url: 'https://www.altaqa-technical.ae',
 }
 
 export default function HomePage() {
