@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const brands = [
   {
     name: 'Johnson Controls',
@@ -45,84 +47,104 @@ const brands = [
 
 export default function BrandCapability() {
   return (
-    <section className="section-padding bg-navy relative overflow-hidden">
+    <section id="platforms" className="section-padding bg-navy relative overflow-hidden">
       {/* Background decoration */}
       <div
-        className="orb w-96 h-96 bg-accent/10 -top-24 right-0"
+        className="orb w-[480px] h-[480px] bg-accent/[0.07] -top-24 right-0 animate-float-slow"
         style={{ filter: 'blur(90px)' }}
+      />
+      <div
+        className="orb w-64 h-64 bg-accent/[0.05] bottom-0 left-1/4 animate-float"
+        style={{ filter: 'blur(80px)' }}
       />
 
       <div className="container-narrow relative z-10">
+
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end gap-8 mb-14">
+        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-8 mb-14">
           <div className="flex-1">
-            <span className="inline-flex items-center gap-2 text-accent text-xs font-semibold tracking-widest uppercase mb-4">
-              <span className="block w-6 h-0.5 bg-accent" />
+            <span className="inline-flex items-center gap-2 text-accent text-xs font-semibold
+                             tracking-widest uppercase mb-5">
+              <span className="block w-5 h-0.5 bg-accent rounded-full" />
               Multi-Brand Capability
             </span>
-            <h2
-              className="text-3xl lg:text-4xl font-bold text-white leading-tight"
-              style={{ fontFamily: 'var(--font-sora)' }}
-            >
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-white leading-[1.1] tracking-tight">
               Certified Across Every{' '}
               <span className="text-accent">Major Platform</span>
             </h2>
           </div>
-          <p className="text-white/55 text-sm leading-relaxed max-w-sm">
+          <p className="text-white/50 text-sm leading-relaxed max-w-sm lg:mb-1">
             Our vendor-neutral expertise means we work with your existing
             infrastructure — not around it. No lock-in, no forced migrations.
           </p>
-        </div>
+        </AnimateIn>
 
         {/* Brand grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {brands.map((brand) => (
-            <div
-              key={brand.name}
-              className="group bg-white/5 border border-white/10 rounded-xl p-6
-                         hover:bg-white/10 hover:border-accent/30 transition-all duration-200"
-            >
-              <div className="flex items-start gap-4">
-                {/* Badge */}
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-white text-xs font-bold"
-                  style={{ background: brand.color + '22', border: `1px solid ${brand.color}44` }}
-                >
-                  <span style={{ color: brand.color }}>{brand.badge}</span>
-                </div>
-                <div>
+          {brands.map((brand, idx) => (
+            <AnimateIn key={brand.name} delay={idx * 60}>
+              <div
+                className="group bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6
+                           hover:bg-white/[0.08] hover:border-accent/25
+                           transition-all duration-250 h-full"
+              >
+                <div className="flex items-start gap-4">
+                  {/* Brand badge */}
                   <div
-                    className="text-white font-semibold text-sm mb-0.5"
-                    style={{ fontFamily: 'var(--font-sora)' }}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0
+                               text-xs font-bold transition-transform duration-200 group-hover:scale-105"
+                    style={{
+                      background: brand.color + '1a',
+                      border: `1px solid ${brand.color}33`,
+                    }}
                   >
-                    {brand.name}
+                    <span style={{ color: brand.color }} className="font-display tracking-wide">
+                      {brand.badge}
+                    </span>
                   </div>
-                  <div className="text-accent text-xs font-medium mb-2">{brand.sub}</div>
-                  <div className="text-white/45 text-xs leading-relaxed">{brand.detail}</div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2 mb-0.5">
+                      <div className="font-display text-white font-semibold text-sm leading-snug">
+                        {brand.name}
+                      </div>
+                      {/* Certified checkmark */}
+                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/25
+                                      flex items-center justify-center mt-0.5" title="Certified">
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="text-accent text-xs font-medium mb-2">{brand.sub}</div>
+                    <div className="text-white/40 text-xs leading-relaxed">{brand.detail}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </AnimateIn>
           ))}
         </div>
 
         {/* Vendor-neutral callout */}
-        <div className="flex items-center gap-4 p-5 rounded-xl bg-accent/10 border border-accent/20">
-          <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2l2.5 5.5H18l-4.5 3.5 1.5 6L10 14 5 17l1.5-6L2 7.5h5.5L10 2z"
-                stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <div className="text-white font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
-              Vendor-Neutral Solutions
+        <AnimateIn>
+          <div className="flex items-center gap-5 p-6 rounded-2xl bg-accent/[0.08] border border-accent/20">
+            <div className="w-11 h-11 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2l2.5 5.5H18l-4.5 3.5 1.5 6L10 14 5 17l1.5-6L2 7.5h5.5L10 2z"
+                  stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
+              </svg>
             </div>
-            <div className="text-white/55 text-xs">
-              We tailor every solution to your specific requirements — not to a single manufacturer's ecosystem.
-              Your system, your terms.
+            <div>
+              <div className="font-display text-white font-semibold text-sm mb-1">
+                Vendor-Neutral Solutions
+              </div>
+              <div className="text-white/50 text-xs leading-relaxed max-w-2xl">
+                We tailor every solution to your specific requirements — not to a single
+                manufacturer's ecosystem. Your system, your terms, your long-term success.
+              </div>
             </div>
           </div>
-        </div>
+        </AnimateIn>
       </div>
     </section>
   )

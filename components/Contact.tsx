@@ -1,196 +1,299 @@
 import { useState, FormEvent } from 'react'
+import AnimateIn from './AnimateIn'
+
+type FormState = { name: string; email: string; company: string; message: string }
+type TouchedState = { name: boolean; email: boolean; company: boolean; message: boolean }
+
+function validate(form: FormState) {
+  const errors: Partial<FormState> = {}
+  if (!form.name.trim()) errors.name = 'Full name is required'
+  if (!form.email.trim()) errors.email = 'Email address is required'
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = 'Enter a valid email address'
+  if (!form.company.trim()) errors.company = 'Company or organisation is required'
+  if (!form.message.trim()) errors.message = 'Please describe your requirements'
+  return errors
+}
+
+const infoItems = [
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M9 1.5C6.515 1.5 4.5 3.515 4.5 6c0 4.125 4.5 10.5 4.5 10.5S13.5 10.125 13.5 6c0-2.485-2.015-4.5-4.5-4.5z"
+          stroke="#2F80ED" strokeWidth="1.4"/>
+        <circle cx="9" cy="6" r="1.5" stroke="#2F80ED" strokeWidth="1.4"/>
+      </svg>
+    ),
+    label: 'Location',
+    value: 'Abu Dhabi, United Arab Emirates',
+    href: undefined,
+  },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="1.5" y="4" width="15" height="10" rx="1.5" stroke="#2F80ED" strokeWidth="1.4"/>
+        <path d="M1.5 6l7.5 5 7.5-5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
+      </svg>
+    ),
+    label: 'Email',
+    value: 'info@altaqauae.com',
+    href: 'mailto:info@altaqauae.com',
+  },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M3 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.5 1.5C6.5 18 0 11.5 0 4.5A1.5 1.5 0 013 3z"
+          stroke="#2F80ED" strokeWidth="1.4" strokeLinejoin="round"/>
+      </svg>
+    ),
+    label: 'Response Time',
+    value: 'Within 24 hours on business days',
+    href: undefined,
+  },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="9" r="7.5" stroke="#2F80ED" strokeWidth="1.4"/>
+        <path d="M9 5v4l2.5 2.5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
+      </svg>
+    ),
+    label: 'Emergency Support',
+    value: '24/7 for AMC contract clients',
+    href: undefined,
+  },
+]
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', company: '', message: '' })
+  const [form, setForm] = useState<FormState>({ name: '', email: '', company: '', message: '' })
+  const [touched, setTouched] = useState<TouchedState>({ name: false, email: false, company: false, message: false })
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: FormEvent) => {
+  const errors = validate(form)
+  const isValid = Object.keys(errors).length === 0
+
+  const handleBlur = (field: keyof TouchedState) =>
+    setTouched((t) => ({ ...t, [field]: true }))
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    // In production: send to API / email service
+    setTouched({ name: true, email: true, company: true, message: true })
+    if (!isValid) return
+    setLoading(true)
+    // TODO: Replace with your form backend (e.g. Formspree, Resend, or a Next.js API route)
+    await new Promise((r) => setTimeout(r, 800))
+    setLoading(false)
     setSubmitted(true)
   }
+
+  const fieldClass = (field: keyof FormState) =>
+    `w-full border rounded-xl px-4 py-3 text-sm text-navy placeholder-slate-400
+     focus:outline-none focus:ring-2 transition-all duration-200 bg-white ${
+       touched[field] && errors[field]
+         ? 'border-red-300 focus:border-red-400 focus:ring-red-100'
+         : 'border-slate-border focus:border-accent focus:ring-accent/10 hover:border-slate-text/30'
+     }`
 
   return (
     <section id="contact" className="section-padding bg-slate-corporate">
       <div className="container-narrow">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left: info */}
-          <div>
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
+
+          {/* ── Left: contact info ─────────────────────────────── */}
+          <AnimateIn>
             <span className="label-tag">Contact Us</span>
-            <h2 className="heading-section mb-6">
+            <h2 className="heading-section mb-5">
               Ready to Transform{' '}
               <span className="text-accent">Your Facility?</span>
             </h2>
-            <p className="body-lead mb-10">
+            <p className="body-lead mb-10 text-base">
               Speak with our engineering team to discover how Al Taqa Technical
-              can elevate your building's intelligence, efficiency, and
-              sustainability.
+              can elevate your building's intelligence, efficiency, and sustainability.
             </p>
 
-            {/* Contact info */}
-            <div className="space-y-5">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M9 1.5C6.515 1.5 4.5 3.515 4.5 6c0 4.125 4.5 10.5 4.5 10.5S13.5 10.125 13.5 6c0-2.485-2.015-4.5-4.5-4.5z" stroke="#2F80ED" strokeWidth="1.4"/>
-                    <circle cx="9" cy="6" r="1.5" stroke="#2F80ED" strokeWidth="1.4"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
-                    Location
+            <div className="space-y-4">
+              {infoItems.map((item) => (
+                <div key={item.label}
+                  className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-border
+                             shadow-sm hover:border-accent/15 hover:shadow-card transition-all duration-200">
+                  <div className="w-10 h-10 bg-gradient-to-br from-accent/15 to-accent/[0.04]
+                                  rounded-xl flex items-center justify-center flex-shrink-0 border border-accent/10">
+                    {item.icon}
                   </div>
-                  <div className="text-slate-500 text-sm">Abu Dhabi, United Arab Emirates</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <rect x="1.5" y="4" width="15" height="10" rx="1.5" stroke="#2F80ED" strokeWidth="1.4"/>
-                    <path d="M1.5 6l7.5 5 7.5-5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
-                    Email
+                  <div className="pt-0.5">
+                    <div className="font-display text-navy font-semibold text-sm mb-0.5">{item.label}</div>
+                    {item.href ? (
+                      <a href={item.href}
+                        className="text-slate-500 text-sm hover:text-accent transition-colors duration-150">
+                        {item.value}
+                      </a>
+                    ) : (
+                      <div className="text-slate-500 text-sm">{item.value}</div>
+                    )}
                   </div>
-                  <div className="text-slate-500 text-sm">info@altaqa-technical.ae</div>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <path d="M3 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.5 1.5C6.5 18 0 11.5 0 4.5A1.5 1.5 0 013 3z" stroke="#2F80ED" strokeWidth="1.4" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
-                    Response Time
-                  </div>
-                  <div className="text-slate-500 text-sm">Within 24 hours on business days</div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <circle cx="9" cy="9" r="7.5" stroke="#2F80ED" strokeWidth="1.4"/>
-                    <path d="M9 5v4l2.5 2.5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
-                    Emergency Support
-                  </div>
-                  <div className="text-slate-500 text-sm">24/7 for AMC contract clients</div>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
+          </AnimateIn>
 
-          {/* Right: form */}
-          <div className="bg-white rounded-2xl border border-slate-border p-8 shadow-card">
-            {submitted ? (
-              <div className="text-center py-10">
-                <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                    <path d="M6 14l5.5 5.5L22 8" stroke="#16a34a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
+          {/* ── Right: contact form ────────────────────────────── */}
+          <AnimateIn delay={120}>
+            <div className="bg-white rounded-2xl border border-slate-border p-8 shadow-card-xl">
+              {submitted ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center
+                                  mx-auto mb-5 border border-green-100">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <path d="M6 14l5.5 5.5L22 8" stroke="#16a34a" strokeWidth="2"
+                            strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 className="font-display text-navy font-bold text-xl mb-2">Message Sent</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs mx-auto">
+                    Thank you for reaching out. Our team will be in touch within 24 hours.
+                  </p>
                 </div>
-                <h3 className="text-navy font-bold text-lg mb-2" style={{ fontFamily: 'var(--font-sora)' }}>
-                  Message Sent
-                </h3>
-                <p className="text-slate-500 text-sm">
-                  Thank you for reaching out. Our team will be in touch within 24 hours.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <h3 className="text-navy font-bold text-lg mb-1" style={{ fontFamily: 'var(--font-sora)' }}>
-                    Send Us a Message
-                  </h3>
-                  <p className="text-slate-400 text-xs">All fields are required</p>
-                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  <div className="mb-6">
+                    <h3 className="font-display text-navy font-bold text-xl mb-1">
+                      Send Us a Message
+                    </h3>
+                    <p className="text-slate-400 text-xs">All fields are required</p>
+                  </div>
 
-                {/* Name */}
-                <div>
-                  <label className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    placeholder="Ahmed Al Rashidi"
-                    className="w-full border border-slate-border rounded-lg px-4 py-3 text-sm text-navy placeholder-slate-400
-                               focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                  />
-                </div>
+                  {/* Name */}
+                  <div>
+                    <label htmlFor="contact-name"
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      Full Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      onBlur={() => handleBlur('name')}
+                      placeholder="Ahmed Al Rashidi"
+                      className={fieldClass('name')}
+                    />
+                    {touched.name && errors.name && (
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        {errors.name}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Email */}
-                <div>
-                  <label className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    placeholder="ahmed@company.ae"
-                    className="w-full border border-slate-border rounded-lg px-4 py-3 text-sm text-navy placeholder-slate-400
-                               focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                  />
-                </div>
+                  {/* Email */}
+                  <div>
+                    <label htmlFor="contact-email"
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      Email Address
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      onBlur={() => handleBlur('email')}
+                      placeholder="ahmed@company.ae"
+                      className={fieldClass('email')}
+                    />
+                    {touched.email && errors.email && (
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        {errors.email}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Company */}
-                <div>
-                  <label className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                    Company / Organisation
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={form.company}
-                    onChange={(e) => setForm({ ...form, company: e.target.value })}
-                    placeholder="Facility name or company"
-                    className="w-full border border-slate-border rounded-lg px-4 py-3 text-sm text-navy placeholder-slate-400
-                               focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all"
-                  />
-                </div>
+                  {/* Company */}
+                  <div>
+                    <label htmlFor="contact-company"
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      Company / Organisation
+                    </label>
+                    <input
+                      id="contact-company"
+                      type="text"
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      onBlur={() => handleBlur('company')}
+                      placeholder="Facility name or company"
+                      className={fieldClass('company')}
+                    />
+                    {touched.company && errors.company && (
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        {errors.company}
+                      </p>
+                    )}
+                  </div>
 
-                {/* Message */}
-                <div>
-                  <label className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                    Message
-                  </label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={form.message}
-                    onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    placeholder="Describe your facility, current BMS setup, or project requirements..."
-                    className="w-full border border-slate-border rounded-lg px-4 py-3 text-sm text-navy placeholder-slate-400
-                               focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/10 transition-all resize-none"
-                  />
-                </div>
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="contact-message"
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      rows={4}
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      onBlur={() => handleBlur('message')}
+                      placeholder="Describe your facility, current BMS setup, or project requirements..."
+                      className={`${fieldClass('message')} resize-none`}
+                    />
+                    {touched.message && errors.message && (
+                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                        </svg>
+                        {errors.message}
+                      </p>
+                    )}
+                  </div>
 
-                <button
-                  type="submit"
-                  className="w-full btn-primary justify-center py-4 text-sm"
-                >
-                  Send Message
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              </form>
-            )}
-          </div>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full btn-primary justify-center py-4 text-sm
+                               disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      <>
+                        <svg className="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2"
+                            strokeDasharray="28" strokeDashoffset="10"/>
+                        </svg>
+                        Sending…
+                      </>
+                    ) : (
+                      <>
+                        Send Message
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
+                                strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
+          </AnimateIn>
+
         </div>
       </div>
     </section>

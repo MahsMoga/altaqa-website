@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const steps = [
   {
     step: '01',
@@ -29,7 +31,8 @@ const steps = [
     desc: 'Real-time monitoring and intelligent demand control',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2l2.5 6.5H21l-5.5 4 2 7L12 16l-5.5 3.5 2-7L3 8.5h6.5L12 2z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M12 2l2.5 6.5H21l-5.5 4 2 7L12 16l-5.5 3.5 2-7L3 8.5h6.5L12 2z"
+          stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -40,7 +43,8 @@ const steps = [
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <rect x="3" y="5" width="18" height="14" rx="2" stroke="white" strokeWidth="1.5"/>
-        <path d="M7 12h2l2-3.5 2 7 2-3.5h2" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M7 12h2l2-3.5 2 7 2-3.5h2" stroke="white" strokeWidth="1.5"
+          strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -50,7 +54,8 @@ const steps = [
     desc: 'Ongoing AMC and 24/7 technical assistance',
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l2.6-2.6a6 6 0 01-7.6 7.6L6.5 20.5a2.12 2.12 0 01-3-3l5.8-5.8A6 6 0 0114.7 6.3z" stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l2.6-2.6a6 6 0 01-7.6 7.6L6.5 20.5a2.12 2.12 0 01-3-3l5.8-5.8A6 6 0 0114.7 6.3z"
+          stroke="white" strokeWidth="1.5" strokeLinejoin="round"/>
       </svg>
     ),
   },
@@ -60,8 +65,9 @@ export default function ProcessFlow() {
   return (
     <section className="section-padding bg-slate-corporate">
       <div className="container-narrow">
+
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto mb-14">
+        <AnimateIn className="text-center max-w-xl mx-auto mb-16">
           <span className="label-tag justify-center">Our Process</span>
           <h2 className="heading-section mb-4">
             How We Deliver{' '}
@@ -71,75 +77,71 @@ export default function ProcessFlow() {
             A structured, five-stage methodology ensuring seamless delivery from
             initial automation through ongoing support.
           </p>
-        </div>
+        </AnimateIn>
 
-        {/* Desktop horizontal flow */}
-        <div className="hidden lg:flex items-start gap-0">
+        {/* ── Desktop horizontal flow ─────────────────────────── */}
+        <AnimateIn className="hidden lg:flex items-start gap-0">
           {steps.map((s, idx) => (
             <div key={s.title} className="flex-1 relative">
-              {/* Connector line */}
+              {/* Connector line between steps */}
               {idx < steps.length - 1 && (
-                <div className="absolute top-6 left-[calc(50%+24px)] right-0 h-0.5 bg-gradient-to-r from-accent/60 to-accent/20 z-0" />
+                <div className="absolute top-7 left-[calc(50%+32px)] right-0 h-0.5
+                                bg-gradient-to-r from-accent/50 via-accent/20 to-accent/5 z-0" />
               )}
 
               <div className="relative z-10 flex flex-col items-center text-center px-3">
-                {/* Circle icon */}
-                <div className="w-12 h-12 rounded-full bg-accent flex items-center justify-center mb-4 shadow-md">
+                {/* Circle icon — larger with ring */}
+                <div className="w-14 h-14 rounded-full bg-accent flex items-center justify-center
+                                mb-5 shadow-lg ring-4 ring-accent/15">
                   {s.icon}
                 </div>
 
-                {/* Step */}
-                <div className="text-accent/50 text-xs font-bold tracking-widest mb-1"
-                  style={{ fontFamily: 'var(--font-sora)' }}>
+                {/* Step number */}
+                <div className="font-display text-accent/45 text-xs font-bold tracking-widest mb-1.5">
                   {s.step}
                 </div>
 
                 {/* Title */}
-                <div
-                  className="text-navy font-semibold text-sm leading-snug mb-2"
-                  style={{ fontFamily: 'var(--font-sora)' }}
-                >
+                <div className="font-display text-navy font-semibold text-sm leading-snug mb-2">
                   {s.title}
                 </div>
 
-                {/* Desc */}
+                {/* Description */}
                 <div className="text-slate-500 text-xs leading-relaxed">{s.desc}</div>
               </div>
             </div>
           ))}
-        </div>
+        </AnimateIn>
 
-        {/* Mobile vertical flow */}
-        <div className="lg:hidden space-y-4">
+        {/* ── Mobile vertical flow ────────────────────────────── */}
+        <div className="lg:hidden space-y-2">
           {steps.map((s, idx) => (
-            <div key={s.title} className="flex gap-4 items-start">
+            <AnimateIn key={s.title} delay={idx * 80} className="flex gap-5 items-start">
               {/* Left: icon + connector */}
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+              <div className="flex flex-col items-center flex-shrink-0">
+                <div className="w-11 h-11 rounded-full bg-accent flex items-center justify-center
+                                shadow-md ring-4 ring-accent/15">
                   {s.icon}
                 </div>
                 {idx < steps.length - 1 && (
-                  <div className="w-0.5 h-8 bg-accent/20 mt-1" />
+                  <div className="w-0.5 h-8 bg-gradient-to-b from-accent/40 to-accent/10 mt-1" />
                 )}
               </div>
 
               {/* Content */}
-              <div className="pt-1 pb-4">
-                <div className="text-accent text-xs font-bold tracking-widest mb-0.5"
-                  style={{ fontFamily: 'var(--font-sora)' }}>
+              <div className="pt-1.5 pb-5">
+                <div className="font-display text-accent/60 text-xs font-bold tracking-widest mb-0.5">
                   {s.step}
                 </div>
-                <div
-                  className="text-navy font-semibold text-sm mb-1"
-                  style={{ fontFamily: 'var(--font-sora)' }}
-                >
+                <div className="font-display text-navy font-semibold text-sm mb-1">
                   {s.title}
                 </div>
-                <div className="text-slate-500 text-xs">{s.desc}</div>
+                <div className="text-slate-500 text-xs leading-relaxed">{s.desc}</div>
               </div>
-            </div>
+            </AnimateIn>
           ))}
         </div>
+
       </div>
     </section>
   )

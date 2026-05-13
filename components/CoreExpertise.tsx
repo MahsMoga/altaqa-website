@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const expertise = [
   {
     icon: (
@@ -38,7 +40,8 @@ const expertise = [
   {
     icon: (
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M14 3l2.5 7h7.5l-6 4.5 2 7.5L14 18l-6 4L10 14.5 4 10h7.5L14 3z" stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M14 3l2.5 7h7.5l-6 4.5 2 7.5L14 18l-6 4L10 14.5 4 10h7.5L14 3z"
+          stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
       </svg>
     ),
     title: 'Energy Management Solutions',
@@ -60,8 +63,9 @@ export default function CoreExpertise() {
   return (
     <section id="expertise" className="section-padding bg-slate-corporate">
       <div className="container-narrow">
+
         {/* Header */}
-        <div className="max-w-xl mb-14">
+        <AnimateIn className="max-w-xl mb-14">
           <span className="label-tag">Core Expertise</span>
           <h2 className="heading-section mb-4">
             End-to-End Building{' '}
@@ -71,43 +75,56 @@ export default function CoreExpertise() {
             Five integrated disciplines that cover the full spectrum of building
             automation, controls, and energy efficiency.
           </p>
-        </div>
+        </AnimateIn>
 
         {/* Cards grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {expertise.map((item, idx) => (
-            <div
+            <AnimateIn
               key={item.title}
-              className={`card-base group cursor-default ${
-                idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
-              }`}
+              delay={idx * 75}
+              className={idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''}
             >
-              {/* Icon */}
-              <div className="w-12 h-12 bg-accent-soft rounded-xl flex items-center justify-center mb-5
-                              group-hover:bg-accent/10 transition-colors duration-200">
-                {item.icon}
+              <div className="card-base group cursor-default relative overflow-hidden h-full">
+
+                {/* Large background number decoration */}
+                <div
+                  className="absolute -right-1 -top-5 font-display font-bold leading-none
+                               text-navy/[0.045] select-none pointer-events-none
+                               transition-colors duration-300 group-hover:text-navy/[0.06]"
+                  style={{ fontSize: '7.5rem' }}
+                >
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
+
+                {/* Icon */}
+                <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-accent/15 to-accent/[0.04]
+                                rounded-xl flex items-center justify-center mb-5 border border-accent/10
+                                group-hover:from-accent/20 group-hover:to-accent/[0.07] transition-colors duration-300">
+                  {item.icon}
+                </div>
+
+                {/* Number badge */}
+                <div className="relative z-10 font-display text-accent/35 text-xs font-bold
+                                tracking-widest mb-3 uppercase group-hover:text-accent/55
+                                transition-colors duration-300">
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
+
+                {/* Title */}
+                <h3 className="relative z-10 font-display text-navy font-semibold text-lg
+                               leading-snug mb-3">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="relative z-10 text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+
+                {/* Bottom accent line on hover */}
+                <div className="mt-6 h-0.5 w-0 bg-gradient-to-r from-accent to-accent/30
+                                group-hover:w-14 transition-all duration-400 rounded-full" />
               </div>
-
-              {/* Number */}
-              <div className="text-accent/30 text-xs font-semibold tracking-widest mb-3 uppercase"
-                style={{ fontFamily: 'var(--font-sora)' }}>
-                0{idx + 1}
-              </div>
-
-              {/* Title */}
-              <h3
-                className="text-navy font-semibold text-lg leading-snug mb-3"
-                style={{ fontFamily: 'var(--font-sora)' }}
-              >
-                {item.title}
-              </h3>
-
-              {/* Desc */}
-              <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-
-              {/* Bottom accent line on hover */}
-              <div className="mt-6 h-0.5 w-0 bg-accent group-hover:w-12 transition-all duration-300 rounded" />
-            </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

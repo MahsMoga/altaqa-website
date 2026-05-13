@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const services = [
   {
     icon: (
@@ -8,7 +10,8 @@ const services = [
     ),
     title: 'Annual Maintenance Contracts',
     subtitle: 'Ongoing System Health',
-    color: 'bg-blue-50 border-blue-100',
+    strip: 'bg-blue-500',
+    color: 'bg-blue-50/80 border-blue-100',
     iconBg: 'bg-blue-100',
     items: [
       { label: 'Brand-Agnostic Support', desc: 'Maintenance regardless of your existing system brands' },
@@ -28,7 +31,8 @@ const services = [
     ),
     title: 'Energy Retrofit Solutions',
     subtitle: 'Transform Existing Facilities',
-    color: 'bg-emerald-50 border-emerald-100',
+    strip: 'bg-emerald-500',
+    color: 'bg-emerald-50/80 border-emerald-100',
     iconBg: 'bg-emerald-100',
     items: [
       { label: 'Comprehensive Energy Audits', desc: 'Full system analysis and consumption benchmarking' },
@@ -46,7 +50,8 @@ const services = [
     ),
     title: 'Smart Metering Solutions',
     subtitle: 'Real-Time Utility Visibility',
-    color: 'bg-violet-50 border-violet-100',
+    strip: 'bg-violet-500',
+    color: 'bg-violet-50/80 border-violet-100',
     iconBg: 'bg-violet-100',
     items: [
       { label: 'BTU Meters', desc: 'Thermal energy monitoring for heating & cooling consumption' },
@@ -61,8 +66,9 @@ export default function Services() {
   return (
     <section id="services" className="section-padding bg-white">
       <div className="container-narrow">
+
         {/* Header */}
-        <div className="max-w-xl mb-14">
+        <AnimateIn className="max-w-xl mb-14">
           <span className="label-tag">Our Services</span>
           <h2 className="heading-section mb-4">
             Comprehensive Technical{' '}
@@ -72,49 +78,54 @@ export default function Services() {
             From ongoing maintenance contracts to full energy retrofit programmes,
             we provide the full lifecycle of building technology services.
           </p>
-        </div>
+        </AnimateIn>
 
         {/* 3-column grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <div
-              key={service.title}
-              className={`rounded-xl border p-8 ${service.color}`}
-            >
-              {/* Icon */}
-              <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
-                {service.icon}
-              </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, idx) => (
+            <AnimateIn key={service.title} delay={idx * 80}>
+              {/* Card with colored top strip */}
+              <div className={`rounded-2xl border overflow-hidden shadow-sm hover:shadow-card
+                              transition-all duration-300 hover:-translate-y-1 h-full flex flex-col
+                              ${service.color}`}>
+                {/* Colored top strip */}
+                <div className={`h-1.5 w-full ${service.strip}`} />
 
-              {/* Heading */}
-              <div className="text-navy/40 text-xs font-semibold tracking-widest uppercase mb-1"
-                style={{ fontFamily: 'var(--font-sora)' }}>
-                {service.subtitle}
-              </div>
-              <h3
-                className="text-navy font-bold text-xl leading-tight mb-6"
-                style={{ fontFamily: 'var(--font-sora)' }}
-              >
-                {service.title}
-              </h3>
+                <div className="p-8 flex flex-col flex-1">
+                  {/* Icon */}
+                  <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
+                    {service.icon}
+                  </div>
 
-              {/* Items */}
-              <ul className="space-y-4">
-                {service.items.map((item) => (
-                  <li key={item.label} className="flex gap-3">
-                    <div className="w-5 h-5 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                        <path d="M2 5l2.5 2.5L8 2.5" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-navy text-sm font-semibold mb-0.5">{item.label}</div>
-                      <div className="text-slate-500 text-xs leading-relaxed">{item.desc}</div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                  {/* Heading */}
+                  <div className="font-display text-navy/40 text-xs font-semibold tracking-widest uppercase mb-1.5">
+                    {service.subtitle}
+                  </div>
+                  <h3 className="font-display text-navy font-bold text-xl leading-tight mb-6">
+                    {service.title}
+                  </h3>
+
+                  {/* Feature items */}
+                  <ul className="space-y-3.5 flex-1">
+                    {service.items.map((item) => (
+                      <li key={item.label} className="flex gap-3">
+                        <div className="w-5 h-5 rounded-full bg-accent/10 border border-accent/20
+                                        flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                            <path d="M2 5l2.5 2.5L8 2.5" stroke="#2F80ED" strokeWidth="1.5"
+                                  strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                        <div>
+                          <div className="text-navy text-sm font-semibold mb-0.5">{item.label}</div>
+                          <div className="text-slate-500 text-xs leading-relaxed">{item.desc}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </AnimateIn>
           ))}
         </div>
       </div>

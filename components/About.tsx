@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const pillars = [
   {
     icon: (
@@ -32,7 +34,8 @@ const pillars = [
   {
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <path d="M10 2.5L13 7h4.5l-3.5 3 1.5 5L10 13l-5.5 2 1.5-5L2.5 7H7L10 2.5z" stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M10 2.5L13 7h4.5l-3.5 3 1.5 5L10 13l-5.5 2 1.5-5L2.5 7H7L10 2.5z"
+          stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
       </svg>
     ),
     title: 'Multi-Brand Certified',
@@ -44,9 +47,10 @@ export default function About() {
   return (
     <section id="about" className="section-padding bg-white">
       <div className="container-narrow">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left: text content */}
-          <div>
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+          {/* ── Left: text content ─────────────────────────────── */}
+          <AnimateIn>
             <span className="label-tag">Who We Are</span>
             <h2 className="heading-section mb-6">
               A Trusted Partner for{' '}
@@ -57,41 +61,42 @@ export default function About() {
               comprehensive automation and energy management solutions, based in
               the heart of Abu Dhabi.
             </p>
-            <p className="text-slate-600 leading-relaxed mb-8">
+            <p className="text-slate-500 leading-relaxed mb-5">
               With over two decades of proven expertise, our team of highly
               skilled engineers specializes in transforming buildings and
               industrial facilities into intelligent, efficient, and sustainable
               environments — delivering measurable results from day one.
             </p>
-            <p className="text-slate-600 leading-relaxed">
+            <p className="text-slate-500 leading-relaxed">
               We continue the established legacy of Al Taqa, supported by the
               same dedicated team who have built lasting relationships with
               clients across the UAE&apos;s most demanding commercial, hospitality,
               and industrial sectors.
             </p>
-          </div>
+          </AnimateIn>
 
-          {/* Right: pillar cards */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* ── Right: pillar cards ────────────────────────────── */}
+          <AnimateIn delay={120} className="grid grid-cols-2 gap-4">
             {pillars.map((p) => (
               <div
                 key={p.title}
-                className="bg-slate-corporate rounded-xl p-5 border border-slate-border
-                           hover:border-accent/30 hover:bg-accent-soft transition-all duration-200"
+                className="bg-white rounded-2xl p-5 border border-slate-border
+                           shadow-sm hover:shadow-card hover:border-accent/20
+                           transition-all duration-300 group"
               >
-                <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center shadow-sm mb-3">
+                {/* Gradient icon container */}
+                <div className="w-10 h-10 bg-gradient-to-br from-accent/15 to-accent/[0.04]
+                                rounded-xl flex items-center justify-center mb-4
+                                border border-accent/10 group-hover:from-accent/20
+                                group-hover:to-accent/[0.06] transition-colors duration-300">
                   {p.icon}
                 </div>
-                <div
-                  className="font-semibold text-navy text-sm mb-1"
-                  style={{ fontFamily: 'var(--font-sora)' }}
-                >
-                  {p.title}
-                </div>
+                <div className="font-display font-semibold text-navy text-sm mb-1.5">{p.title}</div>
                 <div className="text-slate-500 text-xs leading-relaxed">{p.desc}</div>
               </div>
             ))}
-          </div>
+          </AnimateIn>
+
         </div>
       </div>
     </section>

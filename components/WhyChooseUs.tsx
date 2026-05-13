@@ -1,3 +1,5 @@
+import AnimateIn from './AnimateIn'
+
 const reasons = [
   {
     icon: (
@@ -7,7 +9,7 @@ const reasons = [
       </svg>
     ),
     title: '20+ Years of Proven Experience',
-    desc: 'Two decades of continuous delivery across the UAE\'s commercial, industrial, and hospitality sectors. Experience that translates directly to fewer surprises on your project.',
+    desc: "Two decades of continuous delivery across the UAE's commercial, industrial, and hospitality sectors. Experience that translates directly to fewer surprises on your project.",
   },
   {
     icon: (
@@ -19,16 +21,17 @@ const reasons = [
       </svg>
     ),
     title: 'Multi-Brand BMS Expertise',
-    desc: 'Certified across Johnson Controls, Schneider Electric, Honeywell, and Tridium platforms. We speak every BMS dialect — you get the right tool for every job.',
+    desc: "Certified across Johnson Controls, Schneider Electric, Honeywell, and Tridium platforms. We speak every BMS dialect — you get the right tool for every job.",
   },
   {
     icon: (
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <path d="M11 2l2.5 6H19l-5 3.5 2 6L11 14l-5 3.5 2-6L3 8h5.5L11 2z" stroke="#2F80ED" strokeWidth="1.4" strokeLinejoin="round"/>
+        <path d="M11 2l2.5 6H19l-5 3.5 2 6L11 14l-5 3.5 2-6L3 8h5.5L11 2z"
+          stroke="#2F80ED" strokeWidth="1.4" strokeLinejoin="round"/>
       </svg>
     ),
     title: 'Truly Vendor-Neutral Approach',
-    desc: 'Our advice is guided solely by what\'s right for your facility — not by manufacturer incentives. Independent expertise you can trust.',
+    desc: "Our advice is guided solely by what's right for your facility — not by manufacturer incentives. Independent expertise you can trust.",
   },
   {
     icon: (
@@ -69,62 +72,65 @@ export default function WhyChooseUs() {
   return (
     <section id="why-us" className="section-padding bg-white">
       <div className="container-narrow">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Left sticky header */}
-          <div className="lg:sticky lg:top-28">
-            <span className="label-tag">Why Al Taqa</span>
-            <h2 className="heading-section mb-6">
-              Six Reasons Clients{' '}
-              <span className="text-accent">Choose Us</span>
-            </h2>
-            <p className="body-lead mb-8">
-              Engineering competence meets operational reliability. Here's what sets
-              us apart in Abu Dhabi's competitive BMS and automation landscape.
-            </p>
+        <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 
-            {/* Pull quote */}
-            <blockquote className="border-l-2 border-accent pl-5 py-1">
-              <p className="text-slate-600 text-sm leading-relaxed italic">
-                "Our mission extends beyond technical implementation — we build
-                partnerships that support long-term operational success,
-                sustainability, and growth."
+          {/* ── Left sticky panel ─────────────────────────────── */}
+          <AnimateIn className="lg:sticky lg:top-24">
+            {/* Card shell around the left content */}
+            <div className="bg-slate-corporate/60 rounded-2xl border border-slate-border p-8 lg:p-10">
+              <span className="label-tag">Why Al Taqa</span>
+              <h2 className="heading-section mb-5">
+                Six Reasons Clients{' '}
+                <span className="text-accent">Choose Us</span>
+              </h2>
+              <p className="body-lead mb-8 text-base">
+                Engineering competence meets operational reliability. Here's what sets
+                us apart in Abu Dhabi's competitive BMS and automation landscape.
               </p>
-            </blockquote>
 
-            <div className="mt-8">
+              {/* Pull quote */}
+              <blockquote className="border-l-2 border-accent pl-5 py-1 mb-8">
+                <p className="text-slate-500 text-sm leading-relaxed italic">
+                  "Our mission extends beyond technical implementation — we build
+                  partnerships that support long-term operational success,
+                  sustainability, and growth."
+                </p>
+              </blockquote>
+
               <a href="#contact" className="btn-primary">
                 Start a Conversation
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
+                        strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
             </div>
-          </div>
+          </AnimateIn>
 
-          {/* Right cards */}
-          <div className="space-y-4">
-            {reasons.map((r) => (
-              <div
-                key={r.title}
-                className="flex gap-4 p-5 rounded-xl border border-slate-border
-                           hover:border-accent/30 hover:bg-accent-soft transition-all duration-200 group"
-              >
-                <div className="w-10 h-10 bg-accent-soft rounded-lg flex items-center justify-center flex-shrink-0
-                                group-hover:bg-accent/15 transition-colors">
-                  {r.icon}
-                </div>
-                <div>
-                  <div
-                    className="text-navy font-semibold text-sm mb-1"
-                    style={{ fontFamily: 'var(--font-sora)' }}
-                  >
-                    {r.title}
+          {/* ── Right reason cards ────────────────────────────── */}
+          <div className="space-y-3">
+            {reasons.map((r, idx) => (
+              <AnimateIn key={r.title} delay={idx * 60}>
+                <div
+                  className="flex gap-4 p-5 rounded-2xl border border-slate-border
+                             hover:border-accent/25 hover:bg-accent/[0.025] hover:shadow-card
+                             transition-all duration-250 group"
+                >
+                  <div className="w-10 h-10 bg-accent/[0.07] rounded-xl flex items-center justify-center
+                                  flex-shrink-0 group-hover:bg-accent/12 transition-colors duration-250">
+                    {r.icon}
                   </div>
-                  <div className="text-slate-500 text-xs leading-relaxed">{r.desc}</div>
+                  <div>
+                    <div className="font-display text-navy font-semibold text-sm mb-1.5 leading-snug">
+                      {r.title}
+                    </div>
+                    <div className="text-slate-500 text-xs leading-relaxed">{r.desc}</div>
+                  </div>
                 </div>
-              </div>
+              </AnimateIn>
             ))}
           </div>
+
         </div>
       </div>
     </section>
