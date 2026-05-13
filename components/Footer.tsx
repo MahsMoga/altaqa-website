@@ -105,7 +105,7 @@ export default function Footer() {
               </div>
               <div className="text-white/45 text-xs">
                 <div className="text-white/65 font-medium mb-0.5">Support</div>
-                24/7 for Emergency issues
+                24/7 for AMC cleints over phone for Emergency issues
               </div>
             </div>
 
