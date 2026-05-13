@@ -55,7 +55,7 @@ export default function Contact() {
                   <div className="text-navy font-semibold text-sm mb-0.5" style={{ fontFamily: 'var(--font-sora)' }}>
                     Email
                   </div>
-                  <div className="text-slate-500 text-sm">info@altaqa-technical.ae</div>
+                  <div className="text-slate-500 text-sm">info@altaqauae.com</div>
                 </div>
               </div>
 
