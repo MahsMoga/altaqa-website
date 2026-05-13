@@ -97,7 +97,7 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="text-white/45 text-xs">
                 <div className="text-white/65 font-medium mb-0.5">Email</div>
-                info@altaqa-technical.ae
+                info@info@altaqauae.com
               </div>
               <div className="text-white/45 text-xs">
                 <div className="text-white/65 font-medium mb-0.5">Location</div>
