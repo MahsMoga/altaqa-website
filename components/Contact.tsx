@@ -57,7 +57,7 @@ const infoItems = [
       </svg>
     ),
     label: 'Emergency Support',
-    value: '24/7 for AMC contract clients',
+    value: '24/7 support over phone for emergency cases for AMC contract clients',
     href: undefined,
   },
 ]
