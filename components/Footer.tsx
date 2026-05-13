@@ -30,7 +30,7 @@ export default function Footer() {
       <AnimateIn className="container-narrow py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* Brand */}
+          {/* ── Brand column ───────────────────────────────────── */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 bg-accent rounded-xl flex items-center justify-center flex-shrink-0">
@@ -45,11 +45,12 @@ export default function Footer() {
                 <span className="block text-white font-semibold text-sm font-display leading-tight">
                   Al Taqa Technical
                 </span>
-                <span className="block text-white/35 text-xs mt-0.5">General Contracting LLC</span>
+                {/* ↑ was text-white/35 — too invisible */}
+                <span className="block text-white/60 text-xs mt-0.5">General Contracting LLC</span>
               </div>
             </div>
 
-            <p className="text-white/35 text-xs leading-relaxed mb-5">
+            <p className="text-white/70 text-xs leading-relaxed mb-5">
               Building Intelligence. Delivering Excellence.
               Premier provider of automation and energy management
               solutions in Abu Dhabi, UAE.
@@ -61,7 +62,8 @@ export default function Footer() {
                   stroke="#2F80ED" strokeWidth="1.2"/>
                 <circle cx="7" cy="5" r="1.2" stroke="#2F80ED" strokeWidth="1.2"/>
               </svg>
-              <span className="text-white/35 text-xs">Abu Dhabi, UAE</span>
+              {/* ↑ was text-white/35 — too invisible */}
+              <span className="text-white/60 text-xs">Abu Dhabi, UAE</span>
             </div>
 
             {/* LinkedIn social link */}
@@ -71,9 +73,9 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/[0.09]
-                           flex items-center justify-center text-white/40
-                           hover:text-accent hover:border-accent/30 hover:bg-white/[0.1]
+                className="w-8 h-8 rounded-lg bg-white/[0.08] border border-white/[0.12]
+                           flex items-center justify-center text-white/60
+                           hover:text-accent hover:border-accent/40 hover:bg-white/[0.12]
                            transition-all duration-200"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -83,18 +85,17 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* ── Quick links ────────────────────────────────────── */}
           <div>
-            <div className="font-display text-white/80 font-semibold text-sm mb-5">
+            <div className="font-display text-white font-semibold text-sm mb-5">
               Quick Links
             </div>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-white/38 hover:text-accent text-xs transition-colors duration-150
-                               hover:pl-0.5"
+                    className="text-white/70 hover:text-accent text-xs transition-colors duration-150"
                   >
                     {link.label}
                   </a>
@@ -103,43 +104,49 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* ── Services ───────────────────────────────────────── */}
           <div>
-            <div className="font-display text-white/80 font-semibold text-sm mb-5">
+            <div className="font-display text-white font-semibold text-sm mb-5">
               Services
             </div>
-            <ul className="space-y-2.5">
+            <ul className="space-y-3">
               {services.map((s) => (
                 <li key={s}>
-                  <span className="text-white/38 text-xs">{s}</span>
+                  {/* ↑ was text-white/38 — completely invisible */}
+                  <span className="text-white/65 text-xs">{s}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact info */}
+          {/* ── Contact info ───────────────────────────────────── */}
           <div>
-            <div className="font-display text-white/80 font-semibold text-sm mb-5">
+            <div className="font-display text-white font-semibold text-sm mb-5">
               Get in Touch
             </div>
             <div className="space-y-4">
-              <div className="text-white/38 text-xs">
-                <div className="text-white/55 font-medium text-xs mb-1">Email</div>
+
+              <div>
+                {/* ↑ was text-white/55 label + text-white/38 value — both too low */}
+                <div className="text-white/80 font-medium text-xs mb-1">Email</div>
                 <a
                   href="mailto:info@altaqauae.com"
-                  className="hover:text-accent transition-colors duration-150"
+                  className="text-white/65 text-xs hover:text-accent transition-colors duration-150"
                 >
                   info@altaqauae.com
                 </a>
               </div>
-              <div className="text-white/38 text-xs">
-                <div className="text-white/55 font-medium text-xs mb-1">Location</div>
-                Abu Dhabi, United Arab Emirates
+
+              <div>
+                <div className="text-white/80 font-medium text-xs mb-1">Location</div>
+                <span className="text-white/65 text-xs">Abu Dhabi, United Arab Emirates</span>
               </div>
-              <div className="text-white/38 text-xs">
-                <div className="text-white/55 font-medium text-xs mb-1">Support</div>
-                24/7 for AMC contract clients
+
+              <div>
+                <div className="text-white/80 font-medium text-xs mb-1">Support</div>
+                <span className="text-white/65 text-xs">24/7 for AMC contract clients</span>
               </div>
+
             </div>
 
             <a
@@ -150,22 +157,25 @@ export default function Footer() {
               Contact Us
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                 className="group-hover:translate-x-0.5 transition-transform">
-                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.3"
+                      strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
           </div>
+
         </div>
       </AnimateIn>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.06]">
+      <div className="border-t border-white/[0.10]">
         <div className="container-narrow py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-white/25 text-xs">
+          <div className="text-white/60 text-xs">
             © {year} Al Taqa Technical General Contracting LLC. All rights reserved.
           </div>
-          <div className="flex items-center gap-2 text-white/20 text-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/70 inline-block" />
-            <span className="text-white/28">Building Intelligence. Delivering Excellence.</span>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+            {/* ↑ was text-white/28 — invisible */}
+            <span className="text-white/50">Building Intelligence. Delivering Excellence.</span>
           </div>
         </div>
       </div>
