@@ -135,14 +135,6 @@ export default function Footer() {
                 <span className="text-white/65 text-xs">Abu Dhabi, United Arab Emirates</span>
               </div>
 
-              <div>
-                <div className="text-white/80 font-medium text-xs mb-1">Support</div>
-                {/* ── Updated text (Part A) ── */}
-                <span className="text-white/65 text-xs">
-                  24/7 support over phone for emergency cases for AMC contract clients
-                </span>
-              </div>
-
             </div>
 
             <a

@@ -49,17 +49,6 @@ const infoItems = [
     value: 'Within 24 hours on business days',
     href: undefined,
   },
-  {
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <circle cx="9" cy="9" r="7.5" stroke="#2F80ED" strokeWidth="1.4"/>
-        <path d="M9 5v4l2.5 2.5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
-      </svg>
-    ),
-    label: 'Emergency Support',
-    value: '24/7 support over phone for emergency cases for AMC contract clients',
-    href: undefined,
-  },
 ]
 
 export default function Contact() {
