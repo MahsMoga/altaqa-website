@@ -46,34 +46,6 @@ const SKYLINE_SVG = `
     L1360 140 L1360 118 L1372 118 L1372 100 L1378 88 L1384 100 L1390 118 L1405 118 L1405 140
     L1440 140 L1440 180 Z
   " fill="url(#sky-grad)" />
-  <!-- Window lights in buildings -->
-  <g opacity="0.4" fill="#2F80ED">
-    <rect x="93" y="70" width="4" height="6"/>
-    <rect x="99" y="70" width="4" height="6"/>
-    <rect x="153" y="80" width="3" height="5"/>
-    <rect x="159" y="80" width="3" height="5"/>
-    <rect x="233" y="90" width="4" height="5"/>
-    <rect x="293" y="85" width="3" height="5"/>
-    <rect x="367" y="82" width="4" height="5"/>
-    <rect x="373" y="82" width="4" height="5"/>
-    <rect x="513" y="75" width="3" height="5"/>
-    <rect x="519" y="75" width="3" height="5"/>
-    <rect x="586" y="92" width="3" height="5"/>
-    <rect x="654" y="82" width="3" height="5"/>
-    <rect x="660" y="82" width="3" height="5"/>
-    <rect x="726" y="80" width="3" height="5"/>
-    <rect x="806" y="82" width="3" height="5"/>
-    <rect x="812" y="82" width="3" height="5"/>
-    <rect x="880" y="88" width="3" height="5"/>
-    <rect x="956" y="80" width="3" height="5"/>
-    <rect x="962" y="80" width="3" height="5"/>
-    <rect x="1026" y="90" width="3" height="5"/>
-    <rect x="1098" y="82" width="3" height="5"/>
-    <rect x="1166" y="94" width="3" height="5"/>
-    <rect x="1236" y="88" width="3" height="5"/>
-    <rect x="1306" y="100" width="3" height="5"/>
-    <rect x="1376" y="92" width="3" height="5"/>
-  </g>
 </svg>
 `
 
