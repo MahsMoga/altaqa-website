@@ -3,335 +3,332 @@ import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
 /**
- * Premium procedural smart building — Abu Dhabi commercial tower aesthetic.
+ * Premium Abu Dhabi commercial tower — photorealistic digital twin.
  *
- * Architecture (bottom to top):
- *  1. Ground podium        — wide concrete base
- *  2. Lower tower          — glass curtain wall, 14 floors, window texture
- *  3. Mid setback          — architectural step-back, 10 floors
- *  4. Upper tower          — narrower, 8 floors, lighter glass
- *  5. Crown                — metallic aluminum feature
- *  6. Spire                — antenna + beacon
- *
- * Visual quality techniques:
- *  - CanvasTexture window grid: deterministic mixed warm/cool offices
- *  - emissiveMap + emissive white = window colour shows through glass
- *  - High metalness / zero roughness = reflective glass look
- *  - 4 visible corner columns with bright metallic material
- *  - Edge glow lines: thin bright boxes on the 4 vertical edges
- *  - Floor-band separators every ~0.3 units
- *  - Soft ground reflection plane beneath podium
+ * Visual approach:
+ *  1. Semi-transparent glass facade (opacity 0.72) — interior visible
+ *  2. CanvasTexture window grid — warm offices + cool offices mixed
+ *  3. 5 interior warm PointLights — glow through glass exactly like reference
+ *  4. Floor plates + desk silhouettes — depth illusion through glass
+ *  5. Bright edge glow lines — trigger post-processing bloom
+ *  6. High metalness corner columns and crown
  *
  * Animation:
- *  - Very slow Y-axis auto-rotation (~2.5 min / revolution)
- *  - Gentle vertical float (sine wave, 12 s period)
- *  - Mouse parallax: group.rotation.x / z respond to cursor
+ *  - Very slow Y-rotation (≈2 min / revolution)
+ *  - Gentle float on sine wave
+ *  - Mouse parallax: ±1.5° rotation.x/z
  */
 
-// ─── Window texture factory ──────────────────────────────────────────────────
-
-function buildWindowCanvas(
-  cols: number,
-  rows: number,
-  seed: number
-): HTMLCanvasElement {
-  const W = 512
-  const H = Math.round((W / cols) * rows)
+// ─── Canvas window texture ────────────────────────────────────────────────────
+function createWindowTexture(cols: number, rows: number, seed: number) {
+  const W = 512, H = Math.round((512 / cols) * rows)
   const canvas = document.createElement('canvas')
-  canvas.width  = W
-  canvas.height = H
+  canvas.width = W; canvas.height = H
   const ctx = canvas.getContext('2d')!
 
-  // Very dark navy base (the glass between windows)
-  ctx.fillStyle = '#000510'
+  // Deep navy base — spandrel panels
+  ctx.fillStyle = '#030c18'
   ctx.fillRect(0, 0, W, H)
 
-  const cw = W / cols
-  const rh = H / rows
+  const cw = W / cols, rh = H / rows
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      // Deterministic pseudo-random (no Math.random — stays stable across renders)
       const n1 = Math.abs(Math.sin(r * 17.3 + c * 11.7 + seed * 31.1)) % 1
       const n2 = Math.abs(Math.sin(r *  5.1 + c *  7.9 + seed * 13.3)) % 1
       const n3 = Math.abs(Math.sin(r *  3.7 + c * 19.3 + seed *  7.7)) % 1
 
-      // ~88 % of windows are lit
-      if (n1 > 0.12) {
-        const brightness = 0.35 + n2 * 0.55
-        const isWarm     = n3 > 0.72   // ~28 % warm offices
+      if (n1 > 0.10) {   // ~90 % lit
+        const bright = 0.4 + n2 * 0.55
+        const isWarm  = n3 > 0.65   // ~35 % warm offices
 
         if (isWarm) {
-          // Warm amber / incandescent — working late, meeting rooms
-          ctx.fillStyle = `rgba(255, 215, 130, ${brightness * 0.55})`
+          // Warm amber — late-night workers, meeting rooms
+          ctx.fillStyle = `rgba(255, 210, 110, ${bright * 0.62})`
         } else {
-          // Cool blue-white — standard LED office lighting
-          ctx.fillStyle = `rgba(110, 165, 255, ${brightness * 0.80})`
+          // Cool blue-white — LED open-plan offices
+          ctx.fillStyle = `rgba(130, 175, 255, ${bright * 0.82})`
         }
-
-        // Mullion padding (structural frame between panes)
-        const padX = cw * 0.10
-        const padY = rh * 0.08
-        ctx.fillRect(c * cw + padX, r * rh + padY, cw - padX * 2, rh - padY * 2)
+        const px = cw * 0.09, py = rh * 0.07
+        ctx.fillRect(c * cw + px, r * rh + py, cw - px * 2, rh - py * 2)
       }
     }
   }
-
-  return canvas
+  const tex = new THREE.CanvasTexture(canvas)
+  tex.needsUpdate = true
+  return tex
 }
 
-function makeWindowTexture(cols: number, rows: number, seed: number) {
-  const canvas  = buildWindowCanvas(cols, rows, seed)
-  const texture = new THREE.CanvasTexture(canvas)
-  texture.wrapS = THREE.RepeatWrapping
-  texture.wrapT = THREE.RepeatWrapping
-  texture.needsUpdate = true
-  return texture
-}
-
-// ─── Materials ───────────────────────────────────────────────────────────────
-
-function glassMaterial(windowTex: THREE.Texture, tint = '#071828') {
-  return new THREE.MeshStandardMaterial({
-    color:              new THREE.Color(tint),
-    metalness:          0.55,
-    roughness:          0.0,
-    envMapIntensity:    1.8,
-    emissiveMap:        windowTex,
-    emissive:           new THREE.Color(1, 1, 1),   // texture colours pass through directly
-    emissiveIntensity:  0.95,
-  })
-}
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-// Thin bright edge-glow line along one vertical edge of the tower
-function EdgeGlow({ x, z, h, y }: { x: number; z: number; h: number; y: number }) {
-  return (
-    <mesh position={[x, y, z]}>
-      <boxGeometry args={[0.014, h, 0.014]} />
-      <meshBasicMaterial color="#2F80ED" />
-    </mesh>
-  )
-}
-
-// Horizontal floor-band separators (structural spandrel lines)
-function FloorBands({ w, d, startY, endY, step, color }: {
-  w: number; d: number; startY: number; endY: number; step: number; color: string
-}) {
-  const count = Math.floor((endY - startY) / step)
-  return (
-    <>
-      {Array.from({ length: count }, (_, i) => {
-        const y = startY + i * step
-        return (
-          <mesh key={i} position={[0, y, 0]}>
-            <boxGeometry args={[w + 0.008, 0.025, d + 0.008]} />
-            <meshBasicMaterial color={color} transparent opacity={0.55} />
-          </mesh>
-        )
-      })}
-    </>
-  )
-}
-
-// ─── Main export ─────────────────────────────────────────────────────────────
-
+// ─── Main component ───────────────────────────────────────────────────────────
 export function BuildingModel() {
   const groupRef = useRef<THREE.Group>(null)
   const mouse    = useRef({ x: 0, y: 0 })
 
-  // ── Mouse tracking for parallax ──
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
+    const fn = (e: MouseEvent) => {
       mouse.current.x = (e.clientX / window.innerWidth  - 0.5) * 2
       mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2
     }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', fn, { passive: true })
+    return () => window.removeEventListener('mousemove', fn)
   }, [])
 
-  // ── Create window textures once ──
-  const texLower = useMemo(() => makeWindowTexture(8,  14, 1.0), [])
-  const texMid   = useMemo(() => makeWindowTexture(6,  10, 2.5), [])
-  const texUpper = useMemo(() => makeWindowTexture(5,   8, 4.2), [])
+  // Window textures — created once per component mount
+  const texMain  = useMemo(() => createWindowTexture(10, 16, 1.0), [])
+  const texUpper = useMemo(() => createWindowTexture( 7, 10, 3.2), [])
 
-  // ── Materials (memoised) ──
-  const matLower = useMemo(() => glassMaterial(texLower, '#071828'), [texLower])
-  const matMid   = useMemo(() => glassMaterial(texMid,   '#081a2c'), [texMid])
-  const matUpper = useMemo(() => glassMaterial(texUpper, '#0a1f32'), [texUpper])
+  // ── Glass material — semi-transparent so interior lights show through ──
+  const matGlass = useMemo(() => new THREE.MeshStandardMaterial({
+    color:             new THREE.Color('#061420'),
+    metalness:         0.65,
+    roughness:         0.0,
+    envMapIntensity:   2.0,
+    transparent:       true,
+    opacity:           0.72,
+    emissiveMap:       texMain,
+    emissive:          new THREE.Color(1, 1, 1),
+    emissiveIntensity: 1.05,
+    side:              THREE.FrontSide,
+  }), [texMain])
 
-  const matPodium = useMemo(
-    () => new THREE.MeshStandardMaterial({ color: '#0a1422', metalness: 0.1, roughness: 0.75 }),
-    []
-  )
-  const matMetal = useMemo(
-    () => new THREE.MeshStandardMaterial({
-      color: '#a8c0d4', metalness: 0.9, roughness: 0.08,
-      emissive: '#2F80ED', emissiveIntensity: 0.08,
-    }),
-    []
-  )
-  const matCrown = useMemo(
-    () => new THREE.MeshStandardMaterial({ color: '#b0bec5', metalness: 0.95, roughness: 0.05 }),
-    []
-  )
+  const matGlassUpper = useMemo(() => new THREE.MeshStandardMaterial({
+    color:             new THREE.Color('#071828'),
+    metalness:         0.60,
+    roughness:         0.0,
+    transparent:       true,
+    opacity:           0.70,
+    emissiveMap:       texUpper,
+    emissive:          new THREE.Color(1, 1, 1),
+    emissiveIntensity: 0.95,
+    side:              THREE.FrontSide,
+  }), [texUpper])
 
-  // ── Dispose textures on unmount ──
-  useEffect(() => {
-    return () => {
-      texLower.dispose(); texMid.dispose(); texUpper.dispose()
-      matLower.dispose(); matMid.dispose(); matUpper.dispose()
-      matPodium.dispose(); matMetal.dispose(); matCrown.dispose()
-    }
+  const matMetal = useMemo(() => new THREE.MeshStandardMaterial({
+    color:     new THREE.Color('#9bb8cc'),
+    metalness: 0.92,
+    roughness: 0.06,
+  }), [])
+
+  const matPodium = useMemo(() => new THREE.MeshStandardMaterial({
+    color:     new THREE.Color('#080e18'),
+    metalness: 0.18,
+    roughness: 0.70,
+  }), [])
+
+  const matFloor = useMemo(() => new THREE.MeshStandardMaterial({
+    color:             new THREE.Color('#0a1420'),
+    emissive:          new THREE.Color('#0d1e35'),
+    emissiveIntensity: 0.4,
+  }), [])
+
+  // Desk silhouette material (visible as dark shapes inside building)
+  const matDesk = useMemo(() => new THREE.MeshStandardMaterial({
+    color:     new THREE.Color('#0c1828'),
+    emissive:  new THREE.Color('#1a2f4a'),
+    emissiveIntensity: 0.6,
+  }), [])
+
+  useEffect(() => () => {
+    [texMain, texUpper, matGlass, matGlassUpper, matMetal, matPodium, matFloor, matDesk]
+      .forEach(r => r.dispose())
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Floor layout ──
+  // Building inner space: y = -1.05 to +2.0 (8 floors × 0.38 = 3.05)
+  const FLOORS = useMemo(() => Array.from({ length: 8 }, (_, i) => ({
+    y: -1.05 + i * 0.38,
+    floorIndex: i,
+  })), [])
+
+  // ── Desk rows for each floor (6 desks in 2 rows) ──
+  const DESK_OFFSETS: [number, number][] = useMemo(() => [
+    [-0.45, -0.15], [-0.15, -0.15], [0.15, -0.15],
+    [-0.45,  0.15], [-0.15,  0.15], [0.15,  0.15],
+  ], [])
 
   // ── Animation ──
   useFrame(({ clock }) => {
-    const g = groupRef.current
-    if (!g) return
+    const g = groupRef.current; if (!g) return
     const t = clock.elapsedTime
-
-    // Slow Y rotation — ~2.5 min per full revolution
-    g.rotation.y += 0.0007
-
-    // Gentle vertical float (12 s period, ±0.06 units)
-    g.position.y = Math.sin(t * 0.52) * 0.055
-
-    // Mouse parallax: very subtle tilt (max ±1.8°)
-    g.rotation.x += (mouse.current.y * 0.028 - g.rotation.x) * 0.04
-    g.rotation.z += (-mouse.current.x * 0.022 - g.rotation.z) * 0.04
+    g.rotation.y += 0.00055                               // 2 min revolution
+    g.position.y  = Math.sin(t * 0.45) * 0.05            // gentle float
+    g.rotation.x += (mouse.current.y *  0.024 - g.rotation.x) * 0.04
+    g.rotation.z += (mouse.current.x * -0.018 - g.rotation.z) * 0.04
   })
 
-  // ─────────────────────────────────────────────────────────────────
-  // Geometry dimensions
-  // ─────────────────────────────────────────────────────────────────
-  //  Podium:  w=2.20  h=0.75  d=1.35   y: -1.83 → -1.08
-  //  Lower:   w=1.65  h=2.10  d=1.00   y: -1.08 → +1.02
-  //  Mid:     w=1.38  h=1.45  d=0.82   y: +1.02 → +2.47
-  //  Upper:   w=1.12  h=1.20  d=0.66   y: +2.47 → +3.67
-  //  Crown:   w=0.92  h=0.48  d=0.54   y: +3.67 → +4.15
-  //  Spire:   r=0.018 h=0.85            y: +4.15 → +5.00
-  // ─────────────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────────────────────
+  // GEOMETRY LAYOUT
+  //  Podium:       w=2.20 h=0.65 d=1.35  y: -1.73 → -1.08
+  //  Main tower:   w=1.85 h=3.08 d=1.10  y: -1.08 → +2.00
+  //  Upper setback:w=1.50 h=1.10 d=0.88  y: +2.00 → +3.10
+  //  Crown:        w=1.52 h=0.35 d=0.90  y: +3.10 → +3.45
+  //  Antenna:      r=0.016 h=0.70        y: +3.45 → +4.15
+  // ─────────────────────────────────────────────────────────────────────────
 
-  // Vertical positions (centre-Y of each section)
-  const pY  = -1.458   // podium
-  const lY  = -0.030   // lower tower
-  const mY  =  1.745   // mid tower
-  const uY  =  3.070   // upper tower
-  const crY =  3.910   // crown
-  const spY =  4.575   // spire (base)
+  const pY  = -1.405  // podium centre
+  const tY  =  0.460  // main tower centre
+  const uY  =  2.550  // upper section centre
+  const crY =  3.275  // crown centre
 
-  // Edge glow positions
-  const eHX = 0.565, eHZ = 0.365  // half-extents (slightly outside glass faces)
-  const totalEdgeH = 5.25
+  // Corner column x/z (half-extents of main tower + small offset)
+  const cX = 0.880, cZ = 0.520
+  const colH = 4.20   // height of corner columns (covers podium → crown)
+
+  // Edge glow line positions (outer face of glass)
+  const eX = 0.890, eZ = 0.525
 
   return (
-    <group ref={groupRef} position={[0, 0, 0]}>
+    <group ref={groupRef} position={[0.15, 0, 0]}>
 
-      {/* ── Podium ───────────────────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════════
+          INTERIOR WARM LIGHTING — shows through glass facade
+          4 warm lights spread across floors
+      ═══════════════════════════════════════════════════════════ */}
+      {[
+        { y: -0.70, intensity: 0.9 },
+        { y:  0.10, intensity: 1.0 },
+        { y:  0.90, intensity: 0.9 },
+        { y:  1.65, intensity: 0.8 },
+        { y:  2.35, intensity: 0.5 },
+      ].map((l, i) => (
+        <pointLight
+          key={`int-${i}`}
+          position={[0, l.y, 0]}
+          intensity={l.intensity}
+          color="#ffb84d"
+          distance={2.2}
+          decay={2.5}
+        />
+      ))}
+
+      {/* ═══════════════════════════════════════════════════════════
+          FLOOR PLATES — visible as dark horizontal bands through glass
+      ═══════════════════════════════════════════════════════════ */}
+      {FLOORS.map(({ y, floorIndex }) => (
+        <group key={`floor-${floorIndex}`}>
+          {/* Structural floor slab */}
+          <mesh position={[0, y - 0.02, 0]} material={matFloor}>
+            <boxGeometry args={[1.82, 0.04, 1.07]} />
+          </mesh>
+
+          {/* Desk silhouettes — tiny boxes visible through glass */}
+          {floorIndex % 2 === 0 && DESK_OFFSETS.map(([dx, dz], di) => (
+            <mesh key={di} position={[dx, y + 0.06, dz]} material={matDesk}>
+              <boxGeometry args={[0.16, 0.04, 0.09]} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+
+      {/* ═══════════════════════════════════════════════════════════
+          PODIUM — wide concrete base
+      ═══════════════════════════════════════════════════════════ */}
       <mesh position={[0, pY, 0]} castShadow receiveShadow material={matPodium}>
-        <boxGeometry args={[2.20, 0.75, 1.35]} />
+        <boxGeometry args={[2.20, 0.65, 1.35]} />
       </mesh>
-      {/* Podium top ledge / lip */}
-      <mesh position={[0, -1.08, 0]} material={matMetal}>
+      {/* Podium top ledge */}
+      <mesh position={[0, -1.075, 0]} material={matMetal}>
         <boxGeometry args={[2.24, 0.04, 1.39]} />
       </mesh>
 
-      {/* ── Lower tower — glass curtain wall ────────────────── */}
-      <mesh position={[0, lY, 0]} castShadow material={matLower}>
-        <boxGeometry args={[1.65, 2.10, 1.00]} />
-      </mesh>
-      <FloorBands w={1.65} d={1.00} startY={-1.00} endY={1.02} step={0.30} color="#2F80ED" />
-
-      {/* ── Mid setback ──────────────────────────────────────── */}
-      <mesh position={[0, mY, 0]} castShadow material={matMid}>
-        <boxGeometry args={[1.38, 1.45, 0.82]} />
-      </mesh>
-      <FloorBands w={1.38} d={0.82} startY={1.10} endY={2.47} step={0.30} color="#2F80ED" />
-      {/* Setback transition ledge */}
-      <mesh position={[0, 1.04, 0]} material={matMetal}>
-        <boxGeometry args={[1.68, 0.06, 1.03]} />
+      {/* ═══════════════════════════════════════════════════════════
+          MAIN TOWER — glass curtain wall
+      ═══════════════════════════════════════════════════════════ */}
+      <mesh position={[0, tY, 0]} castShadow material={matGlass}>
+        <boxGeometry args={[1.85, 3.08, 1.10]} />
       </mesh>
 
-      {/* ── Upper tower ──────────────────────────────────────── */}
-      <mesh position={[0, uY, 0]} castShadow material={matUpper}>
-        <boxGeometry args={[1.12, 1.20, 0.66]} />
-      </mesh>
-      <FloorBands w={1.12} d={0.66} startY={2.50} endY={3.67} step={0.30} color="#5ba3f5" />
-      {/* Upper transition ledge */}
-      <mesh position={[0, 2.50, 0]} material={matMetal}>
-        <boxGeometry args={[1.41, 0.06, 0.85]} />
-      </mesh>
-
-      {/* ── Crown ────────────────────────────────────────────── */}
-      <mesh position={[0, crY, 0]} material={matCrown}>
-        <boxGeometry args={[0.92, 0.48, 0.54]} />
-      </mesh>
-      {/* Crown fins — architectural feature */}
-      {[-0.32, 0, 0.32].map((x, i) => (
-        <mesh key={i} position={[x, crY + 0.26, 0]} material={matCrown}>
-          <boxGeometry args={[0.04, 0.14, 0.55]} />
+      {/* Floor separator bands (spandrel panels) */}
+      {FLOORS.map(({ y }) => (
+        <mesh key={y} position={[0, y, 0]} material={matMetal}>
+          <boxGeometry args={[1.87, 0.028, 1.12]} />
         </mesh>
       ))}
-      <mesh position={[0, 4.16, 0]} material={matMetal}>
-        <boxGeometry args={[0.94, 0.04, 0.56]} />
+
+      {/* Transition ledge at mid-setback */}
+      <mesh position={[0, 2.02, 0]} material={matMetal}>
+        <boxGeometry args={[1.88, 0.06, 1.13]} />
       </mesh>
 
-      {/* ── Spire ─────────────────────────────────────────────── */}
-      <mesh position={[0, spY, 0]} material={matCrown}>
-        <cylinderGeometry args={[0.018, 0.018, 0.85, 8]} />
+      {/* ═══════════════════════════════════════════════════════════
+          UPPER SETBACK
+      ═══════════════════════════════════════════════════════════ */}
+      <mesh position={[0, uY, 0]} castShadow material={matGlassUpper}>
+        <boxGeometry args={[1.50, 1.10, 0.88]} />
       </mesh>
-      {/* Beacon light at top */}
-      <mesh position={[0, 5.01, 0]}>
-        <sphereGeometry args={[0.030, 8, 8]} />
-        <meshBasicMaterial color="#5ba3f5" />
+      {[2.20, 2.58, 2.96].map((y, i) => (
+        <mesh key={`ub-${i}`} position={[0, y, 0]} material={matMetal}>
+          <boxGeometry args={[1.52, 0.025, 0.90]} />
+        </mesh>
+      ))}
+      <mesh position={[0, 3.12, 0]} material={matMetal}>
+        <boxGeometry args={[1.53, 0.06, 0.91]} />
       </mesh>
 
-      {/* ── Corner columns — 4 full-height metallic pillars ──── */}
+      {/* ═══════════════════════════════════════════════════════════
+          CROWN
+      ═══════════════════════════════════════════════════════════ */}
+      <mesh position={[0, crY, 0]} material={matMetal}>
+        <boxGeometry args={[1.52, 0.35, 0.90]} />
+      </mesh>
+      {/* Crown fin details */}
+      {[-0.42, 0, 0.42].map((x, i) => (
+        <mesh key={`fin-${i}`} position={[x, crY + 0.22, 0]} material={matMetal}>
+          <boxGeometry args={[0.05, 0.18, 0.92]} />
+        </mesh>
+      ))}
+
+      {/* ═══════════════════════════════════════════════════════════
+          SPIRE + BEACON
+      ═══════════════════════════════════════════════════════════ */}
+      <mesh position={[0, 3.80, 0]} material={matMetal}>
+        <cylinderGeometry args={[0.016, 0.016, 0.70, 8]} />
+      </mesh>
+      {/* Beacon — bright, will bloom */}
+      <mesh position={[0, 4.16, 0]}>
+        <sphereGeometry args={[0.028, 8, 8]} />
+        <meshBasicMaterial color="#4fa8ff" />
+      </mesh>
+
+      {/* ═══════════════════════════════════════════════════════════
+          CORNER COLUMNS — full height metallic pillars
+      ═══════════════════════════════════════════════════════════ */}
+      {[[-cX, -cZ], [-cX, cZ], [cX, -cZ], [cX, cZ]].map(([x, z], i) => (
+        <mesh key={`col-${i}`} position={[x, 0.73, z]} material={matMetal}>
+          <boxGeometry args={[0.065, colH, 0.065]} />
+        </mesh>
+      ))}
+
+      {/* ═══════════════════════════════════════════════════════════
+          EDGE GLOW LINES — bright blue, will bloom strongly
+          These are the "digital twin signature" that defines the look
+      ═══════════════════════════════════════════════════════════ */}
+      {[[-eX, -eZ], [-eX, eZ], [eX, -eZ], [eX, eZ]].map(([x, z], i) => (
+        <mesh key={`eg-${i}`} position={[x, 0.73, z]}>
+          <boxGeometry args={[0.012, colH, 0.012]} />
+          <meshBasicMaterial color="#2F80ED" />
+        </mesh>
+      ))}
+
+      {/* Horizontal crown glow frame */}
       {[
-        [-0.745, -0.340], [-0.745, 0.340],
-        [ 0.745, -0.340], [ 0.745, 0.340],
-      ].map(([cx, cz], i) => (
-        <mesh key={`col-${i}`} position={[cx, -0.08, cz]} material={matMetal}>
-          <boxGeometry args={[0.065, totalEdgeH, 0.065]} />
+        { pos: [0, 3.46, eZ] as [number,number,number],  size: [1.56, 0.011, 0.011] as [number,number,number] },
+        { pos: [0, 3.46,-eZ] as [number,number,number],  size: [1.56, 0.011, 0.011] as [number,number,number] },
+        { pos: [-eX, 3.46, 0] as [number,number,number], size: [0.011, 0.011, 1.06] as [number,number,number] },
+        { pos: [ eX, 3.46, 0] as [number,number,number], size: [0.011, 0.011, 1.06] as [number,number,number] },
+      ].map(({ pos, size }, i) => (
+        <mesh key={`hg-${i}`} position={pos}>
+          <boxGeometry args={size} />
+          <meshBasicMaterial color="#5ba3f5" />
         </mesh>
       ))}
 
-      {/* ── Edge glow lines — signature digital-twin blue edges ── */}
-      <EdgeGlow x={-eHX} z={ eHZ} h={totalEdgeH} y={0} />
-      <EdgeGlow x={ eHX} z={ eHZ} h={totalEdgeH} y={0} />
-      <EdgeGlow x={-eHX} z={-eHZ} h={totalEdgeH} y={0} />
-      <EdgeGlow x={ eHX} z={-eHZ} h={totalEdgeH} y={0} />
-
-      {/* Horizontal edge glow at crown top and podium base */}
-      {/* Top frame */}
-      {[
-        [0, 4.16,  eHZ, [0.96, 0.012, 0.012]],
-        [0, 4.16, -eHZ, [0.96, 0.012, 0.012]],
-        [-eHX, 4.16, 0, [0.012, 0.012, 0.73]],
-        [ eHX, 4.16, 0, [0.012, 0.012, 0.73]],
-      ].map(([x, y, z, dims], i) => (
-        <mesh key={`top-${i}`} position={[x as number, y as number, z as number]}>
-          <boxGeometry args={dims as [number, number, number]} />
-          <meshBasicMaterial color="#5ba3f5" transparent opacity={0.7} />
-        </mesh>
-      ))}
-
-      {/* ── HVAC / rooftop equipment ─────────────────────────── */}
-      {[
-        [-0.28, 0.22, 0.10],
-        [ 0.24, 0.18, 0.12],
-      ].map(([ex, ew, ed], i) => (
-        <mesh key={`hvac-${i}`} position={[ex, 4.12, 0]} material={matPodium}>
-          <boxGeometry args={[ew as number, 0.07, ed as number]} />
-        </mesh>
-      ))}
-
-      {/* ── Ground shadow catcher ────────────────────────────── */}
-      <mesh position={[0, -2.09, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-        <planeGeometry args={[3.5, 2.5]} />
-        <shadowMaterial opacity={0.35} />
+      {/* ═══════════════════════════════════════════════════════════
+          GROUND — shadow catcher + reflection pool
+      ═══════════════════════════════════════════════════════════ */}
+      <mesh position={[0, -2.10, 0]} rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+        <planeGeometry args={[4.0, 3.0]} />
+        <shadowMaterial opacity={0.40} />
       </mesh>
 
     </group>

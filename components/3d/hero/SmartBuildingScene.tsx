@@ -1,85 +1,79 @@
-import { Suspense, useRef, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei'
-import * as THREE from 'three'
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
+import { BlendFunction } from 'postprocessing'
 import { BuildingModel }  from './BuildingModel'
 import { EnergyParticles } from './EnergyParticles'
-import { OrbitalRings }   from './OrbitalRings'
 import { CityBackground } from './CityBackground'
 import { TelemetryHUD }   from './TelemetryHUD'
 import { useDeviceCapability } from '@/hooks/useDeviceCapability'
+import * as THREE from 'three'
 
 // ─── Cinematic camera ────────────────────────────────────────────────────────
 /**
- * Starts far (8, 4, 9) and eases into the final 3/4 position (4.5, 2.4, 5.8).
- * Ease-out cubic — feels like a premium product reveal.
- * After arrival, camera gently tracks mouse for depth parallax.
+ * Fly-in from [7, 3.8, 9] → final position [3.8, 2.0, 5.4].
+ * Ease-out cubic. After arrival, mouse parallax moves camera ±0.4 units.
+ * lookAt: slightly above building centre = [0, 0.8, 0]
  */
 function CinematicCamera() {
   const { camera } = useThree()
   const progress   = useRef(0)
   const mouse      = useRef({ x: 0, y: 0 })
 
-  // Final resting position
-  const finalX = 4.5, finalY = 2.4, finalZ = 5.8
+  const FX = 3.8, FY = 2.0, FZ = 5.4   // final resting position
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
+    const fn = (e: MouseEvent) => {
       mouse.current = {
         x:  (e.clientX / window.innerWidth  - 0.5),
         y: -(e.clientY / window.innerHeight - 0.5),
       }
     }
-    window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
+    window.addEventListener('mousemove', fn, { passive: true })
+    return () => window.removeEventListener('mousemove', fn)
   }, [])
 
   useFrame((_, delta) => {
-    // ── Intro fly-in (first ~4 s) ──
     if (progress.current < 1) {
-      progress.current = Math.min(1, progress.current + delta * 0.28)
+      progress.current = Math.min(1, progress.current + delta * 0.26)
       const t = 1 - Math.pow(1 - progress.current, 3)   // ease-out cubic
-
-      camera.position.x = 8   + (finalX - 8)   * t
-      camera.position.y = 4.2 + (finalY - 4.2) * t
-      camera.position.z = 9.5 + (finalZ - 9.5) * t
+      camera.position.set(7 + (FX - 7) * t, 3.8 + (FY - 3.8) * t, 9 + (FZ - 9) * t)
       camera.lookAt(0, 0.8, 0)
       return
     }
-
-    // ── Settled: mouse parallax ──
-    const targetX = finalX + mouse.current.x * 0.45
-    const targetY = finalY + mouse.current.y * 0.28
-
-    camera.position.x += (targetX - camera.position.x) * 0.038
-    camera.position.y += (targetY - camera.position.y) * 0.038
+    // Settled — mouse parallax
+    const tx = FX + mouse.current.x * 0.40
+    const ty = FY + mouse.current.y * 0.25
+    camera.position.x += (tx - camera.position.x) * 0.035
+    camera.position.y += (ty - camera.position.y) * 0.035
     camera.lookAt(0, 0.8, 0)
   })
 
   return null
 }
 
-// ─── Lighting ────────────────────────────────────────────────────────────────
+// ─── Lighting ─────────────────────────────────────────────────────────────────
 /**
- * Six-light setup optimised for a glass skyscraper at night.
+ * Night-time digital twin lighting — optimised for glass building.
  *
- * 1. Ambient            — very dim, cool grey-blue (city night air)
- * 2. Directional        — "moonlight" from upper-right, clean white
- * 3. Blue key           — front-left, brand blue, primary facade fill
- * 4. Deep blue fill     — back-right, adds specular depth to glass
- * 5. Teal accent        — low-front, HVAC-teal rim for edge glow
- * 6. Warm counter-fill  — right side, implies distant city warmth
+ *  1. Ambient         — dim city night air, cool blue
+ *  2. Directional     — "moonlight" from upper right, soft white
+ *  3. Blue key        — main facade fill, brand blue, triggers bloom
+ *  4. Deep blue fill  — back-right depth on glass
+ *  5. Teal accent     — lower rim, complements interior orange
+ *  6. Warm right fill — suggests distant city ambient warmth
+ *  7. Crown spot      — top spotlight on building crown/antenna
  */
 function SceneLighting() {
   return (
     <>
-      <ambientLight intensity={0.18} color="#d0e4f8" />
+      <ambientLight intensity={0.14} color="#c8d8f0" />
 
-      {/* Moonlight */}
       <directionalLight
-        position={[6, 14, 6]}
-        intensity={0.55}
-        color="#f0f6ff"
+        position={[6, 14, 5]}
+        intensity={0.50}
+        color="#eef6ff"
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-near={0.5}
@@ -90,49 +84,79 @@ function SceneLighting() {
         shadow-camera-bottom={-4}
       />
 
-      {/* Blue key light — main facade illumination */}
-      <pointLight position={[-4, 3.5, 5]} intensity={4.5} color="#2F80ED" distance={14} decay={2} />
+      {/* Blue key — primary glass highlight */}
+      <pointLight position={[-4.5, 3.5, 5.5]} intensity={5.0} color="#2F80ED" distance={16} decay={2} />
 
-      {/* Deep fill — glass depth from back */}
-      <pointLight position={[5,  2,  -4]} intensity={2.2} color="#1a4070" distance={12} decay={2} />
+      {/* Deep fill from back */}
+      <pointLight position={[5, 2, -4.5]} intensity={2.5} color="#1a4070" distance={14} decay={2} />
 
-      {/* Teal accent — orbital ring HVAC colour complement */}
-      <pointLight position={[0, -1, 4.5]} intensity={1.8} color="#14b8a6" distance={8}  decay={2} />
+      {/* Teal low rim — energy/HVAC colour */}
+      <pointLight position={[-1, -1, 5.5]} intensity={2.0} color="#14b8a6" distance={9} decay={2} />
 
-      {/* Warm city counter-fill */}
-      <pointLight position={[5, 0.5, 3]} intensity={1.2} color="#3a5080" distance={10} decay={2} />
+      {/* Warm city glow from right */}
+      <pointLight position={[5.5, 0.5, 3]} intensity={1.4} color="#3a5a80" distance={12} decay={2} />
 
-      {/* Top spotlight — picks out crown and antenna */}
+      {/* Crown spotlight */}
       <spotLight
-        position={[0, 9, 3]}
-        target-position={[0, 3.5, 0]}
-        intensity={3.5}
-        color="#7ab8ff"
-        angle={0.22}
-        penumbra={0.6}
-        distance={14}
+        position={[0, 10, 3.5]}
+        target-position={[0, 3.6, 0]}
+        intensity={4.0}
+        color="#6ab0ff"
+        angle={0.20}
+        penumbra={0.55}
+        distance={16}
         decay={2}
       />
     </>
   )
 }
 
-// ─── Exported scene ──────────────────────────────────────────────────────────
+// ─── Post-processing effects ──────────────────────────────────────────────────
+/**
+ * Bloom:  Makes all meshBasicMaterial bright-blue elements glow dramatically.
+ *         Edge lines, data packets, and beacon all bloom.
+ *         This single effect produces ~70% of the "premium" visual improvement.
+ *
+ * Vignette: Darkens the canvas edges, focuses the eye on the building.
+ */
+function PostFX({ isHighEnd }: { isHighEnd: boolean }) {
+  if (!isHighEnd) return null  // skip on mid/low-tier devices
+
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom
+        intensity={2.2}
+        luminanceThreshold={0.15}
+        luminanceSmoothing={0.88}
+        radius={0.72}
+        blendFunction={BlendFunction.ADD}
+      />
+      <Vignette
+        offset={0.28}
+        darkness={0.70}
+        eskil={false}
+        blendFunction={BlendFunction.NORMAL}
+      />
+    </EffectComposer>
+  )
+}
+
+// ─── Exported scene ───────────────────────────────────────────────────────────
 export function SmartBuildingScene() {
   const { isHighEnd, isMidTier } = useDeviceCapability()
 
   return (
     <div
       style={{
-        position:       'absolute',
-        top:            0,
-        right:          0,
-        width:          '56%',    // slightly wider than 50% for visual presence
-        height:         '100%',
-        pointerEvents:  'none',
-        // Left-edge fade — blends seamlessly into hero text area
-        maskImage:      'linear-gradient(to right, transparent 0%, black 18%, black 100%)',
-        WebkitMaskImage:'linear-gradient(to right, transparent 0%, black 18%, black 100%)',
+        position:            'absolute',
+        top:                 0,
+        right:               0,
+        width:               '58%',
+        height:              '100%',
+        pointerEvents:       'none',
+        // Blend seamlessly with hero text area on the left edge
+        maskImage:           'linear-gradient(to right, transparent 0%, black 16%, black 100%)',
+        WebkitMaskImage:     'linear-gradient(to right, transparent 0%, black 16%, black 100%)',
       }}
       aria-hidden="true"
       role="presentation"
@@ -142,21 +166,17 @@ export function SmartBuildingScene() {
 
       {/* WebGL canvas */}
       <Canvas
-        camera={{
-          position: [8, 4.2, 9.5],
-          fov:      40,
-          near:     0.1,
-          far:      80,
-        }}
+        camera={{ position: [7, 3.8, 9], fov: 40, near: 0.1, far: 80 }}
         dpr={[1, isHighEnd ? 2 : 1.5]}
         performance={{ min: 0.5 }}
         shadows={isHighEnd}
         gl={{
-          antialias:        isHighEnd,
-          alpha:            true,
-          powerPreference:  'high-performance',
-          stencil:          false,
-          logarithmicDepthBuffer: false,
+          antialias:       isHighEnd,
+          alpha:           true,
+          powerPreference: 'high-performance',
+          stencil:         false,
+          toneMapping:     THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
         }}
         style={{ background: 'transparent' }}
       >
@@ -167,18 +187,13 @@ export function SmartBuildingScene() {
         <CinematicCamera />
 
         <Suspense fallback={null}>
-          {/* Environment — city & ground */}
           <CityBackground />
-
-          {/* The building */}
           <BuildingModel />
-
-          {/* Purposeful data flows (edge streams) */}
           <EnergyParticles />
-
-          {/* Orbital monitoring rings */}
-          {!isMidTier || isHighEnd ? <OrbitalRings /> : null}
         </Suspense>
+
+        {/* Post-processing — bloom + vignette */}
+        <PostFX isHighEnd={isHighEnd} />
       </Canvas>
     </div>
   )

@@ -4,132 +4,183 @@ import { useDeviceCapability } from '@/hooks/useDeviceCapability'
 import * as THREE from 'three'
 
 /**
- * Edge data-stream system.
+ * Organic data-flow streams — matches reference image.
  *
- * Instead of random floating particles, data packets travel along the four
- * vertical edges of the building, representing live telemetry flowing up
- * through the building's intelligent infrastructure.
+ * Flowing S-curves of energy data wrap around the building organically,
+ * representing BMS telemetry flowing through the building's systems.
  *
- * Four edge paths (one per building corner):
- *   front-left, front-right, back-left, back-right
+ * Each stream has:
+ *  - A CatmullRomCurve3 path sweeping around the building
+ *  - A thin TubeGeometry along the path (additive blending — glows with Bloom)
+ *  - 4–6 moving data packets traveling the path
+ *  - Trail effect: second smaller sphere slightly behind
  *
- * Each edge has:
- *   - A faint guide line (the edge itself, barely visible)
- *   - 3 data packets spaced evenly, cycling continuously upward
- *
- * On mid-tier devices the back edges are hidden (halves draw calls).
+ * NO random particles. NO orbital rings. NO confetti.
+ * Every element represents actual building intelligence.
  */
 
-const GROUND_Y  = -2.05
-const TOP_Y     =  3.55
-const HEIGHT    = TOP_Y - GROUND_Y
-
-// Building half-extents (matches BuildingModel corner positions)
-const HX = 0.56   // half-width
-const HZ = 0.35   // half-depth
-
-interface EdgeProps {
-  x:      number
-  z:      number
-  color:  string
-  speed:  number   // units/second
-  offsets: number[] // phase offsets for 3 packets (0-1)
+interface StreamConfig {
+  color:       string
+  points:      [number, number, number][]
+  packetCount: number
+  speed:       number     // curves per second
+  tubeOpacity: number
+  tubeRadius:  number
 }
 
-const EDGES: EdgeProps[] = [
-  { x: -HX, z:  HZ, color: '#2F80ED', speed: 1.2, offsets: [0,    0.35, 0.68] },
-  { x:  HX, z:  HZ, color: '#5ba3f5', speed: 1.05,offsets: [0.18, 0.52, 0.82] },
-  { x: -HX, z: -HZ, color: '#14b8a6', speed: 0.9, offsets: [0.08, 0.42, 0.75] },
-  { x:  HX, z: -HZ, color: '#2F80ED', speed: 1.35,offsets: [0.28, 0.60, 0.90] },
+// Four purposeful streams around the building
+// Path points designed to wrap the building naturally (like reference)
+const STREAMS: StreamConfig[] = [
+  {
+    // Main sweep — lower-left → upper-right (matches reference's dominant arc)
+    color:       '#2F80ED',
+    points:      [
+      [-2.2, -1.4,  0.6],
+      [-1.0, -0.3,  1.9],
+      [-0.1,  0.8,  1.8],
+      [ 0.7,  1.9,  1.3],
+      [ 1.6,  3.2,  0.4],
+    ],
+    packetCount: 6,
+    speed:       0.16,
+    tubeOpacity: 0.32,
+    tubeRadius:  0.0085,
+  },
+  {
+    // Parallel inner sweep — slightly closer to building
+    color:       '#4f9ef5',
+    points:      [
+      [-1.8, -1.0,  0.8],
+      [-0.8,  0.1,  1.6],
+      [ 0.1,  1.2,  1.5],
+      [ 0.9,  2.4,  1.0],
+      [ 1.4,  3.0,  0.6],
+    ],
+    packetCount: 5,
+    speed:       0.21,
+    tubeOpacity: 0.22,
+    tubeRadius:  0.006,
+  },
+  {
+    // Right side wrap — around the building's right face
+    color:       '#2F80ED',
+    points:      [
+      [ 1.0, -1.2,  0.5],
+      [ 1.8,  0.2, -0.2],
+      [ 1.7,  1.5, -0.8],
+      [ 0.8,  2.6, -0.5],
+      [-0.2,  3.3, -0.1],
+    ],
+    packetCount: 4,
+    speed:       0.13,
+    tubeOpacity: 0.25,
+    tubeRadius:  0.007,
+  },
+  {
+    // Front lower arc — ground level energy flow
+    color:       '#5ba3f5',
+    points:      [
+      [-1.6,  0.4,  0.7],
+      [-0.8, -0.1,  1.6],
+      [ 0.0, -0.2,  1.7],
+      [ 0.8,  0.2,  1.5],
+      [ 1.5,  0.8,  0.8],
+    ],
+    packetCount: 4,
+    speed:       0.24,
+    tubeOpacity: 0.20,
+    tubeRadius:  0.006,
+  },
 ]
 
-// A single upward-traveling data packet on one edge
-function DataPacket({ x, z, color, speed, phaseOffset }: {
-  x: number; z: number; color: string; speed: number; phaseOffset: number
-}) {
-  const meshRef  = useRef<THREE.Mesh>(null)
-  const glowRef  = useRef<THREE.Mesh>(null)
+// ─── Single stream component ──────────────────────────────────────────────────
+function DataStream({ cfg }: { cfg: StreamConfig }) {
+  const packetRefs = useRef<(THREE.Mesh | null)[]>([])
+  const trailRefs  = useRef<(THREE.Mesh | null)[]>([])
+
+  // Build the CatmullRom curve
+  const curve = useMemo(() => new THREE.CatmullRomCurve3(
+    cfg.points.map(([x, y, z]) => new THREE.Vector3(x, y, z)),
+    false,
+    'catmullrom',
+    0.5
+  ), [cfg.points])
+
+  // Tube geometry along the path
+  const tubeGeo = useMemo(() => new THREE.TubeGeometry(curve, 80, cfg.tubeRadius, 4, false), [curve, cfg.tubeRadius])
+  const tubeMat = useMemo(() => new THREE.MeshBasicMaterial({
+    color:       cfg.color,
+    transparent: true,
+    opacity:     cfg.tubeOpacity,
+    blending:    THREE.AdditiveBlending,
+    depthWrite:  false,
+  }), [cfg.color, cfg.tubeOpacity])
+
+  useEffect(() => () => { tubeGeo.dispose(); tubeMat.dispose() }, [tubeGeo, tubeMat])
+
+  // Staggered starting positions along the curve
+  const offsets = useMemo(
+    () => Array.from({ length: cfg.packetCount }, (_, i) => i / cfg.packetCount),
+    [cfg.packetCount]
+  )
 
   useFrame(({ clock }) => {
-    const t    = clock.elapsedTime
-    const frac = ((t * speed / HEIGHT + phaseOffset) % 1)
-    const y    = GROUND_Y + frac * HEIGHT
+    const t = clock.elapsedTime
+    offsets.forEach((off, i) => {
+      const progress = ((t * cfg.speed + off) % 1)
+      const point = curve.getPoint(progress)
 
-    if (meshRef.current)  meshRef.current.position.set(x, y, z)
-    if (glowRef.current)  glowRef.current.position.set(x, y - 0.12, z)
+      const pkt = packetRefs.current[i]
+      if (pkt) pkt.position.copy(point)
+
+      // Trail slightly behind packet
+      const trail = trailRefs.current[i]
+      if (trail) {
+        const trailProgress = ((t * cfg.speed + off - 0.018) % 1 + 1) % 1
+        trail.position.copy(curve.getPoint(trailProgress))
+      }
+    })
   })
 
   return (
-    <>
-      {/* Bright leading dot */}
-      <mesh ref={meshRef}>
-        <sphereGeometry args={[0.022, 6, 6]} />
-        <meshBasicMaterial color={color} />
-      </mesh>
-      {/* Trailing glow */}
-      <mesh ref={glowRef}>
-        <sphereGeometry args={[0.014, 5, 5]} />
-        <meshBasicMaterial color={color} transparent opacity={0.4} depthWrite={false} />
-      </mesh>
-    </>
-  )
-}
-
-// A vertical edge line (faint guide for the packets)
-// Using <primitive> to avoid TypeScript conflict with SVG <line> element
-function EdgeLine({ x, z, color }: { x: number; z: number; color: string }) {
-  const lineObj = useMemo(() => {
-    const geo = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(x, GROUND_Y, z),
-      new THREE.Vector3(x, TOP_Y,    z),
-    ])
-    const mat = new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.18, depthWrite: false })
-    return new THREE.Line(geo, mat)
-  }, [x, z, color])
-
-  // Proper disposal to prevent memory leaks
-  useEffect(() => {
-    return () => {
-      lineObj.geometry.dispose();
-      (lineObj.material as THREE.Material).dispose()
-    }
-  }, [lineObj])
-
-  return <primitive object={lineObj} />
-}
-
-export function EnergyParticles() {
-  const { isHighEnd, isMidTier } = useDeviceCapability()
-
-  // On low-end devices, skip entirely (handled by use3DEnabled)
-  // On mid-tier, show only front two edges
-  const visibleEdges = useMemo(
-    () => (isHighEnd ? EDGES : EDGES.slice(0, 2)),
-    [isHighEnd]
-  )
-
-  return (
     <group>
-      {visibleEdges.map((edge, ei) => (
-        <group key={ei}>
-          {/* Guide line */}
-          <EdgeLine x={edge.x} z={edge.z} color={edge.color} />
-          {/* Data packets */}
-          {edge.offsets.map((off, pi) => (
-            <DataPacket
-              key={pi}
-              x={edge.x}
-              z={edge.z}
-              color={edge.color}
-              speed={edge.speed}
-              phaseOffset={off}
-            />
-          ))}
+      {/* Glowing tube path */}
+      <primitive object={new THREE.Mesh(tubeGeo, tubeMat)} />
+
+      {/* Data packets + trails */}
+      {offsets.map((_, i) => (
+        <group key={i}>
+          {/* Bright packet — will bloom */}
+          <mesh ref={el => { packetRefs.current[i] = el }}>
+            <sphereGeometry args={[0.028, 7, 7]} />
+            <meshBasicMaterial color={cfg.color} />
+          </mesh>
+          {/* Fading trail */}
+          <mesh ref={el => { trailRefs.current[i] = el }}>
+            <sphereGeometry args={[0.016, 5, 5]} />
+            <meshBasicMaterial color={cfg.color} transparent opacity={0.45} depthWrite={false} />
+          </mesh>
         </group>
       ))}
     </group>
   )
 }
 
-// Legacy export kept for import compatibility
+// ─── Export ───────────────────────────────────────────────────────────────────
+export function EnergyParticles() {
+  const { isHighEnd, isMidTier } = useDeviceCapability()
+
+  // Mid-tier shows 2 streams; high-end shows all 4
+  const visible = isHighEnd ? STREAMS : STREAMS.slice(0, 2)
+
+  return (
+    <group>
+      {visible.map((cfg, i) => (
+        <DataStream key={i} cfg={cfg} />
+      ))}
+    </group>
+  )
+}
+
+// Kept for import compatibility — no longer renders anything
 export function DataStreamParticles() { return null }
