@@ -62,7 +62,7 @@ export default function Hero3DFull() {
       {/* ── Content — identical to Hero.tsx ────────────────── */}
       <div className="container-narrow relative z-10 pt-32 pb-28">
         {/* On desktop, content stays in left ~55%, right half has 3D */}
-        <div className="max-w-3xl lg:max-w-[55%]">
+        <div className="max-w-3xl lg:max-w-[43%]">
 
           {/* Eyebrow pill badge */}
           <div className="mb-8">

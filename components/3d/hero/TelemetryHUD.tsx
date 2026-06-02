@@ -144,8 +144,8 @@ export function TelemetryHUD() {
         @keyframes hud-fd { 0%,100% { transform:translateY(0); } 50% { transform:translateY( 5px); } }
       `}</style>
 
-      {/* ── BMS Status — top-left ─────────────────────────── */}
-      <div style={{ position:'absolute', top:'16%', left:'3%',
+      {/* ── BMS Status — top-left of canvas (clear of hero text) ── */}
+      <div style={{ position:'absolute', top:'16%', left:'18%',
                     animation:'hud-fa 5.5s ease-in-out infinite', opacity:0.96 }}>
         <HUDCard
           system="BMS Status"
@@ -170,8 +170,8 @@ export function TelemetryHUD() {
         />
       </div>
 
-      {/* ── HVAC Temp — mid-left ─────────────────────────── */}
-      <div style={{ position:'absolute', top:'48%', left:'3%',
+      {/* ── HVAC Temp — mid-left of canvas ─────────────────── */}
+      <div style={{ position:'absolute', top:'48%', left:'18%',
                     animation:'hud-fc 7s ease-in-out 1.8s infinite', opacity:0.90 }}>
         <HUDCard
           system="HVAC Temp"
@@ -197,8 +197,8 @@ export function TelemetryHUD() {
         />
       </div>
 
-      {/* ── Monitoring — lower-left ───────────────────────── */}
-      <div style={{ position:'absolute', bottom:'22%', left:'5%',
+      {/* ── Monitoring — lower-left of canvas ─────────────── */}
+      <div style={{ position:'absolute', bottom:'22%', left:'20%',
                     animation:'hud-fa 5s ease-in-out 0.5s infinite', opacity:0.84 }}>
         <HUDCard
           system="Monitoring"
@@ -212,11 +212,11 @@ export function TelemetryHUD() {
       {/* ── Subtle SVG connector lines ────────────────────── */}
       <svg style={{ position:'absolute', inset:0, width:'100%', height:'100%',
                     pointerEvents:'none', overflow:'visible' }} aria-hidden="true">
-        <line x1="18%" y1="21%" x2="35%" y2="40%"
+        <line x1="30%" y1="21%" x2="46%" y2="40%"
               stroke="#2F80ED" strokeWidth="0.7" strokeOpacity="0.20" strokeDasharray="5 7"/>
         <line x1="82%" y1="25%" x2="65%" y2="40%"
               stroke="#2F80ED" strokeWidth="0.7" strokeOpacity="0.18" strokeDasharray="5 7"/>
-        <line x1="18%" y1="53%" x2="34%" y2="52%"
+        <line x1="30%" y1="53%" x2="46%" y2="52%"
               stroke="#14b8a6" strokeWidth="0.7" strokeOpacity="0.16" strokeDasharray="5 7"/>
         <line x1="82%" y1="57%" x2="66%" y2="55%"
               stroke="#38bdf8" strokeWidth="0.7" strokeOpacity="0.15" strokeDasharray="5 7"/>
