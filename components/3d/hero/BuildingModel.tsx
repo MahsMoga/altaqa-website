@@ -268,26 +268,58 @@ export function BuildingModel() {
         </mesh>
       ))}
 
-      {/* ── Edge glow lines — BRIGHT → triggers Bloom strongly ── */}
+      {/* ── Edge glow lines — double-layer fake bloom ─────────────────
+           Layer 1: thin bright core (solid blue)
+           Layer 2: wider, very transparent, additive blending = glow halo
+           This simulates post-processing bloom without any external library.    ── */}
       {[[-eX,-eZ],[-eX,eZ],[eX,-eZ],[eX,eZ]].map(([x,z], i) => (
-        <mesh key={`eg-${i}`} position={[x, 0.72, z]}>
-          <boxGeometry args={[0.011, colH, 0.011]} />
-          <meshBasicMaterial color="#2F80ED" />
-        </mesh>
+        <group key={`eg-${i}`} position={[x, 0.72, z]}>
+          {/* Core line */}
+          <mesh>
+            <boxGeometry args={[0.013, colH, 0.013]} />
+            <meshBasicMaterial color="#2F80ED" />
+          </mesh>
+          {/* Glow halo — wider, additive, transparent */}
+          <mesh>
+            <boxGeometry args={[0.065, colH, 0.065]} />
+            <meshBasicMaterial color="#1a5fbb" transparent opacity={0.12}
+              blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+          {/* Outer soft glow */}
+          <mesh>
+            <boxGeometry args={[0.16, colH, 0.16]} />
+            <meshBasicMaterial color="#1040a0" transparent opacity={0.055}
+              blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+        </group>
       ))}
 
       {/* Top horizontal glow frame */}
       {[
-        { p:[0, 3.47, eZ]  as [number,number,number], s:[1.56,0.010,0.010] as [number,number,number] },
-        { p:[0, 3.47,-eZ]  as [number,number,number], s:[1.56,0.010,0.010] as [number,number,number] },
-        { p:[-eX,3.47,0]   as [number,number,number], s:[0.010,0.010,1.06] as [number,number,number] },
-        { p:[ eX,3.47,0]   as [number,number,number], s:[0.010,0.010,1.06] as [number,number,number] },
+        { p:[0, 3.47, eZ]  as [number,number,number], s:[1.56,0.012,0.012] as [number,number,number] },
+        { p:[0, 3.47,-eZ]  as [number,number,number], s:[1.56,0.012,0.012] as [number,number,number] },
+        { p:[-eX,3.47,0]   as [number,number,number], s:[0.012,0.012,1.06] as [number,number,number] },
+        { p:[ eX,3.47,0]   as [number,number,number], s:[0.012,0.012,1.06] as [number,number,number] },
       ].map(({p,s}, i) => (
-        <mesh key={`hg-${i}`} position={p}>
-          <boxGeometry args={s} />
-          <meshBasicMaterial color="#5ba3f5" />
-        </mesh>
+        <group key={`hg-${i}`} position={p}>
+          <mesh>
+            <boxGeometry args={s} />
+            <meshBasicMaterial color="#5ba3f5" />
+          </mesh>
+          <mesh>
+            <boxGeometry args={[s[0]+0.08, s[1]+0.05, s[2]+0.08] as [number,number,number]} />
+            <meshBasicMaterial color="#2F80ED" transparent opacity={0.10}
+              blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+        </group>
       ))}
+
+      {/* Beacon glow halo */}
+      <mesh position={[0, 4.17, 0]}>
+        <sphereGeometry args={[0.14, 8, 8]} />
+        <meshBasicMaterial color="#2F80ED" transparent opacity={0.12}
+          blending={THREE.AdditiveBlending} depthWrite={false} />
+      </mesh>
 
       {/* ── Shadow catcher ── */}
       <mesh position={[0, -2.10, 0]} rotation={[-Math.PI/2,0,0]} receiveShadow>

@@ -78,10 +78,21 @@ function FacadeStream({ cfg }: { cfg: FacadeStreamConfig }) {
 
       {phases.map((_, i) => (
         <group key={i}>
-          <mesh ref={el => { pkts.current[i] = el }}>
-            <sphereGeometry args={[0.022, 6, 6]} />
-            <meshBasicMaterial color={cfg.color} />
-          </mesh>
+          {/* Bright core + inline glow halo as nested children of the same group.
+              The group itself is moved by animation — so both move together. */}
+          <group ref={el => { pkts.current[i] = el as unknown as THREE.Mesh }}>
+            <mesh>
+              <sphereGeometry args={[0.022, 6, 6]} />
+              <meshBasicMaterial color={cfg.color} />
+            </mesh>
+            {/* Outer glow halo — fake bloom, no post-processing needed */}
+            <mesh>
+              <sphereGeometry args={[0.055, 6, 6]} />
+              <meshBasicMaterial color={cfg.color} transparent opacity={0.12}
+                blending={THREE.AdditiveBlending} depthWrite={false} />
+            </mesh>
+          </group>
+          {/* Trailing dot */}
           <mesh ref={el => { trails.current[i] = el }}>
             <sphereGeometry args={[0.013, 5, 5]} />
             <meshBasicMaterial color={cfg.color} transparent opacity={0.40} depthWrite={false} />

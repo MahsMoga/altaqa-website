@@ -1,8 +1,8 @@
 import { Suspense, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { AdaptiveDpr, AdaptiveEvents, Environment } from '@react-three/drei'
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing'
-import { BlendFunction } from 'postprocessing'
+// @react-three/postprocessing removed — incompatible with three@r184.
+// Glow effect is achieved via additive-blended overlay meshes in BuildingModel.
 import { BuildingModel }   from './BuildingModel'
 import { EnergyParticles } from './EnergyParticles'
 import { CityBackground }  from './CityBackground'
@@ -104,27 +104,7 @@ function SceneLighting() {
 }
 
 // ─── Post-processing ──────────────────────────────────────────────────────────
-function PostFX({ isHighEnd }: { isHighEnd: boolean }) {
-  if (!isHighEnd) return null
-
-  return (
-    <EffectComposer multisampling={0}>
-      <Bloom
-        intensity={2.4}
-        luminanceThreshold={0.14}
-        luminanceSmoothing={0.88}
-        radius={0.75}
-        blendFunction={BlendFunction.ADD}
-      />
-      <Vignette
-        offset={0.26}
-        darkness={0.72}
-        eskil={false}
-        blendFunction={BlendFunction.NORMAL}
-      />
-    </EffectComposer>
-  )
-}
+// Glow handled by double-layer additive meshes in BuildingModel.tsx — no PostFX needed.
 
 // ─── Exported scene ───────────────────────────────────────────────────────────
 export function SmartBuildingScene() {
@@ -182,7 +162,7 @@ export function SmartBuildingScene() {
           <EnergyParticles />
         </Suspense>
 
-        <PostFX isHighEnd={isHighEnd} />
+        {/* No PostFX — glow simulated via additive meshes in BuildingModel */}
       </Canvas>
     </div>
   )
