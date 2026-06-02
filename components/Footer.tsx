@@ -58,7 +58,9 @@ export default function Footer() {
                   stroke="#2F80ED" strokeWidth="1.2"/>
                 <circle cx="7" cy="5" r="1.2" stroke="#2F80ED" strokeWidth="1.2"/>
               </svg>
-              <span className="text-white/60 text-xs">Abu Dhabi, UAE</span>
+              <span className="text-white/60 text-xs">
+              Abu Dhabi, UAE
+              </span>
             </div>
 
             {/* LinkedIn social link */}
@@ -132,7 +134,7 @@ export default function Footer() {
 
               <div>
                 <div className="text-white/80 font-medium text-xs mb-1">Location</div>
-                <span className="text-white/65 text-xs">Abu Dhabi, United Arab Emirates</span>
+                <span className="text-white/65 text-xs">Office 1306, Lamar Tower, Roof Floor, Al Nahyan Camp, Abu Dhabi, UAE</span>
               </div>
 
             </div>
