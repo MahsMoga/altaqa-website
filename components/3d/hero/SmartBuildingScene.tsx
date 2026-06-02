@@ -23,9 +23,13 @@ export function SmartBuildingScene() {
         width:               '58%',
         height:              '100%',
         pointerEvents:       'none',
-        // Fade left edge so SVG blends into hero text area
-        maskImage:           'linear-gradient(to right, transparent 0%, black 14%, black 100%)',
-        WebkitMaskImage:     'linear-gradient(to right, transparent 0%, black 14%, black 100%)',
+        // Two-axis mask:
+        //   → left edge fade  (keeps building from bleeding into text)
+        //   ↓ top edge fade   (keeps navbar links readable — 14% = ~80–90px clear)
+        maskImage:       'linear-gradient(to bottom, transparent 0%, black 14%, black 100%), linear-gradient(to right, transparent 0%, black 14%, black 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 14%, black 100%), linear-gradient(to right, transparent 0%, black 14%, black 100%)',
+        maskComposite:        'intersect',
+        WebkitMaskComposite:  'source-in',
         overflow:            'hidden',
       }}
       aria-hidden="true"
