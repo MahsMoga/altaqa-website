@@ -100,8 +100,9 @@ function GLBBuilding({ mouse }: { mouse: React.MutableRefObject<{ x: number; y: 
   return <group ref={groupRef}><primitive object={scene} /></group>
 }
 
-// Preload so the model starts downloading immediately
-useGLTF.preload('/models/building.glb')
+// NOTE: Do NOT call useGLTF.preload here.
+// The file doesn't exist until the user places it in /public/models/building.glb
+// Calling preload at module level throws a 404 crash before React can catch it.
 
 // ─── Error boundary — catches "model not found" gracefully ───────────────────
 interface BoundaryProps { children: ReactNode; fallback: ReactNode }
@@ -160,6 +161,8 @@ function ModelMissingPlaceholder() {
 // ─── Public export ────────────────────────────────────────────────────────────
 export function BuildingModel() {
   const mouse = useRef({ x: 0, y: 0 })
+  // Track whether building.glb has been placed by the user
+  const [modelAvailable, setModelAvailable] = useState<boolean | null>(null)
 
   useEffect(() => {
     const fn = (e: MouseEvent) => {
@@ -167,24 +170,42 @@ export function BuildingModel() {
       mouse.current.y = (e.clientY / window.innerHeight - 0.5) * 2
     }
     window.addEventListener('mousemove', fn, { passive: true })
+
+    // Probe for the GLB file without crashing — a HEAD request is cheap
+    fetch('/models/building.glb', { method: 'HEAD' })
+      .then(r => setModelAvailable(r.ok))
+      .catch(() => setModelAvailable(false))
+
     return () => window.removeEventListener('mousemove', fn)
   }, [])
 
-  return (
-    <ModelErrorBoundary fallback={<ModelMissingPlaceholder />}>
-      {/* Suspense shows wireframe placeholder while GLB downloads */}
-      <ModelMissingSuspense mouse={mouse} />
-    </ModelErrorBoundary>
+  // Still checking
+  if (modelAvailable === null) return null
+
+  // File confirmed present — load the GLB
+  if (modelAvailable) {
+    return (
+      <ModelErrorBoundary fallback={<ModelMissingPlaceholder />}>
+        <GLBBuildingWrapper mouse={mouse} />
+      </ModelErrorBoundary>
+    )
+  }
+
+  // File not found — show wireframe placeholder and log instructions
+  // eslint-disable-next-line no-console
+  console.info(
+    '[Al Taqa 3D] No building model found.\n' +
+    'Place a GLB architectural model at /public/models/building.glb\n' +
+    'Free sources: sketchfab.com (Architecture, Free) | kenney.nl/assets/city-kit-commercial'
   )
+  return <ModelMissingPlaceholder />
 }
 
-// Separate component so Suspense/error boundary isolation works correctly
-function ModelMissingSuspense({
+// Wrapper keeps Suspense isolated from the HEAD-check state
+function GLBBuildingWrapper({
   mouse,
 }: {
   mouse: React.MutableRefObject<{ x: number; y: number }>
 }) {
-  return (
-    <GLBBuilding mouse={mouse} />
-  )
+  return <GLBBuilding mouse={mouse} />
 }
