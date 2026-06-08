@@ -9,6 +9,7 @@ import Services from '../components/Services'
 import ProcessFlow from '../components/ProcessFlow'
 import WhyChooseUs from '../components/WhyChooseUs'
 import Mission from '../components/Mission'
+import Products from '../components/Products'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import { use3DEnabled } from '@/hooks/use3DEnabled'
@@ -147,6 +148,7 @@ export default function HomePage() {
         {is3D ? <ProcessFlow3D />      : <ProcessFlow />}
         {is3D ? <WhyChooseUs3D />      : <WhyChooseUs />}
         <Mission />
+        <Products />
         {is3D ? <Contact3D />          : <Contact />}
       </main>
 
