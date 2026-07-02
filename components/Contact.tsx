@@ -68,10 +68,19 @@ export default function Contact() {
     setTouched({ name: true, email: true, company: true, message: true })
     if (!isValid) return
     setLoading(true)
-    // TODO: Replace with your form backend (e.g. Formspree, Resend, or a Next.js API route)
-    await new Promise((r) => setTimeout(r, 800))
-    setLoading(false)
-    setSubmitted(true)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      if (!res.ok) throw new Error('send failed')
+      setSubmitted(true)
+    } catch {
+      alert('Sorry, something went wrong. Please email us directly at info@altaqauae.com')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const fieldClass = (field: keyof FormState) =>
