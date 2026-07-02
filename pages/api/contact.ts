@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const TO_EMAIL = 'info@altaqauae.com'
-// Use a verified sender domain in Resend.
-// If altaqauae.com is not yet verified in Resend, set RESEND_FROM in Vercel env vars
-// to the email address that owns the Resend account (e.g. your personal email used to sign up).
-// Once altaqauae.com is verified, set it to: Al Taqa Website <noreply@altaqauae.com>
-const FROM_EMAIL = process.env.RESEND_FROM ?? `Al Taqa Website <${TO_EMAIL}>`
+// onboarding@resend.dev works without domain verification BUT Resend only allows it
+// to send to the email address that owns the Resend account.
+// Once altaqauae.com is verified in Resend → Domains, set RESEND_FROM in Vercel env vars
+// to: Al Taqa Website <noreply@altaqauae.com>
+const FROM_EMAIL = process.env.RESEND_FROM ?? 'Al Taqa Website <onboarding@resend.dev>'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end()
