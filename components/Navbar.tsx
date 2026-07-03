@@ -1,19 +1,24 @@
 import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Products', href: '#products' },
-  { label: 'Expertise', href: '#expertise' },
-  { label: 'Why Us', href: '#why-us' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', hash: 'about' },
+  { label: 'Services', hash: 'services' },
+  { label: 'Products', hash: 'products' },
+  { label: 'Expertise', hash: 'expertise' },
+  { label: 'Why Us', hash: 'why-us' },
+  { label: 'Contact', hash: 'contact' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
+  const isHome = router.pathname === '/'
+
+  const navHref = (hash: string) => isHome ? `#${hash}` : `/#${hash}`
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -52,7 +57,7 @@ export default function Navbar() {
       <div className="container-narrow" ref={menuRef}>
         <nav className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-3 flex-shrink-0">
+          <a href="/" className="flex items-center gap-3 flex-shrink-0">
             <div style={{ position: 'relative', width: '110px', height: '52px' }}>
               <Image
                 src="/al-taqa-logo.png"
@@ -77,7 +82,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <li key={link.label}>
                 <a
-                  href={link.href}
+                  href={navHref(link.hash)}
                   className="nav-link text-white/70 hover:text-white text-sm font-medium
                              transition-colors duration-150 tracking-wide py-1"
                 >
@@ -89,7 +94,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <a href="#contact" className="btn-primary text-sm py-2.5 px-5">
+            <a href={navHref('contact')} className="btn-primary text-sm py-2.5 px-5">
               Get in Touch
             </a>
           </div>
@@ -127,7 +132,7 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <a
                 key={link.label}
-                href={link.href}
+                href={navHref(link.hash)}
                 onClick={() => setMenuOpen(false)}
                 className="flex items-center text-white/75 hover:text-white py-3 px-4 text-sm font-medium
                            rounded-xl hover:bg-white/[0.06] transition-colors"
@@ -137,7 +142,7 @@ export default function Navbar() {
             ))}
             <div className="pt-3 px-1">
               <a
-                href="#contact"
+                href={navHref('contact')}
                 onClick={() => setMenuOpen(false)}
                 className="btn-primary w-full justify-center"
               >
