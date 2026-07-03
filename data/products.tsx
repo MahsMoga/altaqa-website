@@ -194,9 +194,62 @@ export const products: Product[] = [
     applications: ['Commercial Buildings', 'Hospitality', 'Utilities', 'Industrial Facilities'],
     protocols: ['M-Bus', 'LoRaWAN', 'Modbus RTU'],
     downloads: [
-      { label: 'Smart Water Meter Datasheet', type: 'Datasheet' },
+      { label: 'Electrosonic 3Q Datasheet', type: 'Datasheet', file: '/downloads/smart-water-meters/schedatecnica-electosonic-en-v1.pdf' },
+      { label: 'E-bulk 3Q Datasheet', type: 'Datasheet', file: '/downloads/smart-water-meters/schedatecnica-e-bulk-en-v14.pdf' },
       { label: 'ISO 4064 Compliance Certificate', type: 'Certificate' },
       { label: 'Installation & User Manual', type: 'Manual' },
+    ],
+    variants: [
+      {
+        name: 'Electrosonic 3Q — Ultrasonic Smart Water Meter',
+        image: '/images/products/smart-water-meters.jpg',
+        overview:
+          'The Electrosonic 3Q is a static ultrasonic water meter designed for accurate cold and hot water measurement in residential and commercial applications. With no moving parts, it offers long-term reliability, tamper detection, and integrated communication for remote reading.',
+        specs: [
+          { label: 'Technology', value: 'Static ultrasonic (no moving parts)' },
+          { label: 'Accuracy Class', value: 'Class 2 (ISO 4064 / MID)' },
+          { label: 'Nominal Diameter', value: 'DN15 / DN20 / DN25' },
+          { label: 'Flow Range (Q3/Q1)', value: 'R≥160' },
+          { label: 'Operating Temperature', value: 'Cold: 0.1°C – 30°C; Hot: up to 90°C' },
+          { label: 'Max. Operating Pressure', value: '16 bar (PN16)' },
+          { label: 'Communication', value: 'M-Bus / LoRaWAN (optional)' },
+          { label: 'Battery Life', value: 'Up to 12 years' },
+          { label: 'Display', value: 'LCD with flow rate, consumption & alarm indicators' },
+          { label: 'Protection Rating', value: 'IP68 (submersible)' },
+          { label: 'Standards', value: 'ISO 4064, MID 2014/32/EU, WRAS (optional)' },
+          { label: 'Installation', value: 'Horizontal or vertical; any orientation' },
+        ],
+        downloads: [
+          { label: 'Electrosonic 3Q Datasheet', type: 'Datasheet', file: '/downloads/smart-water-meters/schedatecnica-electosonic-en-v1.pdf' },
+          { label: 'ISO 4064 / MID Certificate', type: 'Certificate' },
+          { label: 'Installation Manual', type: 'Manual' },
+        ],
+      },
+      {
+        name: 'E-bulk 3Q — Volumetric Bulk Water Meter',
+        image: '/images/products/smart-water-meters-ebulk.jpg',
+        overview:
+          'The E-bulk 3Q is a multi-jet volumetric water meter built for bulk metering in commercial, industrial, and district water networks. Its robust mechanical design delivers Class 2 accuracy across a wide flow range with optional pulse or M-Bus output for AMR/AMI integration.',
+        specs: [
+          { label: 'Technology', value: 'Volumetric multi-jet (wet-type register)' },
+          { label: 'Accuracy Class', value: 'Class 2 (ISO 4064 / MID)' },
+          { label: 'Nominal Diameter', value: 'DN15 / DN20 / DN25 / DN32 / DN40 / DN50' },
+          { label: 'Flow Range (Q3/Q1)', value: 'R≥80' },
+          { label: 'Operating Temperature', value: 'Cold water: 0.1°C – 30°C' },
+          { label: 'Max. Operating Pressure', value: '16 bar (PN16)' },
+          { label: 'Communication', value: 'Pulse output (reed switch); M-Bus optional' },
+          { label: 'Display', value: 'Roller-drum mechanical register (odometer style)' },
+          { label: 'Protection Rating', value: 'IP68 (submersible)' },
+          { label: 'Standards', value: 'ISO 4064, MID 2014/32/EU' },
+          { label: 'Installation', value: 'Horizontal (preferred); vertical supported' },
+          { label: 'Body Material', value: 'Polymer composite / brass (DN40–DN50)' },
+        ],
+        downloads: [
+          { label: 'E-bulk 3Q Datasheet', type: 'Datasheet', file: '/downloads/smart-water-meters/schedatecnica-e-bulk-en-v14.pdf' },
+          { label: 'ISO 4064 / MID Certificate', type: 'Certificate' },
+          { label: 'Installation Manual', type: 'Manual' },
+        ],
+      },
     ],
   },
   {
