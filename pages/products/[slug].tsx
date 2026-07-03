@@ -303,164 +303,323 @@ export default function ProductDetailPage({ slug }: PageProps) {
           </div>
         </section>
 
-        {/* ── Features ─────────────────────────────────────────────── */}
-        <section className="section-padding bg-white">
-          <div className="container-narrow">
-            <AnimateIn className="max-w-xl mb-12">
-              <span className="label-tag">Key Features</span>
-              <h2 className="heading-section mb-4">
-                Engineered for{' '}
-                <span className="text-accent">Performance & Reliability</span>
-              </h2>
-              <p className="body-lead">
-                {product.name} combine precision engineering with intelligent connectivity
-                to deliver dependable performance across demanding environments.
-              </p>
-            </AnimateIn>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
-              {product.features.map((feature, idx) => (
-                <AnimateIn key={feature.title} delay={idx * 70}>
-                  <div className={`flex gap-4 p-6 rounded-2xl border h-full ${product.color}`}>
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${product.iconBg}`}>
-                      {checkIcon}
-                    </div>
-                    <div>
-                      <h3 className="font-display text-navy font-bold text-base mb-1.5">{feature.title}</h3>
-                      <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
-                    </div>
-                  </div>
-                </AnimateIn>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Technical Specifications ─────────────────────────────── */}
-        <section className="section-padding bg-slate-corporate">
-          <div className="container-narrow">
-            <AnimateIn className="max-w-xl mb-12">
-              <span className="label-tag">Technical Specifications</span>
-              <h2 className="heading-section">
-                Specification <span className="text-accent">Overview</span>
-              </h2>
-            </AnimateIn>
-
-            <AnimateIn delay={80}>
-              <div className="bg-white rounded-2xl border border-slate-border shadow-card overflow-hidden overflow-x-auto">
-                <table className="w-full text-sm min-w-[480px]">
-                  <tbody>
-                    {product.specs.map((spec, idx) => (
-                      <tr key={spec.label} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-corporate/50'}>
-                        <th scope="row"
-                          className="text-left font-display text-navy font-semibold px-6 py-4 w-1/3 align-top">
-                          {spec.label}
-                        </th>
-                        <td className="text-slate-500 px-6 py-4 align-top">{spec.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </AnimateIn>
-          </div>
-        </section>
-
-        {/* ── Applications & Protocols ─────────────────────────────── */}
-        <section className="section-padding bg-white">
-          <div className="container-narrow grid lg:grid-cols-2 gap-14">
-            <AnimateIn>
-              <span className="label-tag">Applications</span>
-              <h2 className="heading-section mb-6">
-                Where {product.name}{' '}
-                <span className="text-accent">Excel</span>
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-3">
-                {product.applications.map((app) => (
-                  <li key={app}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-corporate
-                               border border-slate-border text-navy text-sm font-medium">
-                    <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/20
-                                    flex items-center justify-center flex-shrink-0">
-                      {checkIcon}
-                    </div>
-                    {app}
-                  </li>
-                ))}
-              </ul>
-            </AnimateIn>
-
-            {product.protocols.length > 0 && (
-              <AnimateIn delay={100}>
-                <span className="label-tag">Communication Protocols</span>
-                <h2 className="heading-section mb-6">
-                  Seamless{' '}
-                  <span className="text-accent">System Integration</span>
+        {/* ── When variants exist: full two-column model split ─────── */}
+        {product.variants && product.variants.length > 0 ? (
+          <section id="downloads" className="section-padding bg-slate-corporate">
+            <div className="container-narrow">
+              <AnimateIn className="max-w-xl mb-12">
+                <span className="label-tag">Models in This Range</span>
+                <h2 className="heading-section">
+                  Compare <span className="text-accent">Models</span>
                 </h2>
-                <div className="flex flex-wrap gap-3">
-                  {product.protocols.map((protocol) => (
-                    <span key={protocol}
-                      className="inline-flex items-center px-4 py-2.5 rounded-full text-sm font-semibold
-                                 text-accent bg-accent/[0.08] border border-accent/20">
-                      {protocol}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-slate-500 text-sm leading-relaxed mt-6 max-w-md">
-                  Our solutions integrate with leading Building Management Systems and head-end
-                  platforms — including Johnson Controls, Schneider Electric, Honeywell, and Tridium —
-                  ensuring a unified view of your facility's performance.
+                <p className="body-lead">
+                  Both models are available through Al Taqa Technical. Contact us for pricing,
+                  sizing guidance, and technical support tailored to your project.
                 </p>
               </AnimateIn>
-            )}
-          </div>
-        </section>
 
-        {/* ── Downloads ────────────────────────────────────────────── */}
-        <section id="downloads" className="section-padding bg-slate-corporate">
-          <div className="container-narrow">
-            <AnimateIn className="max-w-xl mb-12">
-              <span className="label-tag">Downloads</span>
-              <h2 className="heading-section">
-                Datasheets, Certificates &{' '}
-                <span className="text-accent">Manuals</span>
-              </h2>
-            </AnimateIn>
+              <div className={`grid gap-8 ${product.variants.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
+                {product.variants.map((variant: ProductVariant, vIdx: number) => (
+                  <AnimateIn key={vIdx} delay={vIdx * 100} className="flex flex-col">
+                    <div className="flex flex-col h-full rounded-3xl border border-slate-border overflow-hidden shadow-card bg-white">
 
-            <div className="grid sm:grid-cols-3 gap-6">
-              {product.downloads.map((download, idx) => (
-                <AnimateIn key={download.label} delay={idx * 70}>
-                  <a
-                    href={download.file ?? '#inquiry'}
-                    download={download.file ? true : undefined}
-                    target={download.file ? '_blank' : undefined}
-                    rel={download.file ? 'noopener noreferrer' : undefined}
-                    className="group flex items-center gap-4 p-6 rounded-2xl bg-white border border-slate-border
-                               shadow-sm hover:shadow-card hover:border-accent/20 transition-all duration-200 h-full">
-                    <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20
-                                    flex items-center justify-center flex-shrink-0
-                                    group-hover:bg-accent group-hover:[&_path]:stroke-white transition-colors duration-200">
-                      {downloadIcon}
-                    </div>
-                    <div>
-                      <div className="text-navy/40 text-xs font-semibold tracking-widest uppercase mb-1">
-                        {download.type}
+                      {/* Image */}
+                      {variant.image && (
+                        <div className="relative h-64 bg-white border-b border-slate-border shrink-0">
+                          <Image
+                            src={variant.image}
+                            alt={`${variant.name} product image`}
+                            fill
+                            className="object-contain p-8"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                        </div>
+                      )}
+
+                      {/* Name + overview */}
+                      <div className="px-7 pt-7 pb-5 border-b border-slate-border shrink-0">
+                        <span className="inline-block text-accent text-xs font-bold tracking-widest uppercase mb-3">
+                          Model {vIdx + 1}
+                        </span>
+                        <h3 className="font-display text-navy font-bold text-xl leading-snug mb-3">
+                          {variant.name}
+                        </h3>
+                        <p className="text-slate-500 text-sm leading-relaxed">{variant.overview}</p>
                       </div>
-                      <div className="text-navy text-sm font-semibold leading-snug">{download.label}</div>
-                      {!download.file && (
-                        <div className="text-slate-400 text-xs mt-0.5">Request via inquiry form</div>
+
+                      {/* Specs table */}
+                      <div className="flex-1">
+                        <div className="px-7 pt-5 pb-2">
+                          <div className="text-navy/40 text-xs font-bold tracking-widest uppercase">
+                            Technical Specifications
+                          </div>
+                        </div>
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-xs min-w-[280px]">
+                            <tbody>
+                              {variant.specs.map((spec, idx) => (
+                                <tr key={spec.label} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-corporate/50'}>
+                                  <th scope="row"
+                                    className="text-left font-display text-navy font-semibold px-7 py-3 w-[42%] align-top">
+                                    {spec.label}
+                                  </th>
+                                  <td className="text-slate-500 px-7 py-3 align-top">{spec.value}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      {/* Downloads footer */}
+                      {variant.downloads.length > 0 && (
+                        <div className="bg-slate-corporate border-t border-slate-border px-7 py-6 shrink-0">
+                          <div className="text-navy/40 text-xs font-bold tracking-widest uppercase mb-4">
+                            Downloads
+                          </div>
+                          <div className="flex flex-col gap-2.5">
+                            {variant.downloads.map((dl) => (
+                              <a
+                                key={dl.label}
+                                href={dl.file ?? '#inquiry'}
+                                download={dl.file ? true : undefined}
+                                target={dl.file ? '_blank' : undefined}
+                                rel={dl.file ? 'noopener noreferrer' : undefined}
+                                className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-white
+                                           border border-slate-border text-sm font-semibold text-navy
+                                           hover:border-accent hover:text-accent hover:shadow-card
+                                           transition-all duration-200 w-full"
+                              >
+                                <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center
+                                                shrink-0 group-hover:bg-accent group-hover:[&_path]:stroke-white
+                                                transition-colors duration-200">
+                                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="#2F80ED" strokeWidth="1.5"
+                                          strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                </div>
+                                <span className="flex-1 leading-tight">{dl.label}</span>
+                                <span className="text-xs text-slate-400 font-normal shrink-0">
+                                  {dl.file ? dl.type : 'On request'}
+                                </span>
+                              </a>
+                            ))}
+                          </div>
+                        </div>
                       )}
                     </div>
-                  </a>
+                  </AnimateIn>
+                ))}
+              </div>
+
+              {/* Applications & Protocols row below the cards */}
+              <div className="mt-14 grid lg:grid-cols-2 gap-10">
+                <AnimateIn>
+                  <div className="bg-white rounded-2xl border border-slate-border p-7 shadow-card">
+                    <div className="text-navy/40 text-xs font-bold tracking-widest uppercase mb-4">Applications</div>
+                    <ul className="grid sm:grid-cols-2 gap-2.5">
+                      {product.applications.map((app) => (
+                        <li key={app}
+                          className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-corporate
+                                     border border-slate-border text-navy text-sm font-medium">
+                          <div className="w-5 h-5 rounded-full bg-accent/10 border border-accent/20
+                                          flex items-center justify-center flex-shrink-0">
+                            {checkIcon}
+                          </div>
+                          {app}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </AnimateIn>
-              ))}
+
+                {product.protocols.length > 0 && (
+                  <AnimateIn delay={80}>
+                    <div className="bg-white rounded-2xl border border-slate-border p-7 shadow-card">
+                      <div className="text-navy/40 text-xs font-bold tracking-widest uppercase mb-4">
+                        Communication Protocols
+                      </div>
+                      <div className="flex flex-wrap gap-2.5 mb-5">
+                        {product.protocols.map((protocol) => (
+                          <span key={protocol}
+                            className="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold
+                                       text-accent bg-accent/[0.08] border border-accent/20">
+                            {protocol}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-slate-500 text-sm leading-relaxed">
+                        Compatible with leading BMS platforms including Johnson Controls, Schneider Electric,
+                        Honeywell, and Tridium for a unified view of your facility's energy performance.
+                      </p>
+                    </div>
+                  </AnimateIn>
+                )}
+              </div>
             </div>
-            <p className="text-slate-400 text-xs mt-6">
-              Request access to documentation via the inquiry form below — our team will share the
-              relevant files for {product.name} directly.
-            </p>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <>
+            {/* ── Features ─────────────────────────────────────────── */}
+            <section className="section-padding bg-white">
+              <div className="container-narrow">
+                <AnimateIn className="max-w-xl mb-12">
+                  <span className="label-tag">Key Features</span>
+                  <h2 className="heading-section mb-4">
+                    Engineered for{' '}
+                    <span className="text-accent">Performance & Reliability</span>
+                  </h2>
+                  <p className="body-lead">
+                    {product.name} combine precision engineering with intelligent connectivity
+                    to deliver dependable performance across demanding environments.
+                  </p>
+                </AnimateIn>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                  {product.features.map((feature, idx) => (
+                    <AnimateIn key={feature.title} delay={idx * 70}>
+                      <div className={`flex gap-4 p-6 rounded-2xl border h-full ${product.color}`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${product.iconBg}`}>
+                          {checkIcon}
+                        </div>
+                        <div>
+                          <h3 className="font-display text-navy font-bold text-base mb-1.5">{feature.title}</h3>
+                          <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
+                        </div>
+                      </div>
+                    </AnimateIn>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* ── Technical Specifications ─────────────────────────── */}
+            <section className="section-padding bg-slate-corporate">
+              <div className="container-narrow">
+                <AnimateIn className="max-w-xl mb-12">
+                  <span className="label-tag">Technical Specifications</span>
+                  <h2 className="heading-section">
+                    Specification <span className="text-accent">Overview</span>
+                  </h2>
+                </AnimateIn>
+
+                <AnimateIn delay={80}>
+                  <div className="bg-white rounded-2xl border border-slate-border shadow-card overflow-hidden overflow-x-auto">
+                    <table className="w-full text-sm min-w-[480px]">
+                      <tbody>
+                        {product.specs.map((spec, idx) => (
+                          <tr key={spec.label} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-corporate/50'}>
+                            <th scope="row"
+                              className="text-left font-display text-navy font-semibold px-6 py-4 w-1/3 align-top">
+                              {spec.label}
+                            </th>
+                            <td className="text-slate-500 px-6 py-4 align-top">{spec.value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </AnimateIn>
+              </div>
+            </section>
+
+            {/* ── Applications & Protocols ─────────────────────────── */}
+            <section className="section-padding bg-white">
+              <div className="container-narrow grid lg:grid-cols-2 gap-14">
+                <AnimateIn>
+                  <span className="label-tag">Applications</span>
+                  <h2 className="heading-section mb-6">
+                    Where {product.name}{' '}
+                    <span className="text-accent">Excel</span>
+                  </h2>
+                  <ul className="grid sm:grid-cols-2 gap-3">
+                    {product.applications.map((app) => (
+                      <li key={app}
+                        className="flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-corporate
+                                   border border-slate-border text-navy text-sm font-medium">
+                        <div className="w-6 h-6 rounded-full bg-accent/10 border border-accent/20
+                                        flex items-center justify-center flex-shrink-0">
+                          {checkIcon}
+                        </div>
+                        {app}
+                      </li>
+                    ))}
+                  </ul>
+                </AnimateIn>
+
+                {product.protocols.length > 0 && (
+                  <AnimateIn delay={100}>
+                    <span className="label-tag">Communication Protocols</span>
+                    <h2 className="heading-section mb-6">
+                      Seamless{' '}
+                      <span className="text-accent">System Integration</span>
+                    </h2>
+                    <div className="flex flex-wrap gap-3">
+                      {product.protocols.map((protocol) => (
+                        <span key={protocol}
+                          className="inline-flex items-center px-4 py-2.5 rounded-full text-sm font-semibold
+                                     text-accent bg-accent/[0.08] border border-accent/20">
+                          {protocol}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-slate-500 text-sm leading-relaxed mt-6 max-w-md">
+                      Our solutions integrate with leading Building Management Systems and head-end
+                      platforms — including Johnson Controls, Schneider Electric, Honeywell, and Tridium —
+                      ensuring a unified view of your facility's performance.
+                    </p>
+                  </AnimateIn>
+                )}
+              </div>
+            </section>
+
+            {/* ── Downloads ────────────────────────────────────────── */}
+            <section id="downloads" className="section-padding bg-slate-corporate">
+              <div className="container-narrow">
+                <AnimateIn className="max-w-xl mb-12">
+                  <span className="label-tag">Downloads</span>
+                  <h2 className="heading-section">
+                    Datasheets, Certificates &{' '}
+                    <span className="text-accent">Manuals</span>
+                  </h2>
+                </AnimateIn>
+
+                <div className="grid sm:grid-cols-3 gap-6">
+                  {product.downloads.map((download, idx) => (
+                    <AnimateIn key={download.label} delay={idx * 70}>
+                      <a
+                        href={download.file ?? '#inquiry'}
+                        download={download.file ? true : undefined}
+                        target={download.file ? '_blank' : undefined}
+                        rel={download.file ? 'noopener noreferrer' : undefined}
+                        className="group flex items-center gap-4 p-6 rounded-2xl bg-white border border-slate-border
+                                   shadow-sm hover:shadow-card hover:border-accent/20 transition-all duration-200 h-full">
+                        <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20
+                                        flex items-center justify-center flex-shrink-0
+                                        group-hover:bg-accent group-hover:[&_path]:stroke-white transition-colors duration-200">
+                          {downloadIcon}
+                        </div>
+                        <div>
+                          <div className="text-navy/40 text-xs font-semibold tracking-widest uppercase mb-1">
+                            {download.type}
+                          </div>
+                          <div className="text-navy text-sm font-semibold leading-snug">{download.label}</div>
+                          {!download.file && (
+                            <div className="text-slate-400 text-xs mt-0.5">Request via inquiry form</div>
+                          )}
+                        </div>
+                      </a>
+                    </AnimateIn>
+                  ))}
+                </div>
+                <p className="text-slate-400 text-xs mt-6">
+                  Request access to documentation via the inquiry form below — our team will share the
+                  relevant files for {product.name} directly.
+                </p>
+              </div>
+            </section>
+          </>
+        )}
 
         {/* ── Inquiry Form ─────────────────────────────────────────── */}
         <section id="inquiry" className="section-padding bg-white">
@@ -496,93 +655,6 @@ export default function ProductDetailPage({ slug }: PageProps) {
             </div>
           </div>
         </section>
-
-        {/* ── Product Variants ─────────────────────────────────────── */}
-        {product.variants && product.variants.length > 0 && (
-          <section className="section-padding bg-slate-corporate">
-            <div className="container-narrow">
-              <AnimateIn className="max-w-xl mb-12">
-                <span className="label-tag">Models in This Range</span>
-                <h2 className="heading-section">
-                  Compare <span className="text-accent">Models</span>
-                </h2>
-              </AnimateIn>
-
-              {/* Side-by-side grid — stacks to 1 col on mobile */}
-              <div className={`grid gap-6 ${product.variants.length === 2 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'}`}>
-                {product.variants.map((variant: ProductVariant, vIdx: number) => (
-                  <AnimateIn key={vIdx} delay={vIdx * 80} className="flex flex-col">
-                    <div className="flex flex-col h-full rounded-3xl border border-slate-border overflow-hidden shadow-card bg-white">
-
-                      {/* Image */}
-                      {variant.image && (
-                        <div className="relative h-56 bg-white border-b border-slate-border shrink-0">
-                          <Image
-                            src={variant.image}
-                            alt={`${variant.name} product image`}
-                            fill
-                            className="object-contain p-6"
-                            sizes="(max-width: 1024px) 100vw, 50vw"
-                          />
-                        </div>
-                      )}
-
-                      {/* Name + overview */}
-                      <div className="px-6 pt-6 pb-4 border-b border-slate-border shrink-0">
-                        <h3 className="font-display text-navy font-bold text-lg leading-snug mb-2">{variant.name}</h3>
-                        <p className="text-slate-500 text-sm leading-relaxed">{variant.overview}</p>
-                      </div>
-
-                      {/* Specs table — grows to fill card height */}
-                      <div className="overflow-x-auto flex-1">
-                        <table className="w-full text-xs min-w-[280px]">
-                          <tbody>
-                            {variant.specs.map((spec, idx) => (
-                              <tr key={spec.label} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-corporate/60'}>
-                                <th scope="row" className="text-left font-display text-navy font-semibold px-5 py-2.5 w-2/5 align-top">
-                                  {spec.label}
-                                </th>
-                                <td className="text-slate-500 px-5 py-2.5 align-top">{spec.value}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Downloads */}
-                      {variant.downloads.length > 0 && (
-                        <div className="bg-slate-corporate border-t border-slate-border px-6 py-5 shrink-0">
-                          <div className="text-navy/40 text-xs font-semibold tracking-widest uppercase mb-3">Downloads</div>
-                          <div className="flex flex-col gap-2">
-                            {variant.downloads.map((dl) => (
-                              <a
-                                key={dl.label}
-                                href={dl.file ?? '#inquiry'}
-                                download={dl.file ? true : undefined}
-                                target={dl.file ? '_blank' : undefined}
-                                rel={dl.file ? 'noopener noreferrer' : undefined}
-                                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-border
-                                           text-sm font-semibold text-navy hover:border-accent hover:text-accent
-                                           hover:shadow-card transition-all duration-200 w-full"
-                              >
-                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0">
-                                  <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.5"
-                                        strokeLinecap="round" strokeLinejoin="round"/>
-                                </svg>
-                                <span className="flex-1">{dl.label}</span>
-                                <span className="text-xs text-slate-400 font-normal shrink-0">({dl.type})</span>
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </AnimateIn>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* ── Related products ─────────────────────────────────────── */}
         <section className="pb-20 lg:pb-28 bg-white">
