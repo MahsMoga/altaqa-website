@@ -19,6 +19,8 @@ export interface Product {
   overview: string
   metaTitle: string
   metaDescription: string
+  /** Path to product image inside /public — e.g. /images/products/btu-meters.jpg */
+  image?: string
   /** Tailwind classes — mirrors the colour system used in components/Services.tsx */
   strip: string
   color: string
@@ -41,6 +43,7 @@ export const products: Product[] = [
     metaTitle: 'BTU Meters | Thermal Energy Metering | Al Taqa Technical',
     metaDescription:
       'Precision BTU meters for accurate thermal energy measurement in heating and cooling systems. Ideal for district cooling, commercial buildings, and utility billing across Abu Dhabi and the UAE.',
+    image: '/images/products/btu-meters.jpg',
     strip: 'bg-blue-500',
     color: 'bg-blue-50/80 border-blue-100',
     iconBg: 'bg-blue-100',
@@ -84,6 +87,7 @@ export const products: Product[] = [
     metaTitle: 'Smart Water Meters | Real-Time Consumption Monitoring | Al Taqa Technical',
     metaDescription:
       'Smart water meters with real-time monitoring, remote reading, and leak alerts — built for accurate tenant billing and water conservation across commercial and utility applications in the UAE.',
+    image: '/images/products/smart-water-meters.jpg',
     strip: 'bg-cyan-500',
     color: 'bg-cyan-50/80 border-cyan-100',
     iconBg: 'bg-cyan-100',
@@ -126,6 +130,7 @@ export const products: Product[] = [
     metaTitle: 'Smart Shutoff Valves | Automated Leak Prevention | Al Taqa Technical',
     metaDescription:
       'Intelligent, remotely-controlled shutoff valves that isolate water supply automatically on leak detection — reducing damage, water loss, and emergency response times for commercial and residential properties.',
+    image: '/images/products/smart-shutoff-valves.jpg',
     strip: 'bg-indigo-500',
     color: 'bg-indigo-50/80 border-indigo-100',
     iconBg: 'bg-indigo-100',
@@ -169,6 +174,7 @@ export const products: Product[] = [
     metaTitle: 'M-Bus Gateways | Meter Data Collection Devices | Al Taqa Technical',
     metaDescription:
       'Reliable M-Bus gateways for collecting and forwarding meter data from large networks to head-end and BMS platforms — supporting Modbus TCP/IP, MQTT, and BACnet integration.',
+    image: '/images/products/mbus-gateways.jpg',
     strip: 'bg-emerald-500',
     color: 'bg-emerald-50/80 border-emerald-100',
     iconBg: 'bg-emerald-100',
@@ -214,6 +220,7 @@ export const products: Product[] = [
     metaTitle: 'LoRaWAN Sensors | Wireless Smart Building Monitoring | Al Taqa Technical',
     metaDescription:
       'Long-range, low-power LoRaWAN sensors for temperature, occupancy, and utility monitoring — enabling scalable, cable-free smart building and smart utility deployments across the UAE.',
+    image: '/images/products/lorawan-sensors.jpg',
     strip: 'bg-violet-500',
     color: 'bg-violet-50/80 border-violet-100',
     iconBg: 'bg-violet-100',
@@ -256,6 +263,7 @@ export const products: Product[] = [
     metaTitle: 'PLC & Control Systems | Industrial Automation Solutions | Al Taqa Technical',
     metaDescription:
       'Industrial-grade PLC and control system solutions for reliable process automation, system integration, and centralised monitoring across commercial and industrial facilities in the UAE.',
+    image: '/images/products/plc-control-systems.jpg',
     strip: 'bg-amber-500',
     color: 'bg-amber-50/80 border-amber-100',
     iconBg: 'bg-amber-100',

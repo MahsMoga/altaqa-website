@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
@@ -276,15 +277,26 @@ export default function ProductDetailPage({ slug }: PageProps) {
 
               <AnimateIn delay={120}>
                 <div
-                  role="img"
-                  aria-label={`${product.name} — product visual`}
                   className={`relative h-72 lg:h-96 rounded-3xl border border-white/10 overflow-hidden
-                              flex items-center justify-center ${product.iconBg}`}
+                              flex items-center justify-center ${!product.image ? product.iconBg : ''}`}
                 >
-                  <div className="absolute inset-0 dot-pattern-bg opacity-25" />
-                  <div className="relative w-28 h-28 bg-white rounded-3xl shadow-card-xl flex items-center justify-center">
-                    <div className="scale-[1.8]">{product.icon}</div>
-                  </div>
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt={`${product.name} product image`}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      priority
+                    />
+                  ) : (
+                    <>
+                      <div className="absolute inset-0 dot-pattern-bg opacity-25" />
+                      <div className="relative w-28 h-28 bg-white rounded-3xl shadow-card-xl flex items-center justify-center">
+                        <div className="scale-[1.8]">{product.icon}</div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </AnimateIn>
             </div>
