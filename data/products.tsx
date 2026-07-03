@@ -8,6 +8,8 @@ export interface ProductSpec {
 export interface ProductDownload {
   label: string
   type: 'Datasheet' | 'Certificate' | 'Manual'
+  /** Path inside /public — when set, clicking the card triggers a real download */
+  file?: string
 }
 
 export interface Product {
@@ -73,7 +75,7 @@ export const products: Product[] = [
     applications: ['District Cooling', 'Commercial Buildings', 'Utilities', 'Industrial Facilities'],
     protocols: ['M-Bus', 'Modbus RTU', 'LoRaWAN'],
     downloads: [
-      { label: 'BTU Meter Datasheet', type: 'Datasheet' },
+      { label: 'BTU Meter Datasheet', type: 'Datasheet', file: '/downloads/btu-meters/QUNDIS_datasheet_Q_heat_5.5_US_M-Bus_08-2025.pdf' },
       { label: 'MID / EN 1434 Certificate', type: 'Certificate' },
       { label: 'Installation & User Manual', type: 'Manual' },
     ],

@@ -430,7 +430,11 @@ export default function ProductDetailPage({ slug }: PageProps) {
             <div className="grid sm:grid-cols-3 gap-6">
               {product.downloads.map((download, idx) => (
                 <AnimateIn key={download.label} delay={idx * 70}>
-                  <a href="#inquiry"
+                  <a
+                    href={download.file ?? '#inquiry'}
+                    download={download.file ? true : undefined}
+                    target={download.file ? '_blank' : undefined}
+                    rel={download.file ? 'noopener noreferrer' : undefined}
                     className="group flex items-center gap-4 p-6 rounded-2xl bg-white border border-slate-border
                                shadow-sm hover:shadow-card hover:border-accent/20 transition-all duration-200 h-full">
                     <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20
@@ -443,6 +447,9 @@ export default function ProductDetailPage({ slug }: PageProps) {
                         {download.type}
                       </div>
                       <div className="text-navy text-sm font-semibold leading-snug">{download.label}</div>
+                      {!download.file && (
+                        <div className="text-slate-400 text-xs mt-0.5">Request via inquiry form</div>
+                      )}
                     </div>
                   </a>
                 </AnimateIn>
