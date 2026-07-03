@@ -97,6 +97,34 @@ export const products: Product[] = [
     ],
     variants: [
       {
+        name: 'QUNDIS Q heat 5.5 US — Integrated BTU Meter',
+        image: '/images/products/btu-meters.jpg',
+        overview:
+          'The QUNDIS Q heat 5.5 US is a static ultrasonic heat and cold meter with an all-metal flow sensor and integrated M-Bus interface. Designed for central heating and cooling circuits in commercial and district energy applications, it combines flow sensing and calculator in one compact unit.',
+        specs: [
+          { label: 'Meter Type', value: 'Static ultrasonic heat and cold meter' },
+          { label: 'Model', value: 'QUNDIS Q heat 5.5 US M-Bus / Impuls-IN' },
+          { label: 'Measuring Accuracy', value: 'Class 2 or Class 3 (per nominal diameter)' },
+          { label: 'Nominal Flow Rate (Qp)', value: '0.6 / 1.5 / 2.5 / 3.5 / 6.0 / 10.0 m³/h' },
+          { label: 'Nominal Diameter (DN)', value: 'DN15 / DN20 / DN25 / DN40' },
+          { label: 'Temperature Range', value: '5°C – 90°C (flow); 0°C – 105°C (calculator)' },
+          { label: 'Temperature Difference', value: '3 K – 70 K; starts at 0.2 K' },
+          { label: 'Temperature Sensor', value: 'Pt1000 per EN 60751, Type DS' },
+          { label: 'Max. Operating Pressure', value: '16 bar (PN16)' },
+          { label: 'Communication', value: 'M-Bus (300 / 2400 baud) + 2 pulse inputs' },
+          { label: 'Battery Life', value: '7 years standard (optional 10 years)' },
+          { label: 'Display', value: '8-digit LCD; kWh / MWh / MJ / GJ selectable' },
+          { label: 'Protection Rating', value: 'IP65 (EN 60529)' },
+          { label: 'Standards', value: 'MID 2014/32/EU, RoHS 2011/65/EU, EMC 2014/30/EU' },
+          { label: 'Cable Length', value: '80 cm (calculator to flow sensor)' },
+        ],
+        downloads: [
+          { label: 'Q heat 5.5 US Datasheet', type: 'Datasheet', file: '/downloads/btu-meters/QUNDIS_datasheet_Q_heat_5.5_US_M-Bus_08-2025.pdf' },
+          { label: 'EU Declaration of Conformity', type: 'Certificate' },
+          { label: 'Installation & User Manual', type: 'Manual' },
+        ],
+      },
+      {
         name: 'QUNDIS Q heat Split — Series 473 Ultrasonic Flow Sensor',
         image: '/images/products/btu-meters-split.jpg',
         overview:
