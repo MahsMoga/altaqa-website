@@ -286,10 +286,6 @@ export default function ProductDetailPage({ slug }: PageProps) {
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </a>
-                  <a href="#downloads" className="btn-outline">
-                    {downloadIcon}
-                    Download Datasheet
-                  </a>
                 </div>
               </AnimateIn>
 
