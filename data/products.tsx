@@ -337,7 +337,7 @@ export const products: Product[] = [
     applications: ['Commercial Buildings', 'District Cooling', 'Utilities', 'Industrial Facilities'],
     protocols: ['M-Bus', 'Modbus TCP/IP', 'MQTT', 'BACnet'],
     downloads: [
-      { label: 'M-Bus Gateway Datasheet', type: 'Datasheet' },
+      { label: 'Basiox M-Bus 250 Converter Datasheet', type: 'Datasheet', file: '/downloads/mbus-gateways/Basiox_MBus250_Converter_Datasheet.pdf' },
       { label: 'CE / RoHS Compliance Certificate', type: 'Certificate' },
       { label: 'Configuration & User Manual', type: 'Manual' },
     ],
