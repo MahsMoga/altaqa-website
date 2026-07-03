@@ -54,10 +54,28 @@ function InquiryForm({ productName }: { productName: string }) {
     setTouched({ name: true, company: true, email: true, phone: true, message: true })
     if (!isValid) return
     setLoading(true)
-    // TODO: Replace with your form backend (e.g. Formspree, Resend, or a Next.js API route)
-    await new Promise((r) => setTimeout(r, 800))
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          company: form.company,
+          email: form.email,
+          message: `Phone: ${form.phone}\n\n${form.message}`,
+        }),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        alert(`Failed to send: ${data.error ?? res.statusText}`)
+        setLoading(false)
+        return
+      }
+      setSubmitted(true)
+    } catch {
+      alert('Network error — please try again or email us at info@altaqauae.com')
+    }
     setLoading(false)
-    setSubmitted(true)
   }
 
   const fieldClass = (field: keyof FormState) =>
