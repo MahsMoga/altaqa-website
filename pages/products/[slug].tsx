@@ -6,7 +6,7 @@ import type { GetStaticPaths, GetStaticProps } from 'next'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import AnimateIn from '../../components/AnimateIn'
-import { products, getProductBySlug, Product } from '@/data/products'
+import { products, getProductBySlug, Product, ProductVariant } from '@/data/products'
 
 const SITE_URL = 'https://www.altaqauae.com'
 
@@ -496,6 +496,92 @@ export default function ProductDetailPage({ slug }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* ── Product Variants ─────────────────────────────────────── */}
+        {product.variants && product.variants.length > 0 && (
+          <section className="section-padding bg-white">
+            <div className="container-narrow">
+              <AnimateIn className="max-w-xl mb-12">
+                <span className="label-tag">Also in This Range</span>
+                <h2 className="heading-section">
+                  More <span className="text-accent">Models Available</span>
+                </h2>
+              </AnimateIn>
+
+              {product.variants.map((variant: ProductVariant, vIdx: number) => (
+                <AnimateIn key={vIdx} delay={vIdx * 80}>
+                  <div className="mb-16 last:mb-0 rounded-3xl border border-slate-border overflow-hidden shadow-card">
+
+                    {/* Variant header */}
+                    <div className="bg-slate-corporate px-8 py-6 border-b border-slate-border">
+                      <h3 className="font-display text-navy font-bold text-2xl mb-2">{variant.name}</h3>
+                      <p className="text-slate-500 text-sm leading-relaxed max-w-3xl">{variant.overview}</p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-0">
+                      {/* Image */}
+                      {variant.image && (
+                        <div className="relative h-72 lg:h-auto min-h-[280px] bg-white border-b lg:border-b-0 lg:border-r border-slate-border">
+                          <Image
+                            src={variant.image}
+                            alt={`${variant.name} product image`}
+                            fill
+                            className="object-contain p-8"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                          />
+                        </div>
+                      )}
+
+                      {/* Specs table */}
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-sm min-w-[360px]">
+                          <tbody>
+                            {variant.specs.map((spec, idx) => (
+                              <tr key={spec.label} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-corporate/50'}>
+                                <th scope="row" className="text-left font-display text-navy font-semibold px-6 py-3 w-2/5 align-top text-xs">
+                                  {spec.label}
+                                </th>
+                                <td className="text-slate-500 px-6 py-3 align-top text-xs">{spec.value}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Variant downloads */}
+                    {variant.downloads.length > 0 && (
+                      <div className="bg-slate-corporate border-t border-slate-border px-8 py-6">
+                        <div className="text-navy/40 text-xs font-semibold tracking-widest uppercase mb-4">Downloads</div>
+                        <div className="flex flex-wrap gap-3">
+                          {variant.downloads.map((dl) => (
+                            <a
+                              key={dl.label}
+                              href={dl.file ?? '#inquiry'}
+                              download={dl.file ? true : undefined}
+                              target={dl.file ? '_blank' : undefined}
+                              rel={dl.file ? 'noopener noreferrer' : undefined}
+                              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-slate-border
+                                         text-sm font-semibold text-navy hover:border-accent hover:text-accent
+                                         hover:shadow-card transition-all duration-200"
+                            >
+                              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.5"
+                                      strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                              {dl.label}
+                              <span className="text-xs text-slate-400 font-normal">({dl.type})</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </AnimateIn>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* ── Related products ─────────────────────────────────────── */}
         <section className="pb-20 lg:pb-28 bg-white">

@@ -12,6 +12,14 @@ export interface ProductDownload {
   file?: string
 }
 
+export interface ProductVariant {
+  name: string
+  image?: string
+  overview: string
+  specs: ProductSpec[]
+  downloads: ProductDownload[]
+}
+
 export interface Product {
   slug: string
   name: string
@@ -33,6 +41,7 @@ export interface Product {
   applications: string[]
   protocols: string[]
   downloads: ProductDownload[]
+  variants?: ProductVariant[]
 }
 
 export const products: Product[] = [
@@ -85,6 +94,38 @@ export const products: Product[] = [
       { label: 'QUNDIS Q heat 5.5 US Datasheet', type: 'Datasheet', file: '/downloads/btu-meters/QUNDIS_datasheet_Q_heat_5.5_US_M-Bus_08-2025.pdf' },
       { label: 'EU Declaration of Conformity (MID / RoHS / EMC)', type: 'Certificate' },
       { label: 'Installation & User Manual', type: 'Manual' },
+    ],
+    variants: [
+      {
+        name: 'QUNDIS Q heat Split — Series 473 Ultrasonic Flow Sensor',
+        image: '/images/products/btu-meters-split.jpg',
+        overview:
+          'The QUNDIS Series 473 is a MID-compliant ultrasonic flow sensor in all-metal brass design, covering nominal flow rates from 0.6 to 100 m³/h. It operates as the flow-sensing component of a split heat meter system, paired with a separate QUNDIS R20/R21 calculator unit. Its high dynamic range (up to 1:250), any-position installation, and wide temperature capability (up to 150 °C) make it ideal for large commercial, district heating, and industrial energy metering installations.',
+        specs: [
+          { label: 'Model', value: 'QUNDIS Series 473 Ultrasonic Volume Measuring Part' },
+          { label: 'Approval', value: 'MID (DE-07-MI004-PTB022), EN 1434 Class 2' },
+          { label: 'Nominal Flow Rate (Qp)', value: '0.6 – 100 m³/h' },
+          { label: 'Nominal Diameter (DN)', value: 'DN15 / DN20 / DN25 / DN32 / DN40 / DN50 / DN65 / DN80 / DN100' },
+          { label: 'Dynamic Range', value: 'Up to 1:250' },
+          { label: 'Temperature Range (Heat)', value: '5°C – 130°C (DN15–DN25); up to 150°C (DN32 and above)' },
+          { label: 'Temperature Range (Cold)', value: '5°C – 50°C' },
+          { label: 'Ambient Temperature', value: '5°C – 55°C' },
+          { label: 'Max. Operating Pressure', value: '16 bar (thread); 25 bar (flange)' },
+          { label: 'Flow Sensor Body Material', value: 'Brass' },
+          { label: 'Power Supply', value: 'External 3.0 V – 5.5 V DC (via calculator unit)' },
+          { label: 'Output', value: 'Open Collector pulse output (high-resolution test pulse or communication)' },
+          { label: 'Pulse Cable Length', value: '2.4 m' },
+          { label: 'Installation Position', value: 'Any (including overhead)' },
+          { label: 'Protection Rating', value: 'IP54' },
+          { label: 'Standards', value: 'EN 1434, MID 2014/32/EU, AGFW 510, VDI 2035; EN 301 489-1/-3' },
+          { label: 'Compatible Calculator Units', value: 'QUNDIS R20 / R21 (walk-by or AMR via radio add-on module)' },
+        ],
+        downloads: [
+          { label: 'Q heat Split Series 473 Datasheet', type: 'Datasheet', file: '/downloads/btu-meters/QUNDIS_data_sheet_Q_heat_split_EN.pdf' },
+          { label: 'MID Declaration of Conformity', type: 'Certificate' },
+          { label: 'Installation Manual', type: 'Manual' },
+        ],
+      },
     ],
   },
   {
