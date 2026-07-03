@@ -3,6 +3,12 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './data/**/*.{js,ts,jsx,tsx}',
+  ],
+  safelist: [
+    { pattern: /^bg-(blue|cyan|indigo|emerald|violet|amber)-(50|100|500)$/ },
+    { pattern: /^bg-(blue|cyan|indigo|emerald|violet|amber)-50\/80$/ },
+    { pattern: /^border-(blue|cyan|indigo|emerald|violet|amber)-100$/ },
   ],
   theme: {
     extend: {
