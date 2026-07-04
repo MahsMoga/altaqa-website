@@ -57,29 +57,21 @@ const expertise = [
 
 export default function CoreExpertise() {
   return (
-    <section id="expertise" className="section-padding bg-navy relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 hero-pattern opacity-30" />
-      <div className="absolute -top-32 left-1/3 w-[500px] h-[500px] bg-accent/[0.07] blur-3xl rounded-full" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-emerald-500/[0.05] blur-3xl rounded-full" />
+    <section id="expertise" className="section-padding bg-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_50%,rgba(47,128,237,0.05),transparent)]" />
 
       <div className="container-narrow relative z-10">
 
         {/* Header */}
         <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-6 mb-14">
           <div className="flex-1">
-            <span className="inline-flex items-center gap-2 text-accent text-xs font-semibold
-                             tracking-widest uppercase mb-5">
-              <span className="block w-5 h-0.5 bg-accent rounded-full" />
-              Core Expertise
-            </span>
-            <h2 className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold text-white
-                           leading-[1.1] tracking-tight">
+            <span className="label-tag">Core Expertise</span>
+            <h2 className="heading-section">
               End-to-End Building{' '}
               <span className="text-accent">Intelligence</span>
             </h2>
           </div>
-          <p className="text-white/45 text-sm leading-relaxed max-w-xs lg:mb-1">
+          <p className="text-slate-500 text-sm leading-relaxed max-w-xs lg:mb-1">
             Five integrated disciplines covering the full spectrum of building
             automation, controls, and energy efficiency.
           </p>
