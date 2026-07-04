@@ -1,133 +1,189 @@
+import Image from 'next/image'
 import AnimateIn from './AnimateIn'
 
+// TODO: Replace image URLs with real project photos
 const expertise = [
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M4 22V12l10-8 10 8v10" stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
-        <rect x="9" y="15" width="4" height="7" rx="0.75" stroke="#2F80ED" strokeWidth="1.5"/>
-        <rect x="15" y="15" width="4" height="7" rx="0.75" stroke="#2F80ED" strokeWidth="1.5"/>
-        <circle cx="14" cy="10" r="1.5" fill="#2F80ED"/>
-      </svg>
-    ),
+    number: '01',
     title: 'Building & Industrial Automation',
+    short: 'BMS Design & Integration',
     desc: 'Seamless integration of mechanical, electrical, and digital systems to optimize operational efficiency and reduce maintenance costs across commercial and industrial facilities.',
+    tags: ['HVAC Control', 'BMS Integration', 'SCADA'],
+    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80',
+    color: '#2F80ED',
+    large: true,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <rect x="3" y="4" width="22" height="16" rx="2" stroke="#2F80ED" strokeWidth="1.5"/>
-        <path d="M9 20v4M19 20v4M6 24h16" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M8 10h4M8 13h8M8 7h12" stroke="#2F80ED" strokeWidth="1.2" strokeLinecap="round"/>
-        <circle cx="20" cy="9" r="2" stroke="#2F80ED" strokeWidth="1.3"/>
-      </svg>
-    ),
-    title: 'Guest Room Management Systems',
-    desc: 'Enhanced comfort and significant energy savings for hospitality environments through intelligent room controls and occupancy-based automation tailored for hotels.',
+    number: '02',
+    title: 'Guest Room Management',
+    short: 'Hospitality Automation',
+    desc: 'Intelligent room controls and occupancy-based automation delivering comfort and energy savings for hotels and serviced apartments.',
+    tags: ['GRMS', 'Energy Saving', 'Comfort'],
+    image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=900&q=80',
+    color: '#10b981',
+    large: false,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="9" stroke="#2F80ED" strokeWidth="1.5"/>
-        <circle cx="14" cy="14" r="4" stroke="#2F80ED" strokeWidth="1.5"/>
-        <path d="M14 5v2M14 21v2M5 14h2M21 14h2" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="14" cy="14" r="1.5" fill="#2F80ED"/>
-      </svg>
-    ),
+    number: '03',
     title: 'Automatic Control Systems',
-    desc: 'Precise environmental management across diverse applications with responsive, reliable control solutions that adapt to changing operational conditions in real-time.',
+    short: 'Precision Control',
+    desc: 'Responsive, reliable control solutions that adapt to changing operational conditions in real-time across diverse applications.',
+    tags: ['PLC', 'Controllers', 'Sensors'],
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80',
+    color: '#f59e0b',
+    large: false,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M14 3l2.5 7h7.5l-6 4.5 2 7.5L14 18l-6 4L10 14.5 4 10h7.5L14 3z"
-          stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
+    number: '04',
     title: 'Energy Management Solutions',
-    desc: 'Intelligent monitoring and control systems providing real-time insights that help organizations reduce consumption, lower operating costs, and achieve sustainability targets.',
+    short: 'Reduce, Monitor, Optimise',
+    desc: 'Real-time monitoring and control systems that help organizations reduce consumption, lower operating costs, and meet sustainability targets.',
+    tags: ['Energy Audits', 'Analytics', 'Reporting'],
+    image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=80',
+    color: '#8b5cf6',
+    large: false,
   },
   {
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <rect x="4" y="6" width="20" height="16" rx="2" stroke="#2F80ED" strokeWidth="1.5"/>
-        <path d="M8 14h3l2-4 2 8 2-4h3" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    number: '05',
     title: 'Smart Metering Solutions',
-    desc: 'Real-time visibility into utility consumption patterns through comprehensive monitoring platforms, enabling data-driven decisions for facility managers and building owners.',
+    short: 'Real-Time Utility Visibility',
+    desc: 'Comprehensive BTU, water, and utility monitoring platforms enabling data-driven decisions for facility managers and building owners.',
+    tags: ['BTU Meters', 'Water Meters', 'Tenant Billing'],
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80',
+    color: '#ef4444',
+    large: false,
   },
 ]
 
 export default function CoreExpertise() {
   return (
-    <section id="expertise" className="section-padding bg-slate-corporate">
-      <div className="container-narrow">
+    <section id="expertise" className="section-padding bg-navy relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 hero-pattern opacity-30" />
+      <div className="absolute -top-32 left-1/3 w-[500px] h-[500px] bg-accent/[0.07] blur-3xl rounded-full" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-emerald-500/[0.05] blur-3xl rounded-full" />
+
+      <div className="container-narrow relative z-10">
 
         {/* Header */}
-        <AnimateIn className="max-w-xl mb-14">
-          <span className="label-tag">Core Expertise</span>
-          <h2 className="heading-section mb-4">
-            End-to-End Building{' '}
-            <span className="text-accent">Intelligence</span>
-          </h2>
-          <p className="body-lead">
-            Five integrated disciplines that cover the full spectrum of building
+        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-6 mb-14">
+          <div className="flex-1">
+            <span className="inline-flex items-center gap-2 text-accent text-xs font-semibold
+                             tracking-widest uppercase mb-5">
+              <span className="block w-5 h-0.5 bg-accent rounded-full" />
+              Core Expertise
+            </span>
+            <h2 className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold text-white
+                           leading-[1.1] tracking-tight">
+              End-to-End Building{' '}
+              <span className="text-accent">Intelligence</span>
+            </h2>
+          </div>
+          <p className="text-white/45 text-sm leading-relaxed max-w-xs lg:mb-1">
+            Five integrated disciplines covering the full spectrum of building
             automation, controls, and energy efficiency.
           </p>
         </AnimateIn>
 
-        {/* Cards grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {expertise.map((item, idx) => (
-            <AnimateIn
-              key={item.title}
-              delay={idx * 75}
-              className={idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''}
-            >
-              <div className="card-base group cursor-default relative overflow-hidden h-full">
+        {/* Bento grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-                {/* Large background number decoration */}
-                <div
-                  className="absolute -right-1 -top-5 font-display font-bold leading-none
-                               text-navy/[0.045] select-none pointer-events-none
-                               transition-colors duration-300 group-hover:text-navy/[0.06]"
-                  style={{ fontSize: '7.5rem' }}
-                >
-                  {String(idx + 1).padStart(2, '0')}
-                </div>
+          {/* Large card — Building Automation */}
+          <AnimateIn className="lg:col-span-5 lg:row-span-2">
+            <ExpertiseCard item={expertise[0]} tall />
+          </AnimateIn>
 
-                {/* Icon */}
-                <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-accent/15 to-accent/[0.04]
-                                rounded-xl flex items-center justify-center mb-5 border border-accent/10
-                                group-hover:from-accent/20 group-hover:to-accent/[0.07] transition-colors duration-300">
-                  {item.icon}
-                </div>
+          {/* Top-right two */}
+          <AnimateIn delay={80} className="lg:col-span-7">
+            <div className="grid grid-cols-2 gap-4">
+              <ExpertiseCard item={expertise[1]} />
+              <ExpertiseCard item={expertise[2]} />
+            </div>
+          </AnimateIn>
 
-                {/* Number badge */}
-                <div className="relative z-10 font-display text-accent/35 text-xs font-bold
-                                tracking-widest mb-3 uppercase group-hover:text-accent/55
-                                transition-colors duration-300">
-                  {String(idx + 1).padStart(2, '0')}
-                </div>
+          {/* Bottom-right two */}
+          <AnimateIn delay={160} className="lg:col-span-7">
+            <div className="grid grid-cols-2 gap-4">
+              <ExpertiseCard item={expertise[3]} />
+              <ExpertiseCard item={expertise[4]} />
+            </div>
+          </AnimateIn>
 
-                {/* Title */}
-                <h3 className="relative z-10 font-display text-navy font-semibold text-lg
-                               leading-snug mb-3">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="relative z-10 text-slate-500 text-sm leading-relaxed">{item.desc}</p>
-
-                {/* Bottom accent line on hover */}
-                <div className="mt-6 h-0.5 w-0 bg-gradient-to-r from-accent to-accent/30
-                                group-hover:w-14 transition-all duration-400 rounded-full" />
-              </div>
-            </AnimateIn>
-          ))}
         </div>
       </div>
     </section>
+  )
+}
+
+function ExpertiseCard({ item, tall = false }: { item: typeof expertise[0]; tall?: boolean }) {
+  return (
+    <div
+      className={`group relative rounded-2xl overflow-hidden cursor-default
+                  ${tall ? 'h-[420px] lg:h-full min-h-[420px]' : 'h-48'}`}
+    >
+      {/* Background image */}
+      <Image
+        src={item.image}
+        alt={item.title}
+        fill
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
+
+      {/* Base dark overlay */}
+      <div className="absolute inset-0 bg-navy/60 transition-opacity duration-300 group-hover:bg-navy/40" />
+
+      {/* Bottom gradient for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+
+      {/* Top-left number badge */}
+      <div className="absolute top-4 left-4 flex items-center gap-2">
+        <div
+          className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold"
+          style={{ background: item.color + '30', color: item.color, border: `1px solid ${item.color}50` }}
+        >
+          {item.number}
+        </div>
+        <span className="text-white/50 text-[10px] font-semibold uppercase tracking-widest">
+          {item.short}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="absolute inset-0 p-5 flex flex-col justify-end">
+        {/* Accent line */}
+        <div
+          className="w-6 h-0.5 rounded-full mb-3 transition-all duration-300 group-hover:w-12"
+          style={{ background: item.color }}
+        />
+
+        <h3 className={`font-display font-bold text-white leading-snug mb-2
+                        ${tall ? 'text-xl lg:text-2xl' : 'text-base'}`}>
+          {item.title}
+        </h3>
+
+        {/* Description — slides up on hover */}
+        <p className={`text-white/65 leading-relaxed mb-3 transition-all duration-300
+                       opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0
+                       ${tall ? 'text-sm max-w-xs' : 'text-xs'}`}>
+          {item.desc}
+        </p>
+
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 transition-all duration-300
+                        opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0"
+             style={{ transitionDelay: '40ms' }}>
+          {item.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: item.color + '25', color: item.color, border: `1px solid ${item.color}40` }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
