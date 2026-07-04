@@ -140,7 +140,7 @@ export default function HomePage() {
           └─────────────────────────────────────────────────────────┘
         */}
 
-        {is3D ? <Hero3DFull />         : <Hero />}
+        <Hero />
         {is3D ? <About3D />            : <About />}
         <CoreExpertise />
         {is3D ? <BrandCapability3D />  : <BrandCapability />}
