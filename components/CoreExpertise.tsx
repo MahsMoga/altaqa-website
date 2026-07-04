@@ -131,10 +131,10 @@ function ExpertiseCard({ item, tall = false }: { item: typeof expertise[0]; tall
       />
 
       {/* Base dark overlay */}
-      <div className="absolute inset-0 bg-navy/60 transition-opacity duration-300 group-hover:bg-navy/40" />
+      <div className="absolute inset-0 bg-navy/30 transition-opacity duration-300 group-hover:bg-navy/15" />
 
       {/* Bottom gradient for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-navy/95 via-navy/30 to-transparent" />
 
       {/* Top-left number badge */}
       <div className="absolute top-4 left-4 flex items-center gap-2">
