@@ -111,7 +111,7 @@ function ExpertiseCard({ item, tall = false }: { item: typeof expertise[0]; tall
   return (
     <div
       className={`group relative rounded-2xl overflow-hidden cursor-default
-                  ${tall ? 'h-[420px] lg:h-full min-h-[420px]' : 'h-48'}`}
+                  ${tall ? 'h-[560px] lg:h-full min-h-[560px]' : 'h-64'}`}
     >
       {/* Background image */}
       <Image
