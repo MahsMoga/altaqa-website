@@ -291,9 +291,78 @@ export const products: Product[] = [
     applications: ['Commercial Buildings', 'Hospitality', 'Industrial Facilities', 'Utilities'],
     protocols: ['Modbus RTU', 'LoRaWAN'],
     downloads: [
-      { label: 'Smart Shutoff Valve Datasheet', type: 'Datasheet' },
-      { label: 'Pressure Rating Certificate', type: 'Certificate' },
+      { label: 'Wired M-Bus Shutoff Valve up to DN40 Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus Shutoff Valve upto DN 40 with flow rates.pdf' },
+      { label: 'Wired M-Bus Shutoff Valve DN50 & Above Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus Shutoff Valve DN50 and above..pdf' },
+      { label: 'LoRaWAN Shutoff Valve 230V Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus, LoRaWAN Shutoff Valve -230v, 50hz..pdf' },
       { label: 'Installation & Wiring Manual', type: 'Manual' },
+    ],
+    variants: [
+      {
+        name: 'Wired M-Bus Shutoff Valve — DN15 to DN40',
+        image: '/images/products/smart-shutoff-valve wired M-Bus upto DN40.jpg',
+        overview:
+          'Motorised ball valve with integrated M-Bus communication for remote open/close control and status monitoring. Designed for residential and light-commercial applications up to DN40. Pairs with M-Bus gateways and head-end software for automated leak response and tenant billing. DN100 size available on request.',
+        specs: [
+          { label: 'Valve Type', value: 'Motorised ball valve' },
+          { label: 'Nominal Diameter', value: 'DN15 / DN20 / DN25 / DN32 / DN40 (DN100 on request)' },
+          { label: 'Communication', value: 'Wired M-Bus (EN 13757)' },
+          { label: 'Actuation', value: 'Electric motor, full stroke < 5 seconds' },
+          { label: 'Power Supply', value: '24V DC (via M-Bus bus power)' },
+          { label: 'Operating Pressure', value: 'Up to 16 bar (PN16)' },
+          { label: 'Body Material', value: 'Brass' },
+          { label: 'Protection Rating', value: 'IP65' },
+          { label: 'Fail-Safe Position', value: 'Holds last position on power loss' },
+          { label: 'Mounting', value: 'Inline; horizontal or vertical' },
+        ],
+        downloads: [
+          { label: 'Wired M-Bus Valve up to DN40 Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus Shutoff Valve upto DN 40 with flow rates.pdf' },
+          { label: 'Installation & Wiring Manual', type: 'Manual' },
+        ],
+      },
+      {
+        name: 'Wired M-Bus Shutoff Valve — DN50 and Above',
+        image: '/images/products/smart-shutoff-valve-dn50.jpg',
+        overview:
+          'Heavy-duty motorised ball valve with M-Bus interface for large-diameter pipework from DN50 upward. Built for commercial, industrial, and district cooling applications where high flow rates and robust construction are required. DN100 size available — price on request.',
+        specs: [
+          { label: 'Valve Type', value: 'Motorised ball valve (heavy duty)' },
+          { label: 'Nominal Diameter', value: 'DN50 / DN65 / DN80 / DN100 (price on request)' },
+          { label: 'Communication', value: 'Wired M-Bus (EN 13757)' },
+          { label: 'Actuation', value: 'Electric motor, full stroke < 10 seconds' },
+          { label: 'Power Supply', value: '24V DC / 230V AC (model dependent)' },
+          { label: 'Operating Pressure', value: 'Up to 16 bar (PN16)' },
+          { label: 'Body Material', value: 'Brass / Stainless steel' },
+          { label: 'Protection Rating', value: 'IP65' },
+          { label: 'Fail-Safe Position', value: 'Configurable (normally open / normally closed)' },
+          { label: 'Mounting', value: 'Inline; flanged or threaded connection' },
+        ],
+        downloads: [
+          { label: 'Wired M-Bus Valve DN50 & Above Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus Shutoff Valve DN50 and above..pdf' },
+          { label: 'Installation & Wiring Manual', type: 'Manual' },
+        ],
+      },
+      {
+        name: 'LoRaWAN Shutoff Valve — DN15 to DN80 (230V / 50Hz)',
+        image: '/images/products/smart-shutoff-valve-lorawan.jpg',
+        overview:
+          'Wireless motorised shutoff valve with integrated LoRaWAN connectivity for long-range, battery-free remote control without M-Bus cabling. Powered at 230V / 50Hz, it covers DN15 to DN80 and integrates with any LoRaWAN network server for automated leak isolation and facility management. DN100 available on request.',
+        specs: [
+          { label: 'Valve Type', value: 'Motorised ball valve' },
+          { label: 'Nominal Diameter', value: 'DN15 / DN20 / DN25 / DN32 / DN40 / DN50 / DN65 / DN80 (DN100 on request)' },
+          { label: 'Communication', value: 'LoRaWAN Class A/C (EU868 / AS923)' },
+          { label: 'Actuation', value: 'Electric motor, full stroke < 10 seconds' },
+          { label: 'Power Supply', value: '230V AC / 50Hz' },
+          { label: 'Operating Pressure', value: 'Up to 16 bar (PN16)' },
+          { label: 'Body Material', value: 'Brass / Stainless steel' },
+          { label: 'Protection Rating', value: 'IP65' },
+          { label: 'Fail-Safe Position', value: 'Configurable (normally open / normally closed)' },
+          { label: 'LoRaWAN Range', value: 'Up to 5 km line-of-sight; gateway dependent' },
+        ],
+        downloads: [
+          { label: 'LoRaWAN Shutoff Valve Datasheet', type: 'Datasheet', file: '/downloads/smart-shutoff-valves/Basiox Controls  Wired M-Bus, LoRaWAN Shutoff Valve -230v, 50hz..pdf' },
+          { label: 'Installation & Wiring Manual', type: 'Manual' },
+        ],
+      },
     ],
   },
   {
