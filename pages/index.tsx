@@ -10,6 +10,7 @@ import ProcessFlow from '../components/ProcessFlow'
 import WhyChooseUs from '../components/WhyChooseUs'
 import Mission from '../components/Mission'
 import Products from '../components/Products'
+import Sectors from '../components/Sectors'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import { use3DEnabled } from '@/hooks/use3DEnabled'
@@ -141,15 +142,16 @@ export default function HomePage() {
         */}
 
         <Hero />
-        {is3D ? <About3D />            : <About />}
+        <About />
+        <Sectors />
         <CoreExpertise />
-        {is3D ? <BrandCapability3D />  : <BrandCapability />}
-        {is3D ? <Services3D />         : <Services />}
-        {is3D ? <ProcessFlow3D />      : <ProcessFlow />}
-        {is3D ? <WhyChooseUs3D />      : <WhyChooseUs />}
+        <BrandCapability />
+        <Services />
+        <ProcessFlow />
+        <WhyChooseUs />
         <Mission />
         <Products />
-        {is3D ? <Contact3D />          : <Contact />}
+        <Contact />
       </main>
 
       <Footer />
