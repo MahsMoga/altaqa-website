@@ -450,9 +450,211 @@ export const products: Product[] = [
     applications: ['Commercial Buildings', 'Hospitality', 'Industrial Facilities', 'Utilities'],
     protocols: ['LoRaWAN', 'MQTT'],
     downloads: [
-      { label: 'Air Quality & Gas Sensor Datasheet', type: 'Datasheet' },
       { label: 'CE / FCC Certificate', type: 'Certificate' },
       { label: 'Quick-Start & User Manual', type: 'Manual' },
+    ],
+    variants: [
+      // ── Combo / Multi-gas ──────────────────────────────────────────────
+      { name: 'Advanced IoT Sensor — PM10, CO, NO2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Wireless IoT sensor measuring PM10 particulate matter, carbon monoxide (CO), and nitrogen dioxide (NO2) simultaneously. Designed for urban air quality monitoring, car parks, and industrial perimeter sensing.',
+        specs: [{ label: 'Parameters', value: 'PM10, CO, NO2' }, { label: 'Communication', value: 'LoRaWAN' }, { label: 'Enclosure', value: 'Standard indoor/outdoor' }],
+        downloads: [{ label: 'PM10-CO-NO2 IoT Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Advaned IOT sensor- PM10-CO-NO2.pdf' }] },
+
+      { name: 'CO2 Standalone Sensor with Buzzer Alarm', image: '/images/products/aq-sensor.jpg',
+        overview: 'Self-contained CO2 sensor with built-in buzzer alarm for immediate audible alert when CO2 levels exceed safe thresholds. Ideal for offices, classrooms, and meeting rooms.',
+        specs: [{ label: 'Parameters', value: 'CO2' }, { label: 'Alert', value: 'Buzzer alarm on threshold breach' }, { label: 'Enclosure', value: 'Standard indoor' }],
+        downloads: [{ label: 'CO2 Standalone Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox CO2 Standalone with Buzzer alarm..pdf' }] },
+
+      { name: 'Combo Sensor — CH3SH, CO, CH4, NO2, O2 (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Five-gas weatherproof sensor monitoring methyl mercaptan (CH3SH), CO, methane (CH4), NO2, and oxygen (O2) — suited for sewage treatment plants, waste facilities, and outdoor industrial environments.',
+        specs: [{ label: 'Parameters', value: 'CH3SH, CO, CH4, NO2, O2' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'CH3SH-CO-CH4-NO2-O2 Combo Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combined CH3SH, CO, CH4, NO2, O2 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'IAQ Combo Sensor 1', image: '/images/products/aq-sensor.jpg',
+        overview: 'Indoor air quality combo sensor measuring key parameters for occupant comfort and health monitoring in commercial buildings, schools, and healthcare facilities.',
+        specs: [{ label: 'Parameters', value: 'CO2, TVOC, Temperature, Humidity' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'IAQ Combo Sensor 1 Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor - IAQ Sensor 1.pdf' }] },
+
+      { name: 'IAQ Combo Sensor 2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Advanced indoor air quality combo sensor with an expanded parameter set for comprehensive environmental monitoring and smart ventilation control integration.',
+        specs: [{ label: 'Parameters', value: 'CO2, TVOC, PM2.5, Temperature, Humidity' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'IAQ Combo Sensor 2 Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor - IAQ Sensor 2.pdf' }] },
+
+      { name: 'Combo Sensor — PM10 & NO2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Dual-parameter sensor monitoring PM10 particulate matter and nitrogen dioxide — ideal for roadside, car park, and urban outdoor air quality monitoring stations.',
+        specs: [{ label: 'Parameters', value: 'PM10, NO2' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'PM10-NO2 Combo Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor - PM10 - NO2.pdf' }] },
+
+      { name: 'Combo Sensor — PM2.5 & NO2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Dual-parameter sensor monitoring fine particulate matter (PM2.5) and nitrogen dioxide — designed for indoor and near-road environments where fine particle exposure is a health concern.',
+        specs: [{ label: 'Parameters', value: 'PM2.5, NO2' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'PM2.5-NO2 Combo Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor - PM2.5 - NO2.pdf' }] },
+
+      { name: 'Combo Sensor — CO & NO2 (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof dual-gas sensor for CO and NO2 monitoring in outdoor, semi-covered, or harsh environments such as tunnels, loading bays, and plant rooms.',
+        specs: [{ label: 'Parameters', value: 'CO, NO2' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'CO-NO2 Combo Weatherproof Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor- CO & NO2 (Weatherproof).pdf' }] },
+
+      { name: 'Combo Sensor — CO & NO2 (Indoor)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Compact indoor dual-gas sensor monitoring carbon monoxide and nitrogen dioxide for car parks, workshops, and enclosed commercial spaces.',
+        specs: [{ label: 'Parameters', value: 'CO, NO2' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'CO-NO2 Combo Indoor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor- CO & NO2 .pdf' }] },
+
+      { name: 'Combo PM Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Dedicated particulate matter combo sensor covering PM1.0, PM2.5, and PM10 size fractions for comprehensive dust and aerosol monitoring.',
+        specs: [{ label: 'Parameters', value: 'PM1.0, PM2.5, PM10' }, { label: 'Sensor', value: 'Laser particle counter' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'Combo PM Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor-PM Sensor.pdf' }] },
+
+      { name: 'Combo Sensor — PM10, CO & NO2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Three-parameter sensor combining PM10, CO, and NO2 measurement for comprehensive outdoor and semi-outdoor air quality assessments at a single monitoring point.',
+        specs: [{ label: 'Parameters', value: 'PM10, CO, NO2' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'PM10-CO-NO2 Combo Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor-PM10-CO- NO2..pdf' }] },
+
+      { name: 'Combo Sensor — PM2.5, CO & NO2', image: '/images/products/aq-sensor.jpg',
+        overview: 'Three-parameter sensor measuring fine particles (PM2.5), carbon monoxide, and nitrogen dioxide for indoor and outdoor environments with combustion or traffic emission sources.',
+        specs: [{ label: 'Parameters', value: 'PM2.5, CO, NO2' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'PM2.5-CO-NO2 Combo Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Combo Sensor-PM2.5-CO- NO2.pdf' }] },
+
+      // ── Single gas — standard ──────────────────────────────────────────
+      { name: 'Supreme Combo Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Premium all-in-one air quality sensor covering a wide range of gases and environmental parameters in a single elegant enclosure for demanding commercial and industrial applications.',
+        specs: [{ label: 'Parameters', value: 'CO2, CO, NO2, TVOC, PM2.5, Temp, Humidity' }, { label: 'Enclosure', value: 'Premium indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'Supreme Combo Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls - Supreme Combo Sensor.pdf' }] },
+
+      { name: 'Supreme Industrial IAQ Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Heavy-duty industrial indoor air quality sensor built for factory floors, warehouses, and plant rooms — measuring critical gases with high accuracy and durability.',
+        specs: [{ label: 'Parameters', value: 'CO2, CO, NO2, O2, TVOC, PM, Temp, Humidity' }, { label: 'Enclosure', value: 'Industrial grade' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'Supreme Industrial IAQ Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls - Supreme Industrial IAQ Sensor.pdf' }] },
+
+      { name: 'Supreme Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Top-of-range single-unit sensor combining multiple gas measurements with a sleek form factor — the definitive choice for premium commercial IAQ monitoring installations.',
+        specs: [{ label: 'Parameters', value: 'CO2, TVOC, PM2.5, Temp, Humidity' }, { label: 'Enclosure', value: 'Premium indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'Supreme Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls - Supreme Sensor.pdf' }] },
+
+      { name: 'Chlorine (Cl2) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Dedicated chlorine gas sensor for monitoring Cl2 in water treatment plants, swimming pool facilities, and chemical processing environments.',
+        specs: [{ label: 'Parameters', value: 'Cl2 (Chlorine)' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'Cl2 Chlorine Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls C12 (Chlorine) Sensor.pdf' }] },
+
+      { name: 'CH3SH (Methyl Mercaptan) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Highly sensitive methyl mercaptan sensor for odour monitoring and leak detection at sewage treatment facilities, landfills, and petrochemical sites.',
+        specs: [{ label: 'Parameters', value: 'CH3SH (Methyl Mercaptan)' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CH3SH Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CH3SH Sensor.pdf' }] },
+
+      { name: 'CH3SH (Methyl Mercaptan) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof methyl mercaptan sensor for outdoor odour monitoring at sewage plants, landfills, and outdoor industrial perimeters.',
+        specs: [{ label: 'Parameters', value: 'CH3SH (Methyl Mercaptan)' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CH3SH Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls-CH3SH Sensor (Weatherproof).pdf' }] },
+
+      { name: 'CH4 (Methane) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Catalytic or infrared methane sensor for gas leak detection in utility rooms, plant rooms, and areas where natural gas or biogas is present.',
+        specs: [{ label: 'Parameters', value: 'CH4 (Methane / Natural Gas)' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CH4 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CH4 Sensor.pdf' }] },
+
+      { name: 'CH4 (Methane) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof methane sensor for outdoor gas leak detection around pipelines, compressor stations, and outdoor plant areas.',
+        specs: [{ label: 'Parameters', value: 'CH4 (Methane / Natural Gas)' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CH4 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CH4 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'CO (Carbon Monoxide) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Electrochemical CO sensor for indoor air quality and safety monitoring in car parks, boiler rooms, and enclosed commercial spaces.',
+        specs: [{ label: 'Parameters', value: 'CO (Carbon Monoxide)' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CO Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CO Sensor.pdf' }] },
+
+      { name: 'CO (Carbon Monoxide) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof CO sensor for outdoor and semi-outdoor monitoring in loading docks, tunnels, car park ramps, and outdoor industrial sites.',
+        specs: [{ label: 'Parameters', value: 'CO (Carbon Monoxide)' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'CO Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Control- CO Sensor (Weatherproof).pdf' }] },
+
+      { name: 'CO2 (Carbon Dioxide) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'NDIR CO2 sensor for indoor air quality monitoring, demand-controlled ventilation, and occupancy management in offices, schools, and retail spaces.',
+        specs: [{ label: 'Parameters', value: 'CO2 (Carbon Dioxide)' }, { label: 'Technology', value: 'NDIR (Non-Dispersive Infrared)' }, { label: 'Enclosure', value: 'Standard indoor' }],
+        downloads: [{ label: 'CO2 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CO2 Sensor.pdf' }] },
+
+      { name: 'CO2 (Carbon Dioxide) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof NDIR CO2 sensor for outdoor, greenhouse, and semi-covered environments requiring continuous carbon dioxide measurement.',
+        specs: [{ label: 'Parameters', value: 'CO2 (Carbon Dioxide)' }, { label: 'Technology', value: 'NDIR' }, { label: 'Enclosure', value: 'Weatherproof IP65' }],
+        downloads: [{ label: 'CO2 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- CO2 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'Compact Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Ultra-compact multi-parameter air quality sensor designed for space-constrained installations where a discreet, unobtrusive form factor is required.',
+        specs: [{ label: 'Parameters', value: 'CO2, Temperature, Humidity' }, { label: 'Enclosure', value: 'Compact indoor' }, { label: 'Communication', value: 'LoRaWAN / Modbus' }],
+        downloads: [{ label: 'Compact Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- Compact Sensor.pdf' }] },
+
+      { name: 'H2 (Hydrogen) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Catalytic hydrogen sensor for leak detection in battery rooms, fuel cell installations, and hydrogen storage and distribution facilities.',
+        specs: [{ label: 'Parameters', value: 'H2 (Hydrogen)' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'H2 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- H2 Sensor.pdf' }] },
+
+      { name: 'H2 (Hydrogen) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof hydrogen sensor for outdoor hydrogen detection at refuelling stations, solar battery banks, and outdoor hydrogen storage areas.',
+        specs: [{ label: 'Parameters', value: 'H2 (Hydrogen)' }, { label: 'Enclosure', value: 'Weatherproof IP65' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'H2 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls - H2 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'H2 (Hydrogen) Sensor — ATEX Enclosure', image: '/images/products/aq-sensor-atex.jpg',
+        overview: 'ATEX-certified hydrogen sensor for use in hazardous area Zone 1/Zone 2 environments such as petrochemical plants, offshore facilities, and explosive atmospheres.',
+        specs: [{ label: 'Parameters', value: 'H2 (Hydrogen)' }, { label: 'Enclosure', value: 'ATEX certified (Zone 1/2)' }, { label: 'Communication', value: 'Modbus RTU' }],
+        downloads: [{ label: 'H2 ATEX Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- H2 Sensor (ATEX Enclosure).pdf' }] },
+
+      { name: 'H2 (Hydrogen) Sensor — ATEX Enclosure (Updated)', image: '/images/products/aq-sensor-atex.jpg',
+        overview: 'Updated ATEX-certified hydrogen sensor with enhanced sensitivity and connectivity — the current-generation solution for hazardous area hydrogen safety monitoring.',
+        specs: [{ label: 'Parameters', value: 'H2 (Hydrogen)' }, { label: 'Enclosure', value: 'ATEX certified (Zone 1/2) — updated' }, { label: 'Communication', value: 'Modbus RTU' }],
+        downloads: [{ label: 'H2 ATEX Sensor (Updated) Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- Hydrogen Sensor (H2) (ATEX Enclosure) Updated.pdf' }] },
+
+      { name: 'H2S (Hydrogen Sulphide) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Electrochemical H2S sensor for monitoring hydrogen sulphide in sewage treatment plants, oil & gas facilities, and confined spaces requiring continuous safety monitoring.',
+        specs: [{ label: 'Parameters', value: 'H2S (Hydrogen Sulphide)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Ex-rated enclosure' }],
+        downloads: [{ label: 'H2S Sensor (Ex Enclosure) Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- H2S Sensor (Ex Enclosure).pdf' }] },
+
+      { name: 'H2S (Hydrogen Sulphide) Sensor — ATEX Enclosure', image: '/images/products/aq-sensor-atex.jpg',
+        overview: 'ATEX-certified H2S sensor for hazardous area Zone 1/Zone 2 deployments in oil & gas, chemical processing, and sewage environments with explosive atmosphere risk.',
+        specs: [{ label: 'Parameters', value: 'H2S (Hydrogen Sulphide)' }, { label: 'Enclosure', value: 'ATEX certified (Zone 1/2)' }, { label: 'Communication', value: 'Modbus RTU' }],
+        downloads: [{ label: 'H2S ATEX Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- H2S Sensor (Atex Enclosure).pdf' }] },
+
+      { name: 'LPG Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Catalytic LPG sensor for leak detection in commercial kitchens, retail LPG storage areas, and residential and hospitality environments using bottled gas.',
+        specs: [{ label: 'Parameters', value: 'LPG (Propane / Butane)' }, { label: 'Enclosure', value: 'Standard indoor' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'LPG Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- LPG Sensor.pdf' }] },
+
+      { name: 'NH3 (Ammonia) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Electrochemical ammonia sensor for industrial refrigeration plant rooms, fertiliser storage, and agricultural facilities requiring continuous NH3 monitoring.',
+        specs: [{ label: 'Parameters', value: 'NH3 (Ammonia)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Standard indoor' }],
+        downloads: [{ label: 'NH3 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- NH3 Sensor.pdf' }] },
+
+      { name: 'NH3 (Ammonia) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof ammonia sensor for outdoor monitoring at refrigeration plant perimeters, wastewater treatment sites, and agricultural outdoor environments.',
+        specs: [{ label: 'Parameters', value: 'NH3 (Ammonia)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Weatherproof IP65' }],
+        downloads: [{ label: 'NH3 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- NH3 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'NO2 (Nitrogen Dioxide) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Electrochemical NO2 sensor for urban air quality monitoring, roadside sensing, and indoor environments affected by combustion or traffic emissions.',
+        specs: [{ label: 'Parameters', value: 'NO2 (Nitrogen Dioxide)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Standard indoor/outdoor' }],
+        downloads: [{ label: 'NO2 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- NO2 Sensor.pdf' }] },
+
+      { name: 'NO2 (Nitrogen Dioxide) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof NO2 sensor for outdoor roadside, industrial perimeter, and urban ambient air quality monitoring stations.',
+        specs: [{ label: 'Parameters', value: 'NO2 (Nitrogen Dioxide)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Weatherproof IP65' }],
+        downloads: [{ label: 'NO2 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- NO2 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'O2 (Oxygen) Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Electrochemical oxygen sensor for confined space safety monitoring, ensuring O2 levels remain in the safe range for personnel in enclosed industrial environments.',
+        specs: [{ label: 'Parameters', value: 'O2 (Oxygen — 0–25% vol)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Standard indoor' }],
+        downloads: [{ label: 'O2 Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- O2 Sensor.pdf' }] },
+
+      { name: 'O2 (Oxygen) Sensor (Weatherproof)', image: '/images/products/aq-sensor.jpg',
+        overview: 'Weatherproof oxygen sensor for outdoor confined space safety monitoring and perimeter oxygen level sensing in industrial and utilities environments.',
+        specs: [{ label: 'Parameters', value: 'O2 (Oxygen — 0–25% vol)' }, { label: 'Technology', value: 'Electrochemical' }, { label: 'Enclosure', value: 'Weatherproof IP65' }],
+        downloads: [{ label: 'O2 Weatherproof Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- O2 Sensor (Weatherproof).pdf' }] },
+
+      { name: 'T & RH Sensor — ATEX Enclosure', image: '/images/products/aq-sensor-atex.jpg',
+        overview: 'ATEX-certified temperature and relative humidity sensor for hazardous area environmental monitoring in Zone 1/Zone 2 classified locations in oil & gas and chemical facilities.',
+        specs: [{ label: 'Parameters', value: 'Temperature, Relative Humidity' }, { label: 'Enclosure', value: 'ATEX certified (Zone 1/2)' }, { label: 'Communication', value: 'Modbus RTU' }],
+        downloads: [{ label: 'T & RH ATEX Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox Controls- T & RH Sensor (ATEX Enclosure) Updated.pdf' }] },
+
+      { name: 'VRI / MRI Sensor', image: '/images/products/aq-sensor.jpg',
+        overview: 'Versatile VRI/MRI multi-range sensor for specialised gas detection applications requiring configurable measurement ranges and flexible installation options.',
+        specs: [{ label: 'Parameters', value: 'Configurable (VRI/MRI range)' }, { label: 'Enclosure', value: 'Standard' }, { label: 'Communication', value: 'Modbus RTU / LoRaWAN' }],
+        downloads: [{ label: 'VRI / MRI Sensor Datasheet', type: 'Datasheet', file: '/downloads/Air Quality & Gas Sensors/Basiox_VRI_MRI_Datasheet.pdf' }] },
     ],
   },
   {
