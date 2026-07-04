@@ -299,7 +299,7 @@ export const products: Product[] = [
     variants: [
       {
         name: 'Wired M-Bus Shutoff Valve — DN15 to DN40',
-        image: '/images/products/smart-shutoff-valve wired M-Bus upto DN40.jpg',
+        image: '/images/products/smart-shutoff-valve-dn40.jpg',
         overview:
           'Motorised ball valve with integrated M-Bus communication for remote open/close control and status monitoring. Designed for residential and light-commercial applications up to DN40. Pairs with M-Bus gateways and head-end software for automated leak response and tenant billing. DN100 size available on request.',
         specs: [
