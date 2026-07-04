@@ -82,7 +82,7 @@ export default function Hero() {
                               border border-white/[0.14] bg-white/[0.06] backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-accent animate-pulse flex-shrink-0" />
                 <span className="text-white/70 text-xs font-semibold tracking-[0.18em] uppercase select-none">
-                  Abu Dhabi, UAE · Est. 20+ Years
+                  Abu Dhabi, UAE · Exp. 20+ Years
                 </span>
               </div>
             </div>
