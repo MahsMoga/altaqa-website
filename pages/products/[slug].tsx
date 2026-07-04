@@ -470,6 +470,46 @@ export default function ProductDetailPage({ slug }: PageProps) {
                   </AnimateIn>
                 )}
               </div>
+
+              {/* Additional downloads for variant products */}
+              {product.downloads.length > 0 && (
+                <AnimateIn className="mt-14">
+                  <div className="bg-white rounded-2xl border border-slate-border p-7 shadow-card">
+                    <div className="text-navy/40 text-xs font-bold tracking-widest uppercase mb-6">
+                      All Downloads
+                    </div>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {product.downloads.map((dl) => (
+                        <a
+                          key={dl.label}
+                          href={dl.file ?? '#inquiry'}
+                          download={dl.file ? true : undefined}
+                          target={dl.file ? '_blank' : undefined}
+                          rel={dl.file ? 'noopener noreferrer' : undefined}
+                          className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-corporate
+                                     border border-slate-border text-sm font-semibold text-navy
+                                     hover:border-accent hover:text-accent hover:shadow-card
+                                     transition-all duration-200"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center
+                                          shrink-0 group-hover:bg-accent group-hover:[&_path]:stroke-white
+                                          transition-colors duration-200">
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="#2F80ED" strokeWidth="1.5"
+                                    strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                          </div>
+                          <div className="min-w-0">
+                            <div className="text-navy/40 text-xs font-normal tracking-wide">{dl.type}</div>
+                            <div className="truncate leading-snug">{dl.label}</div>
+                            {!dl.file && <div className="text-slate-400 text-xs font-normal">On request</div>}
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </AnimateIn>
+              )}
             </div>
           </section>
         ) : (
