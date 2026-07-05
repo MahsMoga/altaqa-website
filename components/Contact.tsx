@@ -1,23 +1,34 @@
 import { useState, FormEvent } from 'react'
 import AnimateIn from './AnimateIn'
 
-type FormState = { name: string; email: string; company: string; service: string; message: string }
+type FormState = {
+  name: string; email: string; whatsapp: string; company: string
+  service: string; timeline: string; message: string
+}
 type TouchedState = { name: boolean; email: boolean; company: boolean; message: boolean }
 
 const SERVICE_OPTIONS = [
-  { value: 'bms-installation',        label: 'BMS Installation',    color: '#2F80ED' },
-  { value: 'energy-management',       label: 'Energy Management',   color: '#10B981' },
-  { value: 'annual-maintenance',      label: 'Maintenance (AMC)',   color: '#F59E0B' },
-  { value: 'guest-room-management',   label: 'Guest Room (GRMS)',   color: '#8B5CF6' },
-  { value: 'smart-metering',          label: 'Smart Metering',      color: '#06B6D4' },
-  { value: 'automatic-control-systems', label: 'Control Systems',   color: '#EF4444' },
-  { value: 'other',                   label: 'Other / Not sure',    color: '#64748b' },
+  { value: 'bms-installation',          label: 'BMS Installation',    color: '#2F80ED' },
+  { value: 'energy-management',         label: 'Energy Management',   color: '#10B981' },
+  { value: 'annual-maintenance',        label: 'Maintenance (AMC)',   color: '#F59E0B' },
+  { value: 'guest-room-management',     label: 'Guest Room (GRMS)',   color: '#8B5CF6' },
+  { value: 'smart-metering',            label: 'Smart Metering',      color: '#06B6D4' },
+  { value: 'automatic-control-systems', label: 'Control Systems',     color: '#EF4444' },
+  { value: 'other',                     label: 'Other / Not sure',    color: '#64748b' },
+]
+
+const TIMELINE_OPTIONS = [
+  { value: 'asap',     label: 'ASAP' },
+  { value: '1-3mo',    label: '1–3 months' },
+  { value: '3-6mo',    label: '3–6 months' },
+  { value: '6mo-plus', label: '6+ months' },
+  { value: 'planning', label: 'Just planning' },
 ]
 
 function validate(form: FormState) {
   const errors: Partial<FormState> = {}
-  if (!form.name.trim()) errors.name = 'Full name is required'
-  if (!form.email.trim()) errors.email = 'Email address is required'
+  if (!form.name.trim())    errors.name    = 'Full name is required'
+  if (!form.email.trim())   errors.email   = 'Email address is required'
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = 'Enter a valid email address'
   if (!form.company.trim()) errors.company = 'Company or organisation is required'
   if (!form.message.trim()) errors.message = 'Please describe your requirements'
@@ -61,13 +72,24 @@ const infoItems = [
   },
 ]
 
-export default function Contact() {
-  const [form, setForm] = useState<FormState>({ name: '', email: '', company: '', service: '', message: '' })
-  const [touched, setTouched] = useState<TouchedState>({ name: false, email: false, company: false, message: false })
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+const errorIcon = (
+  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+    <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
+    <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+  </svg>
+)
 
-  const errors = validate(form)
+export default function Contact() {
+  const [form, setForm] = useState<FormState>({
+    name: '', email: '', whatsapp: '', company: '', service: '', timeline: '', message: '',
+  })
+  const [touched, setTouched] = useState<TouchedState>({
+    name: false, email: false, company: false, message: false,
+  })
+  const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading]     = useState(false)
+
+  const errors  = validate(form)
   const isValid = Object.keys(errors).length === 0
 
   const handleBlur = (field: keyof TouchedState) =>
@@ -115,7 +137,7 @@ export default function Contact() {
             </h2>
             <p className="body-lead mb-10 text-base">
               Speak with our engineering team to discover how Al Taqa Technical
-              can elevate your building's intelligence, efficiency, and sustainability.
+              can elevate your building&apos;s intelligence, efficiency, and sustainability.
             </p>
 
             <div className="space-y-4">
@@ -166,7 +188,7 @@ export default function Contact() {
                     <h3 className="font-display text-navy font-bold text-xl mb-1">
                       Send Us a Message
                     </h3>
-                    <p className="text-slate-400 text-xs">All fields are required</p>
+                    <p className="text-slate-400 text-xs">Fields marked * are required</p>
                   </div>
 
                   {/* Service selector */}
@@ -205,7 +227,7 @@ export default function Contact() {
                   <div>
                     <label htmlFor="contact-name"
                       className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Full Name
+                      Full Name *
                     </label>
                     <input
                       id="contact-name"
@@ -218,46 +240,63 @@ export default function Contact() {
                     />
                     {touched.name && errors.name && (
                       <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
-                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                        </svg>
-                        {errors.name}
+                        {errorIcon}{errors.name}
                       </p>
                     )}
                   </div>
 
-                  {/* Email */}
-                  <div>
-                    <label htmlFor="contact-email"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Email Address
-                    </label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      onBlur={() => handleBlur('email')}
-                      placeholder="ahmed@company.ae"
-                      className={fieldClass('email')}
-                    />
-                    {touched.email && errors.email && (
-                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
-                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                        </svg>
-                        {errors.email}
-                      </p>
-                    )}
+                  {/* Email + WhatsApp side by side */}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="contact-email"
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        Email Address *
+                      </label>
+                      <input
+                        id="contact-email"
+                        type="email"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        onBlur={() => handleBlur('email')}
+                        placeholder="ahmed@company.ae"
+                        className={fieldClass('email')}
+                      />
+                      {touched.email && errors.email && (
+                        <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                          {errorIcon}{errors.email}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="contact-whatsapp"
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        WhatsApp Number
+                        <span className="text-slate-400 font-normal ml-1">(optional)</span>
+                      </label>
+                      <div className="relative">
+                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none">
+                          +971
+                        </span>
+                        <input
+                          id="contact-whatsapp"
+                          type="tel"
+                          value={form.whatsapp}
+                          onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                          placeholder="50 123 4567"
+                          className="w-full border border-slate-border rounded-xl pl-12 pr-4 py-3 text-sm text-navy
+                                     placeholder-slate-400 focus:outline-none focus:ring-2 transition-all duration-200
+                                     bg-white focus:border-accent focus:ring-accent/10 hover:border-slate-text/30"
+                        />
+                      </div>
+                    </div>
                   </div>
 
                   {/* Company */}
                   <div>
                     <label htmlFor="contact-company"
                       className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Company / Organisation
+                      Company / Organisation *
                     </label>
                     <input
                       id="contact-company"
@@ -270,20 +309,48 @@ export default function Contact() {
                     />
                     {touched.company && errors.company && (
                       <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
-                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                        </svg>
-                        {errors.company}
+                        {errorIcon}{errors.company}
                       </p>
                     )}
+                  </div>
+
+                  {/* Project Timeline */}
+                  <div>
+                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
+                      Project Timeline
+                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {TIMELINE_OPTIONS.map(opt => {
+                        const active = form.timeline === opt.value
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            onClick={() => setForm({ ...form, timeline: active ? '' : opt.value })}
+                            className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150 cursor-pointer"
+                            style={active ? {
+                              background: 'rgba(47,128,237,0.1)',
+                              borderColor: '#2F80ED',
+                              color: '#2F80ED',
+                            } : {
+                              background: 'transparent',
+                              borderColor: '#e2e8f0',
+                              color: '#94a3b8',
+                            }}
+                          >
+                            {opt.label}
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
 
                   {/* Message */}
                   <div>
                     <label htmlFor="contact-message"
                       className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Message
+                      Message *
                     </label>
                     <textarea
                       id="contact-message"
@@ -296,11 +363,7 @@ export default function Contact() {
                     />
                     {touched.message && errors.message && (
                       <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                          <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1.2"/>
-                          <path d="M6 4v2.5M6 8h.01" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                        </svg>
-                        {errors.message}
+                        {errorIcon}{errors.message}
                       </p>
                     )}
                   </div>
