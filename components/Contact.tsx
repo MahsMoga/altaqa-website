@@ -1,8 +1,18 @@
 import { useState, FormEvent } from 'react'
 import AnimateIn from './AnimateIn'
 
-type FormState = { name: string; email: string; company: string; message: string }
+type FormState = { name: string; email: string; company: string; service: string; message: string }
 type TouchedState = { name: boolean; email: boolean; company: boolean; message: boolean }
+
+const SERVICE_OPTIONS = [
+  { value: 'bms-installation',        label: 'BMS Installation',    color: '#2F80ED' },
+  { value: 'energy-management',       label: 'Energy Management',   color: '#10B981' },
+  { value: 'annual-maintenance',      label: 'Maintenance (AMC)',   color: '#F59E0B' },
+  { value: 'guest-room-management',   label: 'Guest Room (GRMS)',   color: '#8B5CF6' },
+  { value: 'smart-metering',          label: 'Smart Metering',      color: '#06B6D4' },
+  { value: 'automatic-control-systems', label: 'Control Systems',   color: '#EF4444' },
+  { value: 'other',                   label: 'Other / Not sure',    color: '#64748b' },
+]
 
 function validate(form: FormState) {
   const errors: Partial<FormState> = {}
@@ -52,7 +62,7 @@ const infoItems = [
 ]
 
 export default function Contact() {
-  const [form, setForm] = useState<FormState>({ name: '', email: '', company: '', message: '' })
+  const [form, setForm] = useState<FormState>({ name: '', email: '', company: '', service: '', message: '' })
   const [touched, setTouched] = useState<TouchedState>({ name: false, email: false, company: false, message: false })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -157,6 +167,38 @@ export default function Contact() {
                       Send Us a Message
                     </h3>
                     <p className="text-slate-400 text-xs">All fields are required</p>
+                  </div>
+
+                  {/* Service selector */}
+                  <div>
+                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
+                      Service Required
+                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                      {SERVICE_OPTIONS.map(opt => {
+                        const active = form.service === opt.value
+                        return (
+                          <button
+                            key={opt.value}
+                            type="button"
+                            onClick={() => setForm({ ...form, service: active ? '' : opt.value })}
+                            className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150 cursor-pointer"
+                            style={active ? {
+                              background: `${opt.color}18`,
+                              borderColor: opt.color,
+                              color: opt.color,
+                            } : {
+                              background: 'transparent',
+                              borderColor: '#e2e8f0',
+                              color: '#94a3b8',
+                            }}
+                          >
+                            {opt.label}
+                          </button>
+                        )
+                      })}
+                    </div>
                   </div>
 
                   {/* Name */}
