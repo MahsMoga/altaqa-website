@@ -239,42 +239,239 @@ export default function About() {
           </AnimateIn>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {pillars.map((p, i) => (
-              <AnimateIn key={p.title} delay={i * 80}>
-                <div
-                  className="group relative rounded-2xl bg-white border border-slate-border p-6 h-full overflow-hidden
-                             cursor-default transition-all duration-300
-                             hover:-translate-y-1 hover:shadow-[0_20px_60px_rgba(0,0,0,0.10)] hover:border-transparent"
-                >
-                  {/* Coloured top accent bar */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}44)` }}
-                  />
-
-                  {/* Icon */}
-                  <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: p.color + '18', color: p.color }}
-                  >
-                    {p.icon}
+            {/* Card 1 — End-to-End Delivery (Blue) */}
+            <AnimateIn delay={0}>
+              <div className="group relative rounded-3xl bg-white overflow-hidden cursor-default h-full
+                              shadow-[0_2px_16px_rgba(47,128,237,0.08)] border border-blue-100
+                              transition-all duration-500 hover:-translate-y-2
+                              hover:shadow-[0_24px_64px_rgba(47,128,237,0.18)]">
+                {/* Illustration area */}
+                <div className="relative h-44 overflow-hidden"
+                     style={{ background: 'linear-gradient(135deg, #EBF4FF 0%, #DBEAFE 100%)' }}>
+                  <svg viewBox="0 0 280 176" fill="none" xmlns="http://www.w3.org/2000/svg"
+                       className="w-full h-full transition-transform duration-700 group-hover:scale-105">
+                    {/* Building outline */}
+                    <rect x="90" y="60" width="100" height="100" rx="4" fill="#BFDBFE" stroke="#2F80ED" strokeWidth="1.5"/>
+                    <rect x="105" y="80" width="18" height="22" rx="2" fill="#2F80ED" opacity="0.3"/>
+                    <rect x="131" y="80" width="18" height="22" rx="2" fill="#2F80ED" opacity="0.3"/>
+                    <rect x="157" y="80" width="18" height="22" rx="2" fill="#2F80ED" opacity="0.3"/>
+                    <rect x="105" y="112" width="18" height="22" rx="2" fill="#2F80ED" opacity="0.3"/>
+                    <rect x="131" y="112" width="18" height="48" rx="2" fill="#2F80ED" opacity="0.6"/>
+                    <rect x="157" y="112" width="18" height="22" rx="2" fill="#2F80ED" opacity="0.3"/>
+                    {/* Roof signal */}
+                    <path d="M140 55 L140 60" stroke="#2F80ED" strokeWidth="2" strokeLinecap="round"/>
+                    <path d="M132 52 Q140 46 148 52" stroke="#2F80ED" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                    <path d="M126 48 Q140 40 154 48" stroke="#2F80ED" strokeWidth="1.5" fill="none" strokeLinecap="round" opacity="0.5"/>
+                    {/* IoT nodes */}
+                    <circle cx="40" cy="80" r="14" fill="#2F80ED" opacity="0.12" stroke="#2F80ED" strokeWidth="1.5"/>
+                    <circle cx="40" cy="80" r="6" fill="#2F80ED" opacity="0.7"/>
+                    <circle cx="240" cy="95" r="14" fill="#2F80ED" opacity="0.12" stroke="#2F80ED" strokeWidth="1.5"/>
+                    <circle cx="240" cy="95" r="6" fill="#2F80ED" opacity="0.7"/>
+                    <circle cx="50" cy="140" r="10" fill="#2F80ED" opacity="0.12" stroke="#2F80ED" strokeWidth="1.5"/>
+                    <circle cx="50" cy="140" r="5" fill="#2F80ED" opacity="0.7"/>
+                    <circle cx="230" cy="145" r="10" fill="#2F80ED" opacity="0.12" stroke="#2F80ED" strokeWidth="1.5"/>
+                    <circle cx="230" cy="145" r="5" fill="#2F80ED" opacity="0.7"/>
+                    {/* Connection lines */}
+                    <line x1="54" y1="80" x2="90" y2="100" stroke="#2F80ED" strokeWidth="1" strokeDasharray="4 3" opacity="0.5"/>
+                    <line x1="226" y1="95" x2="190" y2="105" stroke="#2F80ED" strokeWidth="1" strokeDasharray="4 3" opacity="0.5"/>
+                    <line x1="60" y1="140" x2="90" y2="140" stroke="#2F80ED" strokeWidth="1" strokeDasharray="4 3" opacity="0.5"/>
+                    <line x1="220" y1="145" x2="190" y2="140" stroke="#2F80ED" strokeWidth="1" strokeDasharray="4 3" opacity="0.5"/>
+                    {/* Data flow dots */}
+                    <circle cx="72" cy="90" r="2.5" fill="#2F80ED" opacity="0.8"/>
+                    <circle cx="210" cy="100" r="2.5" fill="#2F80ED" opacity="0.8"/>
+                  </svg>
+                  {/* Tag */}
+                  <div className="absolute top-3 left-3 bg-blue-500/10 border border-blue-200 text-blue-600
+                                  text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                    Smart Building
                   </div>
-
-                  {/* Accent number */}
-                  <div className="absolute top-5 right-5 font-display font-bold text-4xl leading-none select-none"
-                       style={{ color: p.color + '12' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </div>
-
-                  {/* Accent line */}
-                  <div className="w-6 h-0.5 rounded-full mb-3 transition-all duration-300 group-hover:w-10"
-                       style={{ background: p.color }} />
-
-                  <div className="font-display text-navy font-semibold text-sm mb-2 leading-snug">{p.title}</div>
-                  <div className="text-slate-500 text-xs leading-relaxed">{p.desc}</div>
                 </div>
-              </AnimateIn>
-            ))}
+                {/* Content */}
+                <div className="p-5">
+                  <div className="w-7 h-0.5 rounded-full bg-blue-500 mb-3
+                                  transition-all duration-300 group-hover:w-12" />
+                  <div className="font-display text-navy font-bold text-sm mb-2 leading-snug">End-to-End Delivery</div>
+                  <div className="text-slate-500 text-xs leading-relaxed">
+                    From design and installation to commissioning and long-term maintenance — we own the full lifecycle.
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* Card 2 — Vendor-Neutral (Teal/Green) */}
+            <AnimateIn delay={80}>
+              <div className="group relative rounded-3xl bg-white overflow-hidden cursor-default h-full
+                              shadow-[0_2px_16px_rgba(16,185,129,0.08)] border border-emerald-100
+                              transition-all duration-500 hover:-translate-y-2
+                              hover:shadow-[0_24px_64px_rgba(16,185,129,0.18)]">
+                <div className="relative h-44 overflow-hidden"
+                     style={{ background: 'linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%)' }}>
+                  <svg viewBox="0 0 280 176" fill="none" xmlns="http://www.w3.org/2000/svg"
+                       className="w-full h-full transition-transform duration-700 group-hover:scale-105">
+                    {/* Central cloud hub */}
+                    <ellipse cx="140" cy="95" rx="32" ry="22" fill="#10b981" opacity="0.15" stroke="#10b981" strokeWidth="1.5"/>
+                    <path d="M122 95 Q140 83 158 95" stroke="#10b981" strokeWidth="1.5" fill="none"/>
+                    <circle cx="140" cy="95" r="8" fill="#10b981" opacity="0.7"/>
+                    {/* Platform boxes */}
+                    <rect x="28" y="48" width="44" height="28" rx="6" fill="#D1FAE5" stroke="#10b981" strokeWidth="1.2"/>
+                    <text x="50" y="66" textAnchor="middle" fontSize="8" fill="#059669" fontWeight="bold">JCI</text>
+                    <rect x="28" y="108" width="44" height="28" rx="6" fill="#D1FAE5" stroke="#10b981" strokeWidth="1.2"/>
+                    <text x="50" y="126" textAnchor="middle" fontSize="8" fill="#059669" fontWeight="bold">SE</text>
+                    <rect x="208" y="48" width="44" height="28" rx="6" fill="#D1FAE5" stroke="#10b981" strokeWidth="1.2"/>
+                    <text x="230" y="66" textAnchor="middle" fontSize="8" fill="#059669" fontWeight="bold">HW</text>
+                    <rect x="208" y="108" width="44" height="28" rx="6" fill="#D1FAE5" stroke="#10b981" strokeWidth="1.2"/>
+                    <text x="230" y="126" textAnchor="middle" fontSize="8" fill="#059669" fontWeight="bold">TR</text>
+                    <rect x="118" y="142" width="44" height="24" rx="6" fill="#D1FAE5" stroke="#10b981" strokeWidth="1.2"/>
+                    <text x="140" y="158" textAnchor="middle" fontSize="8" fill="#059669" fontWeight="bold">N4</text>
+                    {/* Connection lines */}
+                    <line x1="72" y1="62" x2="108" y2="88" stroke="#10b981" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"/>
+                    <line x1="72" y1="122" x2="108" y2="102" stroke="#10b981" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"/>
+                    <line x1="208" y1="62" x2="172" y2="88" stroke="#10b981" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"/>
+                    <line x1="208" y1="122" x2="172" y2="102" stroke="#10b981" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"/>
+                    <line x1="140" y1="117" x2="140" y2="142" stroke="#10b981" strokeWidth="1" strokeDasharray="4 3" opacity="0.6"/>
+                    {/* Pulse rings */}
+                    <circle cx="140" cy="95" r="18" stroke="#10b981" strokeWidth="1" opacity="0.25"/>
+                    <circle cx="140" cy="95" r="28" stroke="#10b981" strokeWidth="0.5" opacity="0.12"/>
+                  </svg>
+                  <div className="absolute top-3 left-3 bg-emerald-500/10 border border-emerald-200 text-emerald-700
+                                  text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                    Open Protocols
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="w-7 h-0.5 rounded-full bg-emerald-500 mb-3
+                                  transition-all duration-300 group-hover:w-12" />
+                  <div className="font-display text-navy font-bold text-sm mb-2 leading-snug">Vendor-Neutral</div>
+                  <div className="text-slate-500 text-xs leading-relaxed">
+                    Certified across all major BMS platforms. We recommend what's right for your facility, not a single manufacturer.
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* Card 3 — Abu Dhabi Based (Orange/Gold) */}
+            <AnimateIn delay={160}>
+              <div className="group relative rounded-3xl bg-white overflow-hidden cursor-default h-full
+                              shadow-[0_2px_16px_rgba(245,158,11,0.08)] border border-amber-100
+                              transition-all duration-500 hover:-translate-y-2
+                              hover:shadow-[0_24px_64px_rgba(245,158,11,0.18)]">
+                <div className="relative h-44 overflow-hidden"
+                     style={{ background: 'linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%)' }}>
+                  <svg viewBox="0 0 280 176" fill="none" xmlns="http://www.w3.org/2000/svg"
+                       className="w-full h-full transition-transform duration-700 group-hover:scale-105">
+                    {/* Sky gradient */}
+                    <rect x="0" y="0" width="280" height="176" fill="url(#skyGrad)" opacity="0.3"/>
+                    <defs>
+                      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#FEF3C7"/>
+                        <stop offset="100%" stopColor="#FFFBEB"/>
+                      </linearGradient>
+                    </defs>
+                    {/* Abu Dhabi skyline silhouette */}
+                    {/* Tall tower left */}
+                    <rect x="30" y="80" width="22" height="76" rx="2" fill="#F59E0B" opacity="0.25"/>
+                    <rect x="36" y="70" width="10" height="12" rx="1" fill="#F59E0B" opacity="0.35"/>
+                    <rect x="39" y="62" width="4" height="10" rx="1" fill="#F59E0B" opacity="0.4"/>
+                    {/* Mid building */}
+                    <rect x="60" y="100" width="28" height="56" rx="2" fill="#F59E0B" opacity="0.2"/>
+                    <rect x="65" y="92" width="18" height="10" rx="1" fill="#F59E0B" opacity="0.3"/>
+                    {/* Landmark tower (tallest - center-left) */}
+                    <rect x="96" y="50" width="30" height="106" rx="2" fill="#F59E0B" opacity="0.3"/>
+                    <path d="M111 30 L118 50 H104 Z" fill="#F59E0B" opacity="0.45"/>
+                    <rect x="106" y="44" width="10" height="8" rx="1" fill="#F59E0B" opacity="0.5"/>
+                    {/* Window grid */}
+                    <rect x="100" y="60" width="8" height="6" rx="1" fill="#F59E0B" opacity="0.4"/>
+                    <rect x="112" y="60" width="8" height="6" rx="1" fill="#F59E0B" opacity="0.4"/>
+                    <rect x="100" y="72" width="8" height="6" rx="1" fill="#F59E0B" opacity="0.4"/>
+                    <rect x="112" y="72" width="8" height="6" rx="1" fill="#FBBF24" opacity="0.7"/>
+                    {/* Center building */}
+                    <rect x="134" y="72" width="36" height="84" rx="2" fill="#F59E0B" opacity="0.22"/>
+                    <rect x="139" y="64" width="26" height="10" rx="1" fill="#F59E0B" opacity="0.3"/>
+                    {/* Right cluster */}
+                    <rect x="178" y="88" width="24" height="68" rx="2" fill="#F59E0B" opacity="0.2"/>
+                    <rect x="210" y="76" width="28" height="80" rx="2" fill="#F59E0B" opacity="0.25"/>
+                    <rect x="216" y="66" width="16" height="12" rx="1" fill="#F59E0B" opacity="0.35"/>
+                    <rect x="244" y="96" width="20" height="60" rx="2" fill="#F59E0B" opacity="0.18"/>
+                    {/* Ground line */}
+                    <rect x="0" y="155" width="280" height="2" rx="1" fill="#F59E0B" opacity="0.3"/>
+                    {/* Smart grid dots */}
+                    <circle cx="55" cy="148" r="3" fill="#F59E0B" opacity="0.6"/>
+                    <circle cx="90" cy="148" r="3" fill="#F59E0B" opacity="0.6"/>
+                    <circle cx="155" cy="148" r="3" fill="#F59E0B" opacity="0.6"/>
+                    <circle cx="200" cy="148" r="3" fill="#F59E0B" opacity="0.6"/>
+                    <line x1="55" y1="148" x2="90" y2="148" stroke="#F59E0B" strokeWidth="1" opacity="0.4"/>
+                    <line x1="90" y1="148" x2="155" y2="148" stroke="#F59E0B" strokeWidth="1" opacity="0.4"/>
+                    <line x1="155" y1="148" x2="200" y2="148" stroke="#F59E0B" strokeWidth="1" opacity="0.4"/>
+                    {/* Sun */}
+                    <circle cx="232" cy="36" r="14" fill="#FBBF24" opacity="0.35"/>
+                    <circle cx="232" cy="36" r="9" fill="#F59E0B" opacity="0.5"/>
+                  </svg>
+                  <div className="absolute top-3 left-3 bg-amber-500/10 border border-amber-200 text-amber-700
+                                  text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                    Smart City UAE
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="w-7 h-0.5 rounded-full bg-amber-500 mb-3
+                                  transition-all duration-300 group-hover:w-12" />
+                  <div className="font-display text-navy font-bold text-sm mb-2 leading-snug">Abu Dhabi Based</div>
+                  <div className="text-slate-500 text-xs leading-relaxed">
+                    Local presence means faster response, deeper client relationships, and full understanding of UAE regulations.
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
+
+            {/* Card 4 — Energy-First Thinking (Purple) */}
+            <AnimateIn delay={240}>
+              <div className="group relative rounded-3xl bg-white overflow-hidden cursor-default h-full
+                              shadow-[0_2px_16px_rgba(139,92,246,0.08)] border border-violet-100
+                              transition-all duration-500 hover:-translate-y-2
+                              hover:shadow-[0_24px_64px_rgba(139,92,246,0.18)]">
+                <div className="relative h-44 overflow-hidden"
+                     style={{ background: 'linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%)' }}>
+                  <svg viewBox="0 0 280 176" fill="none" xmlns="http://www.w3.org/2000/svg"
+                       className="w-full h-full transition-transform duration-700 group-hover:scale-105">
+                    {/* Circular gauge */}
+                    <circle cx="140" cy="95" r="52" stroke="#EDE9FE" strokeWidth="8"/>
+                    <circle cx="140" cy="95" r="52" stroke="#8b5cf6" strokeWidth="5"
+                            strokeDasharray="245 82" strokeLinecap="round"
+                            transform="rotate(-210 140 95)" opacity="0.7"/>
+                    <circle cx="140" cy="95" r="40" fill="#F5F3FF" stroke="#C4B5FD" strokeWidth="1"/>
+                    {/* Lightning bolt center */}
+                    <path d="M145 74 L133 95 H142 L138 116 L152 91 H143 Z" fill="#8b5cf6" opacity="0.75"/>
+                    {/* % label */}
+                    <text x="140" y="130" textAnchor="middle" fontSize="9" fill="#7C3AED" fontWeight="bold">ENERGY</text>
+                    {/* Leaf elements */}
+                    <path d="M58 50 Q68 35 80 45 Q70 58 58 50Z" fill="#8b5cf6" opacity="0.2"/>
+                    <path d="M200 50 Q210 35 222 45 Q212 58 200 50Z" fill="#8b5cf6" opacity="0.2"/>
+                    {/* Bar chart bottom */}
+                    <rect x="28" y="140" width="10" height="20" rx="2" fill="#8b5cf6" opacity="0.2"/>
+                    <rect x="42" y="130" width="10" height="30" rx="2" fill="#8b5cf6" opacity="0.3"/>
+                    <rect x="56" y="120" width="10" height="40" rx="2" fill="#8b5cf6" opacity="0.45"/>
+                    <rect x="210" y="135" width="10" height="25" rx="2" fill="#8b5cf6" opacity="0.2"/>
+                    <rect x="224" y="125" width="10" height="35" rx="2" fill="#8b5cf6" opacity="0.3"/>
+                    <rect x="238" y="115" width="10" height="45" rx="2" fill="#8b5cf6" opacity="0.45"/>
+                    {/* Efficiency dots */}
+                    <circle cx="87" cy="48" r="4" fill="#8b5cf6" opacity="0.35"/>
+                    <circle cx="193" cy="48" r="4" fill="#8b5cf6" opacity="0.35"/>
+                    <circle cx="140" cy="33" r="4" fill="#8b5cf6" opacity="0.5"/>
+                  </svg>
+                  <div className="absolute top-3 left-3 bg-violet-500/10 border border-violet-200 text-violet-700
+                                  text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full">
+                    Sustainability
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="w-7 h-0.5 rounded-full bg-violet-500 mb-3
+                                  transition-all duration-300 group-hover:w-12" />
+                  <div className="font-display text-navy font-bold text-sm mb-2 leading-snug">Energy-First Thinking</div>
+                  <div className="text-slate-500 text-xs leading-relaxed">
+                    Every system we design is benchmarked against energy efficiency targets and sustainability goals.
+                  </div>
+                </div>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </div>
