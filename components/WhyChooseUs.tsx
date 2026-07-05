@@ -73,6 +73,10 @@ export default function WhyChooseUs() {
     <section id="why-us" className="section-padding relative overflow-hidden"
       style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)' }}>
 
+      {/* Amber transition accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" aria-hidden="true"
+           style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.6) 30%, rgba(217,119,6,0.6) 70%, transparent 100%)' }} />
+
       {/* Circuit grid */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
         backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,

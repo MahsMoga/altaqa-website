@@ -67,8 +67,7 @@ const expertise = [
 
 export default function CoreExpertise() {
   return (
-    <section id="expertise" className="section-padding relative overflow-hidden"
-             style={{ background: '#ffffff' }}>
+    <section id="expertise" className="section-padding section-light relative overflow-hidden">
 
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 opacity-[0.03]"

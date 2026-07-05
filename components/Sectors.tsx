@@ -35,7 +35,7 @@ const sectors = [
 
 export default function Sectors() {
   return (
-    <section id="sectors" className="section-padding" style={{ background: '#f9fafb' }}>
+    <section id="sectors" className="section-padding section-light">
       <div className="container-narrow">
 
         <AnimateIn className="max-w-xl mb-14">

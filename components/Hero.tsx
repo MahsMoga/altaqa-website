@@ -163,7 +163,10 @@ export default function Hero() {
                   key={stat.label}
                   className={`flex-1 ${idx > 0 ? 'pl-5 sm:pl-7 border-l border-white/[0.1]' : 'pr-5 sm:pr-7'}`}
                 >
-                  <div className={`font-display font-bold text-white leading-none mb-1 ${stat.hero ? 'text-4xl sm:text-5xl' : 'text-2xl sm:text-3xl'}`}>
+                  <div
+                    className={`font-display font-bold leading-none mb-1 ${stat.hero ? 'text-4xl sm:text-5xl' : 'text-2xl sm:text-3xl'}`}
+                    style={{ color: stat.hero ? '#F59E0B' : 'white' }}
+                  >
                     {stat.value}
                   </div>
                   {stat.hero && <div className="w-6 h-0.5 rounded-full mb-1.5" style={{ background: 'linear-gradient(90deg,#f59e0b,#d97706)' }} />}

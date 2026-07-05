@@ -124,7 +124,7 @@ export default function Contact() {
      }`
 
   return (
-    <section id="contact" className="section-padding" style={{ background: '#f9fafb' }}>
+    <section id="contact" className="section-padding section-light">
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 

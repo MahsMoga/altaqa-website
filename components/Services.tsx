@@ -123,7 +123,7 @@ function ServiceCard({ service }: { service: Service }) {
 
 export default function Services() {
   return (
-    <section id="services" className="section-padding bg-white">
+    <section id="services" className="section-padding section-light">
       <div className="container-narrow">
 
         <AnimateIn className="max-w-xl mb-14">
