@@ -106,7 +106,7 @@ export default function Hero() {
               automation, and energy management across Abu Dhabi.
             </p>
 
-            <div className="flex flex-wrap gap-4 mb-14">
+            <div className="flex flex-wrap gap-4 mb-10">
               <a href="#expertise" className="btn-primary">
                 Explore Solutions
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -114,9 +114,44 @@ export default function Hero() {
                         strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
-              <a href="#contact" className="btn-outline">
-                Contact Us
+              <a href="/energy-calculator" className="btn-outline">
+                Free Savings Calculator
               </a>
+            </div>
+
+            {/* ── Certified Partner Strip ─────────────────────── */}
+            {/* TODO: Replace each badge inner content with <img src="/images/partners/jci.svg" alt="..." /> once logos are available */}
+            <div className="mb-10">
+              <p className="text-white/30 text-[10px] font-semibold uppercase tracking-[0.18em] mb-3">
+                Certified & Authorised Partner
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: 'Johnson Controls', abbr: 'JCI', color: '#FF3B30' },
+                  { name: 'Schneider Electric', abbr: 'SE', color: '#3DCD58' },
+                  { name: 'Honeywell', abbr: 'Honeywell', color: '#FF9F0A' },
+                  { name: 'Tridium Niagara', abbr: 'Tridium', color: '#BF5AF2' },
+                  { name: 'Trend Controls', abbr: 'Trend', color: '#0A84FF' },
+                  { name: 'Hager Group', abbr: 'Hager', color: '#E05A2B' },
+                ].map((p) => (
+                  <div
+                    key={p.name}
+                    title={`${p.name} — Authorised Partner`}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                    style={{
+                      background: `${p.color}18`,
+                      border: `1px solid ${p.color}35`,
+                    }}
+                  >
+                    {/* Certified checkmark */}
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                      <circle cx="5" cy="5" r="4.5" fill={p.color} fillOpacity="0.25" stroke={p.color} strokeWidth="0.8" />
+                      <path d="M3 5l1.5 1.5L7 3.5" stroke={p.color} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span className="text-[11px] font-semibold" style={{ color: p.color }}>{p.abbr}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="flex items-start pt-8 border-t border-white/[0.1]">
