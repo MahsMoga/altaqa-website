@@ -93,7 +93,7 @@ export default function Contact() {
     }
   }
 
-  const fieldClass = (field: keyof FormState) =>
+  const fieldClass = (field: keyof TouchedState) =>
     `w-full border rounded-xl px-4 py-3 text-sm text-navy placeholder-slate-400
      focus:outline-none focus:ring-2 transition-all duration-200 bg-white ${
        touched[field] && errors[field]
