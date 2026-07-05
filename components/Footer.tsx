@@ -69,7 +69,7 @@ export default function Footer() {
             {/* LinkedIn social link */}
             <div className="flex items-center gap-2">
               <a
-                href="https://linkedin.com"
+                href="https://ae.linkedin.com/company/al-taqa-technical-general-contracting-llc"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
