@@ -141,80 +141,90 @@ export default function BrandCapability() {
           {brands.map((brand, idx) => (
             <AnimateIn key={brand.name} delay={idx * 60}>
               <div
-                className="group relative rounded-2xl p-6 h-full overflow-hidden cursor-default
-                           transition-all duration-400 hover:-translate-y-1"
+                className="group relative rounded-2xl overflow-hidden cursor-default
+                           transition-all duration-400 hover:-translate-y-1.5 flex flex-col h-full"
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(8px)',
+                  background: '#ffffff',
+                  border: `1px solid rgba(0,0,0,0.08)`,
+                  boxShadow: `0 4px 24px rgba(0,0,0,0.14)`,
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLDivElement
-                  el.style.background = `rgba(255,255,255,0.07)`
-                  el.style.borderColor = brand.color + '50'
-                  el.style.boxShadow = `0 0 0 1px ${brand.color}30, 0 20px 48px ${brand.glow}, inset 0 1px 0 rgba(255,255,255,0.08)`
+                  el.style.borderColor = brand.color + '60'
+                  el.style.boxShadow = `0 20px 56px ${brand.glow}, 0 6px 20px rgba(0,0,0,0.12)`
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget as HTMLDivElement
-                  el.style.background = 'rgba(255,255,255,0.04)'
-                  el.style.borderColor = 'rgba(255,255,255,0.08)'
-                  el.style.boxShadow = 'none'
+                  el.style.borderColor = 'rgba(0,0,0,0.08)'
+                  el.style.boxShadow = `0 4px 24px rgba(0,0,0,0.14)`
                 }}
               >
-                {/* Subtle top glow on hover */}
-                <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-t-2xl"
-                     style={{ background: `linear-gradient(90deg, transparent, ${brand.color}90, transparent)` }} />
-
-                {/* Corner watermark number */}
-                <div className="absolute top-4 right-4 font-display font-bold text-3xl leading-none select-none"
-                     style={{ color: brand.color + '10' }}>
-                  {String(idx + 1).padStart(2, '0')}
-                </div>
-
-                {/* Icon + certified badge row */}
-                <div className="flex items-start justify-between mb-5">
-                  {/* Icon container */}
+                {/* Coloured header band */}
+                <div className="relative overflow-hidden flex items-center justify-center"
+                     style={{
+                       background: `linear-gradient(135deg, ${brand.color}22 0%, ${brand.color}10 100%)`,
+                       borderBottom: `1px solid ${brand.color}25`,
+                       height: '110px',
+                     }}>
+                  {/* Decorative circles */}
+                  <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full opacity-20 transition-all duration-500 group-hover:opacity-30"
+                       style={{ background: `radial-gradient(circle, ${brand.color}, transparent 70%)` }} />
+                  <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-full opacity-10"
+                       style={{ background: `radial-gradient(circle, ${brand.color}, transparent 70%)` }} />
+                  {/* Subtle dot grid */}
+                  <div className="absolute inset-0 opacity-[0.07]"
+                       style={{
+                         backgroundImage: `radial-gradient(${brand.color} 1px, transparent 1px)`,
+                         backgroundSize: '18px 18px',
+                       }} />
+                  {/* Corner number */}
+                  <div className="absolute top-3 left-4 font-display font-bold text-2xl leading-none select-none"
+                       style={{ color: brand.color + '30' }}>
+                    {String(idx + 1).padStart(2, '0')}
+                  </div>
+                  {/* Certified badge */}
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+                       style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span className="text-emerald-600 text-[9px] font-bold uppercase tracking-wider">Certified</span>
+                  </div>
+                  {/* Large icon */}
                   <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0
+                    className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center
                                transition-all duration-300 group-hover:scale-110"
                     style={{
-                      background: `linear-gradient(135deg, ${brand.color}18, ${brand.color}08)`,
-                      border: `1px solid ${brand.color}28`,
+                      background: `linear-gradient(135deg, ${brand.color}30, ${brand.color}15)`,
+                      border: `1.5px solid ${brand.color}45`,
                       color: brand.color,
-                      boxShadow: `0 4px 16px ${brand.color}15`,
+                      boxShadow: `0 8px 24px ${brand.color}30`,
                     }}
                   >
                     {brand.icon}
                   </div>
+                </div>
 
-                  {/* Certified badge */}
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
-                       style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)' }}>
-                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
-                      <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    <span className="text-emerald-400 text-[9px] font-bold uppercase tracking-wider">Certified</span>
+                {/* Text content */}
+                <div className="p-5 flex flex-col flex-1">
+                  {/* Brand name */}
+                  <div className="font-display font-bold text-base mb-0.5 leading-snug" style={{ color: '#0f1c3f' }}>
+                    {brand.name}
                   </div>
-                </div>
 
-                {/* Brand name */}
-                <div className="font-display text-white font-bold text-base mb-1 leading-snug">
-                  {brand.name}
-                </div>
+                  {/* Platform subtitle */}
+                  <div className="text-xs font-semibold mb-3" style={{ color: brand.color }}>
+                    {brand.sub}
+                  </div>
 
-                {/* Platform subtitle */}
-                <div className="text-xs font-semibold mb-3 transition-colors duration-300"
-                     style={{ color: brand.color }}>
-                  {brand.sub}
-                </div>
+                  {/* Divider */}
+                  <div className="w-full h-px mb-3"
+                       style={{ background: `linear-gradient(90deg, ${brand.color}40, transparent)` }} />
 
-                {/* Divider */}
-                <div className="w-full h-px mb-3 transition-all duration-300"
-                     style={{ background: `linear-gradient(90deg, ${brand.color}30, transparent)` }} />
-
-                {/* Detail text */}
-                <div className="text-white/45 text-xs leading-relaxed group-hover:text-white/60 transition-colors duration-300">
-                  {brand.detail}
+                  {/* Detail text */}
+                  <div className="text-xs leading-relaxed" style={{ color: '#64748b' }}>
+                    {brand.detail}
+                  </div>
                 </div>
               </div>
             </AnimateIn>
