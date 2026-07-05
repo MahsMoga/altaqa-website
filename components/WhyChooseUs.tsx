@@ -70,30 +70,41 @@ const reasons = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="section-padding bg-white">
-      <div className="container-narrow">
+    <section id="why-us" className="section-padding relative overflow-hidden"
+      style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)' }}>
+
+      {/* Circuit grid */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+        backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px',
+      }} />
+
+      <div className="container-narrow relative z-10">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 
           {/* ── Left sticky panel ─────────────────────────────── */}
           <AnimateIn className="lg:sticky lg:top-24">
-            {/* Card shell around the left content */}
-            <div className="bg-slate-corporate/60 rounded-2xl border border-slate-border p-8 lg:p-10">
-              <span className="label-tag">Why Al Taqa</span>
-              <h2 className="heading-section mb-5">
+            <div className="rounded-2xl p-8 lg:p-10"
+              style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-5">
+                <span className="w-4 h-px bg-accent/50" />
+                Why Al Taqa
+                <span className="w-4 h-px bg-accent/50" />
+              </span>
+              <h2 className="font-display text-white text-3xl lg:text-4xl font-bold leading-tight mb-5">
                 Six Reasons Clients{' '}
                 <span className="text-accent">Choose Us</span>
               </h2>
-              <p className="body-lead mb-8 text-base">
-                Engineering competence meets operational reliability. Here's what sets
-                us apart in Abu Dhabi's competitive BMS and automation landscape.
+              <p className="text-white/55 text-base leading-relaxed mb-8">
+                Engineering competence meets operational reliability. Here&apos;s what sets
+                us apart in Abu Dhabi&apos;s competitive BMS and automation landscape.
               </p>
 
-              {/* Pull quote */}
-              <blockquote className="border-l-2 border-accent pl-5 py-1 mb-8">
-                <p className="text-slate-500 text-sm leading-relaxed italic">
-                  "Our mission extends beyond technical implementation — we build
+              <blockquote className="border-l-2 border-accent/50 pl-5 py-1 mb-8">
+                <p className="text-white/40 text-sm leading-relaxed italic">
+                  &ldquo;Our mission extends beyond technical implementation — we build
                   partnerships that support long-term operational success,
-                  sustainability, and growth."
+                  sustainability, and growth.&rdquo;
                 </p>
               </blockquote>
 
@@ -112,19 +123,28 @@ export default function WhyChooseUs() {
             {reasons.map((r, idx) => (
               <AnimateIn key={r.title} delay={idx * 60}>
                 <div
-                  className="flex gap-4 p-5 rounded-2xl border border-slate-border
-                             hover:border-accent/25 hover:bg-accent/[0.025] hover:shadow-card
-                             transition-all duration-250 group"
+                  className="flex gap-4 p-5 rounded-2xl transition-all duration-200 group"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLDivElement
+                    el.style.background = 'rgba(47,128,237,0.08)'
+                    el.style.borderColor = 'rgba(47,128,237,0.25)'
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLDivElement
+                    el.style.background = 'rgba(255,255,255,0.04)'
+                    el.style.borderColor = 'rgba(255,255,255,0.08)'
+                  }}
                 >
-                  <div className="w-10 h-10 bg-accent/[0.07] rounded-xl flex items-center justify-center
-                                  flex-shrink-0 group-hover:bg-accent/12 transition-colors duration-250">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                       style={{ background: 'rgba(47,128,237,0.12)', border: '1px solid rgba(47,128,237,0.2)' }}>
                     {r.icon}
                   </div>
                   <div>
-                    <div className="font-display text-navy font-semibold text-sm mb-1.5 leading-snug">
+                    <div className="font-display text-white font-semibold text-sm mb-1.5 leading-snug">
                       {r.title}
                     </div>
-                    <div className="text-slate-500 text-xs leading-relaxed">{r.desc}</div>
+                    <div className="text-white/45 text-xs leading-relaxed">{r.desc}</div>
                   </div>
                 </div>
               </AnimateIn>

@@ -64,10 +64,10 @@ export default function Hero() {
       <div className="orb w-[420px] h-[420px] bg-accent/[0.10] -top-24 -right-16 animate-float" style={{ filter: 'blur(80px)' }} />
       <div className="orb w-80 h-80 bg-blue-900/30 bottom-24 -left-16 animate-float-slow" style={{ filter: 'blur(64px)' }} />
 
-      {/* Wave divider */}
+      {/* Wave divider — smooth curve */}
       <div className="absolute bottom-0 left-0 right-0">
         <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-14 lg:h-20 fill-white">
-          <path d="M0 80L1440 0V80H0Z" />
+          <path d="M0 80 C360 20 1080 60 1440 10 L1440 80 L0 80 Z" />
         </svg>
       </div>
 
@@ -137,18 +137,17 @@ export default function Hero() {
                   <div
                     key={p.name}
                     title={`${p.name} — Authorised Partner`}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                    className="flex items-center gap-2 px-3.5 py-2 rounded-full"
                     style={{
-                      background: `${p.color}18`,
-                      border: `1px solid ${p.color}35`,
+                      background: `${p.color}15`,
+                      border: `1px solid ${p.color}40`,
                     }}
                   >
-                    {/* Certified checkmark */}
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-                      <circle cx="5" cy="5" r="4.5" fill={p.color} fillOpacity="0.25" stroke={p.color} strokeWidth="0.8" />
-                      <path d="M3 5l1.5 1.5L7 3.5" stroke={p.color} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg width="12" height="12" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+                      <circle cx="5" cy="5" r="4.5" fill={p.color} fillOpacity="0.3" stroke={p.color} strokeWidth="0.8" />
+                      <path d="M3 5l1.5 1.5L7 3.5" stroke={p.color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    <span className="text-[11px] font-semibold" style={{ color: p.color }}>{p.abbr}</span>
+                    <span className="text-xs font-bold" style={{ color: p.color }}>{p.abbr}</span>
                   </div>
                 ))}
               </div>
@@ -156,17 +155,18 @@ export default function Hero() {
 
             <div className="flex items-start pt-8 border-t border-white/[0.1]">
               {[
-                { value: '20+', label: 'Years of Experience' },
-                { value: '6+', label: 'BMS Platforms' },
-                { value: '24/7', label: 'Technical Support' },
+                { value: '500+', label: 'Projects Delivered', hero: true },
+                { value: '20+', label: 'Years Experience', hero: false },
+                { value: '24/7', label: 'Support SLA', hero: false },
               ].map((stat, idx) => (
                 <div
                   key={stat.label}
                   className={`flex-1 ${idx > 0 ? 'pl-5 sm:pl-7 border-l border-white/[0.1]' : 'pr-5 sm:pr-7'}`}
                 >
-                  <div className="font-display text-2xl sm:text-3xl font-bold text-white mb-1 leading-none">
+                  <div className={`font-display font-bold text-white leading-none mb-1 ${stat.hero ? 'text-4xl sm:text-5xl' : 'text-2xl sm:text-3xl'}`}>
                     {stat.value}
                   </div>
+                  {stat.hero && <div className="w-6 h-0.5 rounded-full mb-1.5" style={{ background: 'linear-gradient(90deg,#f59e0b,#d97706)' }} />}
                   <div className="text-white/45 text-xs sm:text-sm leading-snug">{stat.label}</div>
                 </div>
               ))}
@@ -264,14 +264,15 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Floating energy badge */}
-              <div className="absolute -bottom-4 -right-4 bg-accent rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2.5">
+              {/* Floating energy badge — warm amber/gold */}
+              <div className="absolute -bottom-4 -right-4 rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2.5"
+                style={{ background: 'linear-gradient(135deg, #d97706, #f59e0b)', boxShadow: '0 8px 24px rgba(217,119,6,0.4)' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
                   <path d="M13 10V3L4 14h7v7l9-11h-7z" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <div>
                   <div className="text-white text-xs font-bold leading-none">Energy Saved</div>
-                  <div className="text-white/80 text-[10px] mt-0.5">23% this month</div>
+                  <div className="text-white/85 text-[10px] mt-0.5">23% this month</div>
                 </div>
               </div>
             </div>

@@ -26,12 +26,20 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="bg-navy-dark">
+    <footer className="relative overflow-hidden" style={{ background: '#050e1d' }}>
+      {/* Circuit grid */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+        backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px',
+      }} />
+      {/* Radial glow behind logo area */}
+      <div className="absolute top-0 left-0 w-96 h-64 pointer-events-none" aria-hidden="true"
+           style={{ background: 'radial-gradient(ellipse at 20% 0%, rgba(47,128,237,0.1) 0%, transparent 70%)' }} />
       {/* Gradient top accent line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+      <div className="relative h-px bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
 
       {/* Main footer content */}
-      <AnimateIn className="container-narrow py-16">
+      <AnimateIn className="container-narrow py-16 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* ── Brand column — official logo image ─────────────── */}
@@ -169,7 +177,7 @@ export default function Footer() {
       </AnimateIn>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.10]">
+      <div className="border-t border-white/[0.08] relative z-10">
         <div className="container-narrow py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="text-white/60 text-xs">
             © {year} Al Taqa Technical General Contracting LLC. All rights reserved.

@@ -94,6 +94,7 @@ body {
            active:scale-[0.98] text-sm tracking-wide;
     box-shadow: 0 1px 3px rgba(47, 128, 237, 0.25), 0 4px 12px rgba(47, 128, 237, 0.12);
     transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    animation: btnPulse 3s ease-in-out infinite;
   }
 
   .btn-primary::after {
@@ -139,9 +140,9 @@ body {
 
 /* ─── Utility layer ─────────────────────────────────────── */
 @layer utilities {
-  /* Gradient text — works on dark backgrounds */
+  /* Gradient text — blue-to-violet for drama on dark backgrounds */
   .gradient-text {
-    background: linear-gradient(135deg, #8cc5fc 0%, #5ba3f5 40%, #3d8ef0 100%);
+    background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 45%, #a78bfa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -218,6 +219,20 @@ body {
 /* ─── Keyframes ─────────────────────────────────────────── */
 @keyframes btnShimmer {
   to { left: 130%; }
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 1px 3px rgba(47,128,237,0.25), 0 4px 12px rgba(47,128,237,0.12); }
+  50%       { box-shadow: 0 1px 3px rgba(47,128,237,0.35), 0 6px 20px rgba(47,128,237,0.28); }
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+body {
+  animation: pageFadeIn 0.4s ease forwards;
 }
 
 @keyframes orbFloat {

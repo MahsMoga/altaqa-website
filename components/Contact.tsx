@@ -124,7 +124,7 @@ export default function Contact() {
      }`
 
   return (
-    <section id="contact" className="section-padding bg-slate-corporate">
+    <section id="contact" className="section-padding" style={{ background: 'linear-gradient(180deg, #eef4ff 0%, #f0f5ff 100%)' }}>
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 
