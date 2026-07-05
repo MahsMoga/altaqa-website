@@ -14,6 +14,7 @@ import Sectors from '../components/Sectors'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
+import Testimonials from '../components/Testimonials'
 import { use3DEnabled } from '@/hooks/use3DEnabled'
 
 /**
@@ -206,6 +207,7 @@ export default function HomePage() {
         <Services />
         <ProcessFlow />
         <WhyChooseUs />
+        <Testimonials />
         <Mission />
         <Products />
         <Contact />
