@@ -114,7 +114,7 @@ export default function Hero() {
                         strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
-              <a href="/energy-calculator" className="btn-outline">
+              <a href="/energy-calculator" className="btn-outline" target="_blank" rel="noopener noreferrer">
                 Free Savings Calculator
               </a>
             </div>

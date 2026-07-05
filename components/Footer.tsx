@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import AnimateIn from './AnimateIn'
 
-type QuickLink = { label: string; href: string; badge?: string }
+type QuickLink = { label: string; href: string; badge?: string; newTab?: boolean }
 
 const quickLinks: QuickLink[] = [
   { label: 'About Us', href: '#about' },
@@ -9,7 +9,7 @@ const quickLinks: QuickLink[] = [
   { label: 'Our Services', href: '#services' },
   { label: 'BMS Platforms', href: '#platforms' },
   { label: 'Why Choose Us', href: '#why-us' },
-  { label: 'Energy Savings Calculator', href: '/energy-calculator', badge: 'Free' },
+  { label: 'Energy Savings Calculator', href: '/energy-calculator', badge: 'Free', newTab: true },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -104,6 +104,7 @@ export default function Footer() {
                   <a
                     href={link.href}
                     className="text-white/70 hover:text-accent text-xs transition-colors duration-150"
+                    {...(link.newTab ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     {link.label}
                   </a>
