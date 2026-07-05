@@ -13,13 +13,13 @@ const quickLinks: QuickLink[] = [
   { label: 'Contact', href: '#contact' },
 ]
 
-const services = [
-  'Building Automation',
-  'Guest Room Management',
-  'Control Systems',
-  'Energy Management',
-  'Smart Metering',
-  'Annual Maintenance',
+const serviceLinks = [
+  { label: 'BMS Design & Installation', href: '/services/bms-installation' },
+  { label: 'Energy Management',         href: '/services/energy-management' },
+  { label: 'Annual Maintenance (AMC)',   href: '/services/annual-maintenance' },
+  { label: 'Guest Room Management',     href: '/services/guest-room-management' },
+  { label: 'Smart Metering',            href: '/services/smart-metering' },
+  { label: 'Control Systems',           href: '/services/automatic-control-systems' },
 ]
 
 export default function Footer() {
@@ -116,9 +116,12 @@ export default function Footer() {
               Services
             </div>
             <ul className="space-y-3">
-              {services.map((s) => (
-                <li key={s}>
-                  <span className="text-white/65 text-xs">{s}</span>
+              {serviceLinks.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href}
+                     className="text-white/65 text-xs hover:text-accent transition-colors duration-150">
+                    {s.label}
+                  </a>
                 </li>
               ))}
             </ul>
