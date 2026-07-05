@@ -65,11 +65,11 @@ const Contact3D = dynamic(
 // ─────────────────────────────────────────────────────────────────────────────
 
 const META = {
-  title: 'Al Taqa Technical General Contracting LLC | Building Automation & BMS Abu Dhabi',
+  title: 'BMS & Building Automation Abu Dhabi | Al Taqa Technical',
   description:
-    'Premier provider of Building Management Systems, automation, and energy management solutions in Abu Dhabi. 20+ years of expertise across Johnson Controls, Schneider Electric, Honeywell, and Tridium platforms.',
+    'Al Taqa Technical — Abu Dhabi\'s specialist BMS contractor. 20+ years delivering Building Management Systems, energy management, and smart metering across Johnson Controls, Schneider Electric, Honeywell, and Tridium Niagara platforms.',
   keywords:
-    'BMS Abu Dhabi, Building Management System UAE, Building Automation Abu Dhabi, Energy Management, Johnson Controls, Schneider Electric EcoStruxure, Honeywell Alerton, Tridium Niagara, Smart Metering, HVAC Controls',
+    'BMS Abu Dhabi, Building Management System UAE, Building Automation Abu Dhabi, Energy Management Abu Dhabi, Johnson Controls Metasys UAE, Schneider Electric EcoStruxure UAE, Honeywell Alerton UAE, Tridium Niagara UAE, Smart Metering Abu Dhabi, HVAC Controls UAE, GRMS Hotel Abu Dhabi, BMS contractor Abu Dhabi',
   url: 'https://www.altaqauae.com',
 }
 
@@ -90,17 +90,24 @@ export default function HomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charSet="utf-8" />
 
+        {/* Canonical */}
+        <link rel="canonical" href={META.url} />
+
         {/* Open Graph */}
         <meta property="og:type"        content="website" />
         <meta property="og:url"         content={META.url} />
         <meta property="og:title"       content={META.title} />
         <meta property="og:description" content={META.description} />
         <meta property="og:locale"      content="en_AE" />
+        <meta property="og:site_name"   content="Al Taqa Technical" />
 
         {/* Twitter */}
         <meta name="twitter:card"        content="summary_large_image" />
         <meta name="twitter:title"       content={META.title} />
         <meta name="twitter:description" content={META.description} />
+
+        {/* Robots */}
+        <meta name="robots" content="index, follow" />
 
         {/* Structured Data */}
         <script
@@ -110,14 +117,46 @@ export default function HomePage() {
               '@context': 'https://schema.org',
               '@type': 'LocalBusiness',
               name: 'Al Taqa Technical General Contracting LLC',
+              alternateName: 'Al Taqa Technical',
               description: META.description,
+              url: META.url,
+              logo: `${META.url}/al-taqa-logo.png`,
+              image: `${META.url}/al-taqa-logo.png`,
+              email: 'info@altaqauae.com',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                contactType: 'customer service',
+                availableLanguage: ['English', 'Arabic'],
+                contactOption: 'TollFree',
+              },
               address: {
                 '@type': 'PostalAddress',
+                streetAddress: 'Office 1306, Lamar Tower, Roof Floor, Al Nahyan Camp',
                 addressLocality: 'Abu Dhabi',
                 addressCountry: 'AE',
+                addressRegion: 'Abu Dhabi',
               },
-              url: META.url,
-              areaServed: 'United Arab Emirates',
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 24.4539,
+                longitude: 54.3773,
+              },
+              hasMap: 'https://maps.google.com/?q=Al+Nahyan+Camp+Abu+Dhabi',
+              openingHoursSpecification: [
+                {
+                  '@type': 'OpeningHoursSpecification',
+                  dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                  opens: '08:00',
+                  closes: '18:00',
+                },
+              ],
+              areaServed: [
+                { '@type': 'City', name: 'Abu Dhabi' },
+                { '@type': 'Country', name: 'United Arab Emirates' },
+              ],
+              sameAs: [
+                'https://www.linkedin.com/company/al-taqa-technical',
+              ],
               knowsAbout: [
                 'Building Management Systems',
                 'Building Automation',
@@ -125,7 +164,24 @@ export default function HomePage() {
                 'Smart Metering',
                 'HVAC Controls',
                 'Guest Room Management',
+                'Johnson Controls Metasys',
+                'Schneider Electric EcoStruxure',
+                'Honeywell Alerton',
+                'Tridium Niagara N4',
+                'BACnet',
+                'Annual Maintenance Contracts',
               ],
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'BMS & Building Automation Services',
+                itemListElement: [
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'BMS Design & Integration' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Annual Maintenance Contracts' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Energy Retrofit Solutions' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Smart Metering Solutions' } },
+                  { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Guest Room Management Systems' } },
+                ],
+              },
             }),
           }}
         />
