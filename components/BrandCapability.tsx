@@ -231,23 +231,68 @@ export default function BrandCapability() {
           ))}
         </div>
 
-        {/* Vendor-neutral callout */}
+        {/* Vendor-neutral callout — matches brand card style */}
         <AnimateIn>
-          <div className="relative flex items-center gap-5 p-6 rounded-2xl overflow-hidden"
-               style={{ background: 'rgba(47,128,237,0.08)', border: '1px solid rgba(47,128,237,0.2)' }}>
-            <div className="absolute inset-0 opacity-5"
-                 style={{ background: 'linear-gradient(135deg, #2F80ED, transparent 60%)' }} />
-            <div className="relative w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                 style={{ background: 'rgba(47,128,237,0.2)', border: '1px solid rgba(47,128,237,0.3)' }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2F80ED" strokeWidth="1.6">
-                <path d="M12 2l2 5.5H20l-4.5 3.5 1.5 5.5L12 13.5 7 16.5l1.5-5.5L4 7.5h6L12 2z" strokeLinejoin="round"/>
-              </svg>
+          <div className="group relative rounded-2xl overflow-hidden cursor-default transition-all duration-400 hover:-translate-y-1.5"
+               style={{ background: '#ffffff', border: '1px solid rgba(0,0,0,0.08)', boxShadow: '0 4px 24px rgba(0,0,0,0.14)' }}
+               onMouseEnter={e => {
+                 const el = e.currentTarget as HTMLDivElement
+                 el.style.borderColor = 'rgba(47,128,237,0.6)'
+                 el.style.boxShadow = '0 20px 56px rgba(47,128,237,0.25), 0 6px 20px rgba(0,0,0,0.12)'
+               }}
+               onMouseLeave={e => {
+                 const el = e.currentTarget as HTMLDivElement
+                 el.style.borderColor = 'rgba(0,0,0,0.08)'
+                 el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.14)'
+               }}
+          >
+            {/* Coloured header band */}
+            <div className="relative overflow-hidden flex items-center justify-center"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(47,128,237,0.18) 0%, rgba(47,128,237,0.08) 100%)',
+                   borderBottom: '1px solid rgba(47,128,237,0.2)',
+                   height: '110px',
+                 }}>
+              {/* Decorative glows */}
+              <div className="absolute -top-6 -right-6 w-28 h-28 rounded-full opacity-20 transition-all duration-500 group-hover:opacity-30"
+                   style={{ background: 'radial-gradient(circle, #2F80ED, transparent 70%)' }} />
+              <div className="absolute -bottom-4 -left-4 w-20 h-20 rounded-full opacity-10"
+                   style={{ background: 'radial-gradient(circle, #2F80ED, transparent 70%)' }} />
+              <div className="absolute inset-0 opacity-[0.07]"
+                   style={{ backgroundImage: 'radial-gradient(#2F80ED 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
+
+              {/* Number — absolute top-left */}
+              <div className="absolute top-3 left-4 font-display font-bold text-2xl leading-none select-none"
+                   style={{ color: 'rgba(47,128,237,0.30)' }}>07</div>
+
+              {/* Badge — absolute top-right */}
+              <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+                   style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' }}>
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+                  <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="text-emerald-600 text-[9px] font-bold uppercase tracking-wider">Our Promise</span>
+              </div>
+
+              {/* Icon — centered */}
+              <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                   style={{ background: 'linear-gradient(135deg, rgba(47,128,237,0.25), rgba(47,128,237,0.12))', border: '1.5px solid rgba(47,128,237,0.35)', color: '#2F80ED', boxShadow: '0 8px 24px rgba(47,128,237,0.2)' }}>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2F80ED" strokeWidth="1.6">
+                  <path d="M12 2l2 5.5H20l-4.5 3.5 1.5 5.5L12 13.5 7 16.5l1.5-5.5L4 7.5h6L12 2z" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
-            <div className="relative">
-              <div className="font-display text-white font-semibold text-sm mb-1">
+
+            {/* Text content */}
+            <div className="p-5">
+              <div className="font-display font-bold text-base mb-0.5 leading-snug" style={{ color: '#0f1c3f' }}>
                 Vendor-Neutral Solutions
               </div>
-              <div className="text-white/50 text-xs leading-relaxed max-w-2xl">
+              <div className="text-xs font-semibold mb-3" style={{ color: '#2F80ED' }}>
+                Your System, Your Terms
+              </div>
+              <div className="w-full h-px mb-3" style={{ background: 'linear-gradient(90deg, rgba(47,128,237,0.35), transparent)' }} />
+              <div className="text-xs leading-relaxed" style={{ color: '#64748b' }}>
                 We tailor every solution to your specific requirements — not to a single
                 manufacturer's ecosystem. Your system, your terms, your long-term success.
               </div>
