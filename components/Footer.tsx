@@ -1,12 +1,15 @@
 import Image from 'next/image'
 import AnimateIn from './AnimateIn'
 
-const quickLinks = [
+type QuickLink = { label: string; href: string; badge?: string }
+
+const quickLinks: QuickLink[] = [
   { label: 'About Us', href: '#about' },
   { label: 'Core Expertise', href: '#expertise' },
   { label: 'Our Services', href: '#services' },
   { label: 'BMS Platforms', href: '#platforms' },
   { label: 'Why Choose Us', href: '#why-us' },
+  { label: 'Energy Savings Calculator', href: '/energy-calculator', badge: 'Free' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -89,13 +92,19 @@ export default function Footer() {
             </div>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.label}>
+                <li key={link.label} className="flex items-center gap-2">
                   <a
                     href={link.href}
                     className="text-white/70 hover:text-accent text-xs transition-colors duration-150"
                   >
                     {link.label}
                   </a>
+                  {link.badge && (
+                    <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full"
+                          style={{ background: 'rgba(47,128,237,0.2)', color: '#60a5fa' }}>
+                      {link.badge}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
