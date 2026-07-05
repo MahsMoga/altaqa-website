@@ -89,12 +89,21 @@ body {
 
   /* ─── Buttons ────────────────────────────────────────────── */
   .btn-primary {
+    @apply relative inline-flex items-center gap-2 text-white font-semibold
+           px-7 py-3.5 rounded-lg overflow-hidden
+           active:scale-[0.98] text-sm tracking-wide;
+    background: #D97706;
+    box-shadow: 0 1px 3px rgba(217, 119, 6, 0.3), 0 4px 14px rgba(217, 119, 6, 0.18);
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    animation: btnPulse 3s ease-in-out infinite;
+  }
+
+  .btn-blue {
     @apply relative inline-flex items-center gap-2 bg-accent text-white font-semibold
            px-7 py-3.5 rounded-lg overflow-hidden hover:bg-accent-light
            active:scale-[0.98] text-sm tracking-wide;
-    box-shadow: 0 1px 3px rgba(47, 128, 237, 0.25), 0 4px 12px rgba(47, 128, 237, 0.12);
+    box-shadow: 0 1px 3px rgba(26, 111, 212, 0.25), 0 4px 12px rgba(26, 111, 212, 0.12);
     transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
-    animation: btnPulse 3s ease-in-out infinite;
   }
 
   .btn-primary::after {
@@ -130,7 +139,13 @@ body {
 
 /* ─── btn-primary hover (outside @layer to allow pseudo-selector) ─── */
 .btn-primary:hover {
-  box-shadow: 0 2px 8px rgba(47, 128, 237, 0.4), 0 8px 24px rgba(47, 128, 237, 0.22);
+  background: #B45309;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.45), 0 8px 28px rgba(217, 119, 6, 0.28);
+  transform: translateY(-1px);
+}
+
+.btn-blue:hover {
+  box-shadow: 0 2px 8px rgba(26, 111, 212, 0.4), 0 8px 24px rgba(26, 111, 212, 0.22);
   transform: translateY(-1px);
 }
 
@@ -140,9 +155,9 @@ body {
 
 /* ─── Utility layer ─────────────────────────────────────── */
 @layer utilities {
-  /* Gradient text — blue-to-violet for drama on dark backgrounds */
+  /* Gradient text — blue only, no purple — clean and authoritative */
   .gradient-text {
-    background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 45%, #a78bfa 100%);
+    background: linear-gradient(135deg, #60a5fa 0%, #1a6fd4 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -222,8 +237,8 @@ body {
 }
 
 @keyframes btnPulse {
-  0%, 100% { box-shadow: 0 1px 3px rgba(47,128,237,0.25), 0 4px 12px rgba(47,128,237,0.12); }
-  50%       { box-shadow: 0 1px 3px rgba(47,128,237,0.35), 0 6px 20px rgba(47,128,237,0.28); }
+  0%, 100% { box-shadow: 0 1px 3px rgba(217,119,6,0.30), 0 4px 14px rgba(217,119,6,0.18); }
+  50%       { box-shadow: 0 1px 3px rgba(217,119,6,0.40), 0 6px 22px rgba(217,119,6,0.32); }
 }
 
 @keyframes pageFadeIn {

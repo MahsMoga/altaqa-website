@@ -41,7 +41,7 @@ export default function MobileStickyBar() {
         <a
           href="#contact"
           className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-opacity active:opacity-70"
-          style={{ background: 'linear-gradient(135deg, #2F80ED, #1a6fd4)' }}
+          style={{ background: 'linear-gradient(135deg, #D97706, #B45309)' }}
           aria-label="Get a free quote"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

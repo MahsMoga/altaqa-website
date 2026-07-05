@@ -21,9 +21,14 @@ module.exports = {
           lighter: '#243d5e',
         },
         accent: {
-          DEFAULT: '#2F80ED',
-          light: '#5ba3f5',
+          DEFAULT: '#1a6fd4',
+          light: '#4a90e2',
           soft: '#E8F1FC',
+        },
+        cta: {
+          DEFAULT: '#D97706',
+          light: '#F59E0B',
+          dark: '#B45309',
         },
         slate: {
           corporate: '#F4F7FA',
