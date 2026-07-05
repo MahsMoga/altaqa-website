@@ -123,6 +123,20 @@ export default function Footer() {
             <div className="space-y-4">
 
               <div>
+                <div className="text-white/80 font-medium text-xs mb-1">Phone</div>
+                <a href="tel:+971585761499" className="text-white/65 text-xs hover:text-accent transition-colors duration-150 block">+971 58 576 1499</a>
+                <a href="tel:+971585991377" className="text-white/65 text-xs hover:text-accent transition-colors duration-150 block mt-0.5">+971 58 599 1377</a>
+              </div>
+
+              <div>
+                <div className="text-white/80 font-medium text-xs mb-1">WhatsApp</div>
+                <a href="https://wa.me/971585761499" target="_blank" rel="noopener noreferrer"
+                   className="text-white/65 text-xs hover:text-accent transition-colors duration-150">
+                  +971 58 576 1499
+                </a>
+              </div>
+
+              <div>
                 <div className="text-white/80 font-medium text-xs mb-1">Email</div>
                 <a
                   href="mailto:info@altaqauae.com"
