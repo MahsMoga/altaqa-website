@@ -261,7 +261,7 @@ export const products: Product[] = [
     metaTitle: 'Smart Shutoff Valves | Automated Leak Prevention | Al Taqa Technical',
     metaDescription:
       'Intelligent, remotely-controlled shutoff valves that isolate water supply automatically on leak detection — reducing damage, water loss, and emergency response times for commercial and residential properties.',
-    image: '/images/products/smart-shutoff-valves.jpg',
+    image: '/images/products/smart-shutoff-valve-dn40.jpg',
     strip: 'bg-indigo-500',
     color: 'bg-indigo-50/80 border-indigo-100',
     iconBg: 'bg-indigo-100',
