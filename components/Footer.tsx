@@ -162,9 +162,9 @@ export default function Footer() {
           <div className="text-white/60 text-xs">
             © {year} Al Taqa Technical General Contracting LLC. All rights reserved.
           </div>
-          <div className="flex items-center gap-2 text-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-            <span className="text-white/50">Building Intelligence. Delivering Excellence.</span>
+          <div className="flex items-center gap-4 text-xs">
+            <a href="/privacy-policy" className="text-white/45 hover:text-white/70 transition-colors duration-150">Privacy Policy</a>
+            <a href="/terms" className="text-white/45 hover:text-white/70 transition-colors duration-150">Terms & Conditions</a>
           </div>
         </div>
       </div>
