@@ -5,58 +5,115 @@ const brands = [
     name: 'Johnson Controls',
     sub: 'Metasys Platform',
     badge: 'JC',
-    color: '#CC0000',
+    color: '#FF3B30',
+    glow: 'rgba(255,59,48,0.35)',
     detail: 'Certified specialists for the Metasys BMS ecosystem and related platforms.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <rect x="4" y="8" width="32" height="24" rx="4" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M4 16h32" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 2"/>
+        <circle cx="12" cy="12" r="2" fill="currentColor" opacity="0.7"/>
+        <path d="M18 24 Q20 20 22 24 Q24 28 26 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+        <circle cx="28" cy="24" r="1.5" fill="currentColor" opacity="0.6"/>
+      </svg>
+    ),
   },
   {
     name: 'Schneider Electric',
     sub: 'EcoStruxure Building',
     badge: 'SE',
     color: '#3DCD58',
+    glow: 'rgba(61,205,88,0.35)',
     detail: 'Deep expertise in EcoStruxure Building Operation systems and integration.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <path d="M20 4 L34 12 V28 L20 36 L6 28 V12 Z" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M20 10 L28 15 V25 L20 30 L12 25 V15 Z" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+        <path d="M20 14v12M14 17l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
   },
   {
     name: 'Honeywell Alerton',
     sub: 'Compass & Ascent',
     badge: 'HA',
-    color: '#E8000F',
+    color: '#FF9F0A',
+    glow: 'rgba(255,159,10,0.35)',
     detail: 'Comprehensive knowledge across Compass and Ascent controller platforms.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <circle cx="20" cy="20" r="14" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="20" cy="20" r="8" stroke="currentColor" strokeWidth="1" opacity="0.5"/>
+        <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.8"/>
+        <path d="M20 6 L20 10M20 30 L20 34M6 20 L10 20M30 20 L34 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M20 20 L26 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.9"/>
+      </svg>
+    ),
   },
   {
     name: 'Honeywell Centraline',
     sub: 'Legacy & Modern Systems',
     badge: 'HC',
-    color: '#E8000F',
+    color: '#FF6B6B',
+    glow: 'rgba(255,107,107,0.35)',
     detail: 'Skilled in both legacy and current-generation Honeywell Centraline systems.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <rect x="6" y="10" width="28" height="20" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M10 18 h4 l2-4 2 8 2-4 2 4 h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="10" cy="14" r="1.5" fill="currentColor" opacity="0.6"/>
+        <circle cx="30" cy="14" r="1.5" fill="currentColor" opacity="0.6"/>
+        <path d="M14 30 v4 M26 30 v4 M10 34 h20" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+      </svg>
+    ),
   },
   {
     name: 'Honeywell Trend',
     sub: 'IQ & 963 Supervisor',
     badge: 'HT',
-    color: '#E8000F',
+    color: '#BF5AF2',
+    glow: 'rgba(191,90,242,0.35)',
     detail: 'Proficient in IQ controller systems and the 963 Supervisor platform.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <path d="M6 32 L12 22 L18 26 L24 14 L30 18 L36 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="12" cy="22" r="2" fill="currentColor" opacity="0.7"/>
+        <circle cx="24" cy="14" r="2" fill="currentColor" opacity="0.7"/>
+        <circle cx="36" cy="8" r="2" fill="currentColor"/>
+        <path d="M6 36 h28" stroke="currentColor" strokeWidth="1" opacity="0.3" strokeLinecap="round"/>
+      </svg>
+    ),
   },
   {
     name: 'Tridium / Niagara',
     sub: 'Niagara Framework',
     badge: 'TR',
-    color: '#0066CC',
+    color: '#0A84FF',
+    glow: 'rgba(10,132,255,0.35)',
     detail: 'Advanced capabilities in Niagara N4 and AX Framework open-platform solutions.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <circle cx="20" cy="20" r="6" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="8" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
+        <circle cx="32" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
+        <circle cx="8" cy="28" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
+        <circle cx="32" cy="28" r="3.5" stroke="currentColor" strokeWidth="1.2"/>
+        <path d="M11 14 L14 17M29 14 L26 17M11 26 L14 23M29 26 L26 23" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        <circle cx="20" cy="20" r="2" fill="currentColor" opacity="0.8"/>
+      </svg>
+    ),
   },
 ]
 
 export default function BrandCapability() {
   return (
     <section id="platforms" className="section-padding bg-navy relative overflow-hidden">
-      {/* Background decoration */}
-      <div
-        className="orb w-[480px] h-[480px] bg-accent/[0.07] -top-24 right-0 animate-float-slow"
-        style={{ filter: 'blur(90px)' }}
-      />
-      <div
-        className="orb w-64 h-64 bg-accent/[0.05] bottom-0 left-1/4 animate-float"
-        style={{ filter: 'blur(80px)' }}
-      />
+      {/* Background decorations */}
+      <div className="absolute inset-0 hero-pattern opacity-20" />
+      <div className="orb w-[480px] h-[480px] bg-accent/[0.07] -top-24 right-0 animate-float-slow"
+           style={{ filter: 'blur(90px)' }} />
+      <div className="orb w-64 h-64 bg-accent/[0.05] bottom-0 left-1/4 animate-float"
+           style={{ filter: 'blur(80px)' }} />
 
       <div className="container-narrow relative z-10">
 
@@ -80,45 +137,84 @@ export default function BrandCapability() {
         </AnimateIn>
 
         {/* Brand grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
           {brands.map((brand, idx) => (
             <AnimateIn key={brand.name} delay={idx * 60}>
               <div
-                className="group bg-white/[0.04] border border-white/[0.08] rounded-2xl p-6
-                           hover:bg-white/[0.08] hover:border-accent/25
-                           transition-all duration-250 h-full"
+                className="group relative rounded-2xl p-6 h-full overflow-hidden cursor-default
+                           transition-all duration-400 hover:-translate-y-1"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(8px)',
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.background = `rgba(255,255,255,0.07)`
+                  el.style.borderColor = brand.color + '50'
+                  el.style.boxShadow = `0 0 0 1px ${brand.color}30, 0 20px 48px ${brand.glow}, inset 0 1px 0 rgba(255,255,255,0.08)`
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.background = 'rgba(255,255,255,0.04)'
+                  el.style.borderColor = 'rgba(255,255,255,0.08)'
+                  el.style.boxShadow = 'none'
+                }}
               >
-                <div className="flex items-start gap-4">
-                  {/* Brand badge */}
+                {/* Subtle top glow on hover */}
+                <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-t-2xl"
+                     style={{ background: `linear-gradient(90deg, transparent, ${brand.color}90, transparent)` }} />
+
+                {/* Corner watermark number */}
+                <div className="absolute top-4 right-4 font-display font-bold text-3xl leading-none select-none"
+                     style={{ color: brand.color + '10' }}>
+                  {String(idx + 1).padStart(2, '0')}
+                </div>
+
+                {/* Icon + certified badge row */}
+                <div className="flex items-start justify-between mb-5">
+                  {/* Icon container */}
                   <div
-                    className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0
-                               text-xs font-bold transition-transform duration-200 group-hover:scale-105"
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0
+                               transition-all duration-300 group-hover:scale-110"
                     style={{
-                      background: brand.color + '1a',
-                      border: `1px solid ${brand.color}33`,
+                      background: `linear-gradient(135deg, ${brand.color}18, ${brand.color}08)`,
+                      border: `1px solid ${brand.color}28`,
+                      color: brand.color,
+                      boxShadow: `0 4px 16px ${brand.color}15`,
                     }}
                   >
-                    <span style={{ color: brand.color }} className="font-display tracking-wide">
-                      {brand.badge}
-                    </span>
+                    {brand.icon}
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between gap-2 mb-0.5">
-                      <div className="font-display text-white font-semibold text-sm leading-snug">
-                        {brand.name}
-                      </div>
-                      {/* Certified checkmark */}
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500/15 border border-emerald-500/25
-                                      flex items-center justify-center mt-0.5" title="Certified">
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                          <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </div>
-                    </div>
-                    <div className="text-accent text-xs font-medium mb-2">{brand.sub}</div>
-                    <div className="text-white/40 text-xs leading-relaxed">{brand.detail}</div>
+                  {/* Certified badge */}
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full"
+                       style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)' }}>
+                    <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+                      <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span className="text-emerald-400 text-[9px] font-bold uppercase tracking-wider">Certified</span>
                   </div>
+                </div>
+
+                {/* Brand name */}
+                <div className="font-display text-white font-bold text-base mb-1 leading-snug">
+                  {brand.name}
+                </div>
+
+                {/* Platform subtitle */}
+                <div className="text-xs font-semibold mb-3 transition-colors duration-300"
+                     style={{ color: brand.color }}>
+                  {brand.sub}
+                </div>
+
+                {/* Divider */}
+                <div className="w-full h-px mb-3 transition-all duration-300"
+                     style={{ background: `linear-gradient(90deg, ${brand.color}30, transparent)` }} />
+
+                {/* Detail text */}
+                <div className="text-white/45 text-xs leading-relaxed group-hover:text-white/60 transition-colors duration-300">
+                  {brand.detail}
                 </div>
               </div>
             </AnimateIn>
@@ -127,14 +223,17 @@ export default function BrandCapability() {
 
         {/* Vendor-neutral callout */}
         <AnimateIn>
-          <div className="flex items-center gap-5 p-6 rounded-2xl bg-accent/[0.08] border border-accent/20">
-            <div className="w-11 h-11 rounded-xl bg-accent/20 flex items-center justify-center flex-shrink-0">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 2l2.5 5.5H18l-4.5 3.5 1.5 6L10 14 5 17l1.5-6L2 7.5h5.5L10 2z"
-                  stroke="#2F80ED" strokeWidth="1.5" strokeLinejoin="round"/>
+          <div className="relative flex items-center gap-5 p-6 rounded-2xl overflow-hidden"
+               style={{ background: 'rgba(47,128,237,0.08)', border: '1px solid rgba(47,128,237,0.2)' }}>
+            <div className="absolute inset-0 opacity-5"
+                 style={{ background: 'linear-gradient(135deg, #2F80ED, transparent 60%)' }} />
+            <div className="relative w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                 style={{ background: 'rgba(47,128,237,0.2)', border: '1px solid rgba(47,128,237,0.3)' }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2F80ED" strokeWidth="1.6">
+                <path d="M12 2l2 5.5H20l-4.5 3.5 1.5 5.5L12 13.5 7 16.5l1.5-5.5L4 7.5h6L12 2z" strokeLinejoin="round"/>
               </svg>
             </div>
-            <div>
+            <div className="relative">
               <div className="font-display text-white font-semibold text-sm mb-1">
                 Vendor-Neutral Solutions
               </div>
@@ -145,6 +244,7 @@ export default function BrandCapability() {
             </div>
           </div>
         </AnimateIn>
+
       </div>
     </section>
   )
