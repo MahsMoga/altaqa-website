@@ -41,30 +41,6 @@ const infoItems = [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M3 3h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a1.5 1.5 0 01-1.5 1.5C6.5 18 0 11.5 0 4.5A1.5 1.5 0 013 3z"
-          stroke="#2F80ED" strokeWidth="1.4" strokeLinejoin="round"/>
-      </svg>
-    ),
-    label: 'Phone',
-    value: '+971 58 576 1499  |  +971 58 599 1377',
-    href: 'tel:+971585761499',
-  },
-  {
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <path d="M9 1.5C4.858 1.5 1.5 4.858 1.5 9c0 1.326.348 2.57.957 3.645L1.5 16.5l3.98-1.04A7.5 7.5 0 109 1.5z"
-          stroke="#25D366" strokeWidth="1.4" strokeLinejoin="round"/>
-        <path d="M6.5 7.5c.2.6.6 1.2 1.1 1.7.5.5 1.1.9 1.7 1.1l.9-.9c.1-.1.3-.15.45-.08l1.85.9c.17.08.25.27.2.45L12.4 12c-.07.22-.28.38-.5.35C7.5 12 6 7.6 5.65 5.1c-.03-.22.13-.43.35-.5l1.25-.3c.18-.05.37.03.45.2l.9 1.85c.07.15.02.34-.08.45l-.02.7z"
-          stroke="#25D366" strokeWidth="1.2" strokeLinecap="round"/>
-      </svg>
-    ),
-    label: 'WhatsApp',
-    value: '+971 58 576 1499',
-    href: 'https://wa.me/971585761499',
-  },
-  {
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <circle cx="9" cy="9" r="7.5" stroke="#2F80ED" strokeWidth="1.4"/>
         <path d="M9 5v4.5l2.5 2.5" stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round"/>
       </svg>
