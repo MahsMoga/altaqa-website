@@ -68,7 +68,7 @@ const expertise = [
 export default function CoreExpertise() {
   return (
     <section id="expertise" className="section-padding relative overflow-hidden"
-             style={{ background: 'linear-gradient(160deg, #f0f4ff 0%, #f8faff 40%, #eef6ff 100%)' }}>
+             style={{ background: 'linear-gradient(135deg, #F1F6FB 0%, #EFF6FC 40%, #EAF3FC 70%, #E3EEF8 100%)' }}>
 
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 opacity-[0.03]"
