@@ -103,6 +103,23 @@ const brands = [
       </svg>
     ),
   },
+  {
+    name: 'Siemens',
+    sub: 'Desigo CC Platform',
+    badge: 'SI',
+    color: '#00A0DC',
+    glow: 'rgba(0,160,220,0.35)',
+    detail: 'Proficient in Desigo CC — the integrated building management platform widely deployed across UAE government, healthcare, and large commercial projects.',
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+        <circle cx="20" cy="20" r="13" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="20" cy="20" r="7" stroke="currentColor" strokeWidth="1.2" opacity="0.5"/>
+        <path d="M20 7 L20 13M20 27 L20 33M7 20 L13 20M27 20 L33 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M11.5 11.5 L15.5 15.5M24.5 24.5 L28.5 28.5M28.5 11.5 L24.5 15.5M15.5 24.5 L11.5 28.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" opacity="0.6"/>
+        <circle cx="20" cy="20" r="2.5" fill="currentColor" opacity="0.9"/>
+      </svg>
+    ),
+  },
 ]
 
 export default function BrandCapability() {
