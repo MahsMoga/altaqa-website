@@ -1,68 +1,37 @@
+import Image from 'next/image'
 import { useState } from 'react'
 import AnimateIn from './AnimateIn'
 
 const services = [
   {
-    hex: '#3b82f6',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <path d="M16 4C9.373 4 4 9.373 4 16s5.373 12 12 12 12-5.373 12-12S22.627 4 16 4z" stroke="#2F80ED" strokeWidth="1.5"/>
-        <path d="M16 9v7l4 4" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
+    number: '01',
     title: 'Annual Maintenance Contracts',
-    subtitle: 'Ongoing System Health',
-    strip: 'bg-blue-500',
-    color: 'bg-blue-50/80 border-blue-100',
-    iconBg: 'bg-blue-100',
-    items: [
-      { label: 'Brand-Agnostic Support', desc: 'Maintenance regardless of your existing system brands' },
-      { label: 'Preventive Strategies', desc: 'Proactive upkeep to minimize unexpected downtime' },
-      { label: '24/7 Emergency Response', desc: 'Round-the-clock support for mission-critical systems' },
-      { label: 'Performance Optimization', desc: 'Continuous tuning for sustained peak efficiency' },
-    ],
+    short: 'Ongoing System Health',
+    desc: 'Brand-agnostic preventive maintenance and 24/7 emergency response to keep your BMS running at peak efficiency — year after year.',
+    image: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=900&q=85',
+    color: '#3b82f6',
+    highlights: ['Brand-Agnostic Support', 'Preventive Strategies', '24/7 Emergency Response', 'Performance Optimisation'],
+    stat: { value: '24/7', label: 'Emergency SLA' },
   },
   {
-    hex: '#10b981',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <path d="M6 24l5-8 4 4 5-10 6 14" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M4 28h24" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M22 8l2 2-2 2" stroke="#2F80ED" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M26 10h-6" stroke="#2F80ED" strokeWidth="1.3" strokeLinecap="round"/>
-      </svg>
-    ),
+    number: '02',
     title: 'Energy Retrofit Solutions',
-    subtitle: 'Transform Existing Facilities',
-    strip: 'bg-emerald-500',
-    color: 'bg-emerald-50/80 border-emerald-100',
-    iconBg: 'bg-emerald-100',
-    items: [
-      { label: 'Comprehensive Energy Audits', desc: 'Full system analysis and consumption benchmarking' },
-      { label: 'Significant Cost Savings', desc: 'Operational cost reduction through efficiency improvements' },
-      { label: 'Sustainability Goals', desc: 'Environmental impact reduction via smart technology' },
-      { label: 'Seamless Integration', desc: 'Works with your existing infrastructure without disruption' },
-    ],
+    short: 'Transform Existing Facilities',
+    desc: 'Comprehensive energy audits and retrofit programmes that cut operational costs significantly while meeting your sustainability targets.',
+    image: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=85',
+    color: '#10b981',
+    highlights: ['Comprehensive Energy Audits', 'Significant Cost Savings', 'Sustainability Goals', 'Seamless Integration'],
+    stat: { value: '30%', label: 'Avg. Energy Saved' },
   },
   {
-    hex: '#8b5cf6',
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect x="5" y="8" width="22" height="16" rx="2.5" stroke="#2F80ED" strokeWidth="1.5"/>
-        <path d="M9 16h4l2-4 2 8 2-4h4" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    number: '03',
     title: 'Smart Metering Solutions',
-    subtitle: 'Real-Time Utility Visibility',
-    strip: 'bg-violet-500',
-    color: 'bg-violet-50/80 border-violet-100',
-    iconBg: 'bg-violet-100',
-    items: [
-      { label: 'BTU Meters', desc: 'Thermal energy monitoring for heating & cooling consumption' },
-      { label: 'Water Meters', desc: 'Precise water consumption monitoring for conservation' },
-      { label: 'Smart Shut-off Valves', desc: 'Automated control for emergency response & management' },
-      { label: 'Tenant Billing Software', desc: 'Comprehensive utility allocation and cost recovery platform' },
-    ],
+    short: 'Real-Time Utility Visibility',
+    desc: 'BTU, water, and utility monitoring with tenant billing software — complete consumption visibility across every zone of your facility.',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=85',
+    color: '#8b5cf6',
+    highlights: ['BTU Meters', 'Water Meters', 'Smart Shut-off Valves', 'Tenant Billing Software'],
+    stat: { value: '100%', label: 'Utility Visibility' },
   },
 ]
 
@@ -70,52 +39,124 @@ type Service = typeof services[0]
 
 function ServiceCard({ service }: { service: Service }) {
   const [hovered, setHovered] = useState(false)
+
   return (
     <div
-      className={`rounded-2xl border overflow-hidden transition-all duration-300 hover:-translate-y-1.5 h-full flex flex-col ${service.color}`}
+      className="group relative rounded-3xl overflow-hidden cursor-default h-[420px] lg:h-[480px]"
       style={{
         boxShadow: hovered
-          ? `0 8px 32px ${service.hex}25, 0 2px 8px rgba(0,0,0,0.06)`
-          : '0 2px 8px rgba(0,0,0,0.05)',
-        borderColor: hovered ? `${service.hex}55` : undefined,
-        transition: 'box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease',
+          ? `0 24px 64px ${service.color}28, 0 4px 16px rgba(0,0,0,0.14)`
+          : '0 4px 24px rgba(0,0,0,0.09)',
+        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+        transition: 'box-shadow 0.35s ease, transform 0.35s ease',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Colored top strip — thickens on hover */}
-      <div
-        className={`w-full ${service.strip}`}
-        style={{ height: hovered ? '4px' : '2px', transition: 'height 0.25s ease' }}
+      {/* Background photo */}
+      <Image
+        src={service.image}
+        alt={service.title}
+        fill
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        style={{ filter: 'brightness(0.82) contrast(1.1) saturate(1.1)' }}
+        sizes="(max-width: 1024px) 100vw, 33vw"
       />
 
-      <div className="p-8 flex flex-col flex-1">
-        <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-6`}>
-          {service.icon}
+      {/* Depth gradient — heavy at bottom for text legibility */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to top, rgba(5,10,30,0.97) 0%, rgba(5,10,30,0.70) 40%, rgba(5,10,30,0.25) 70%, transparent 100%)',
+        }}
+      />
+
+      {/* Subtle colour grade */}
+      <div
+        className="absolute inset-0"
+        style={{ background: `${service.color}12`, mixBlendMode: 'multiply' }}
+      />
+
+      {/* Top glow line on hover */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: `linear-gradient(90deg, transparent 0%, ${service.color} 40%, ${service.color} 60%, transparent 100%)` }}
+      />
+
+      {/* ── Top bar: number + category + stat ── */}
+      <div className="absolute top-5 left-5 right-5 flex items-start justify-between z-10">
+        <div className="flex items-center gap-2">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold font-display"
+            style={{
+              background: `${service.color}22`,
+              border: `1px solid ${service.color}55`,
+              color: service.color,
+              boxShadow: `0 0 10px ${service.color}30`,
+            }}
+          >
+            {service.number}
+          </div>
+          <span className="text-white/60 text-[10px] font-semibold uppercase tracking-widest
+                           bg-black/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
+            {service.short}
+          </span>
         </div>
-        <div className="font-display text-navy/40 text-xs font-semibold tracking-widest uppercase mb-1.5">
-          {service.subtitle}
+
+        {/* Stat badge — amber */}
+        <div className="text-right">
+          <div className="font-display font-bold text-2xl leading-none" style={{ color: '#F59E0B' }}>
+            {service.stat.value}
+          </div>
+          <div className="text-white/45 text-[9px] uppercase tracking-wider mt-0.5">
+            {service.stat.label}
+          </div>
         </div>
-        <h3 className="font-display text-navy font-bold text-xl leading-tight mb-6">
+      </div>
+
+      {/* ── Bottom content ── */}
+      <div className="absolute inset-0 p-6 flex flex-col justify-end z-10">
+
+        {/* Amber accent line — expands on hover */}
+        <div
+          className="rounded-full mb-4 transition-all duration-500 group-hover:w-14"
+          style={{ width: '24px', height: '2px', background: 'linear-gradient(90deg, #D97706, #F59E0B)', boxShadow: '0 0 8px rgba(217,119,6,0.5)' }}
+        />
+
+        <h3
+          className="font-display text-white font-bold text-xl leading-snug mb-2"
+          style={{ textShadow: '0 1px 10px rgba(0,0,0,0.6)' }}
+        >
           {service.title}
         </h3>
-        <ul className="space-y-3.5 flex-1">
-          {service.items.map((item) => (
-            <li key={item.label} className="flex gap-3">
-              <div className="w-5 h-5 rounded-full bg-accent/10 border border-accent/20
-                              flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                  <path d="M2 5l2.5 2.5L8 2.5" stroke="#2F80ED" strokeWidth="1.5"
-                        strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <div className="text-navy text-sm font-semibold mb-0.5">{item.label}</div>
-                <div className="text-slate-500 text-xs leading-relaxed">{item.desc}</div>
-              </div>
-            </li>
+
+        {/* Description — slides up on hover */}
+        <p
+          className="text-white/72 text-sm leading-relaxed mb-4 transition-all duration-400
+                     opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
+        >
+          {service.desc}
+        </p>
+
+        {/* Feature pills */}
+        <div
+          className="flex flex-wrap gap-1.5 transition-all duration-400
+                     opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
+          style={{ transitionDelay: '60ms' }}
+        >
+          {service.highlights.map((h) => (
+            <span
+              key={h}
+              className="text-[10px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md text-white"
+              style={{
+                background: `${service.color}22`,
+                border: `1px solid ${service.color}50`,
+              }}
+            >
+              {h}
+            </span>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   )
@@ -138,9 +179,9 @@ export default function Services() {
           </p>
         </AnimateIn>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((service, idx) => (
-            <AnimateIn key={service.title} delay={idx * 80}>
+            <AnimateIn key={service.title} delay={idx * 100}>
               <ServiceCard service={service} />
             </AnimateIn>
           ))}
