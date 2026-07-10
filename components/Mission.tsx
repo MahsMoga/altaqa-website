@@ -184,11 +184,11 @@ export default function Mission() {
                 alt="Abu Dhabi skyline"
                 fill
                 className="object-cover"
-                style={{ filter: 'brightness(0.25) saturate(0.8)' }}
+                style={{ filter: 'brightness(0.5) saturate(1.1) contrast(1.1)' }}
               />
             </div>
             <div className="absolute inset-0"
-                 style={{ background: 'linear-gradient(135deg, rgba(10,22,40,0.92) 0%, rgba(15,28,63,0.85) 100%)' }} />
+                 style={{ background: 'linear-gradient(135deg, rgba(10,22,40,0.70) 0%, rgba(15,28,63,0.60) 100%)' }} />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(47,128,237,0.1),transparent)] pointer-events-none" />
 
             <div className="relative z-10 p-8 lg:p-10 flex flex-col lg:flex-row lg:items-center gap-6">
