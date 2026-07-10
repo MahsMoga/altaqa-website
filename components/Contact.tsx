@@ -124,7 +124,24 @@ export default function Contact() {
      }`
 
   return (
-    <section id="contact" className="section-padding section-light">
+    <section id="contact" className="section-padding section-light relative">
+      {/* Artistic wave + amber diamond divider above Contact */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-60px', zIndex: 1 }} aria-hidden="true">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="w-full block" style={{ height: '64px' }}>
+          <path d="M0 72 C360 12 720 60 1080 24 C1260 8 1380 44 1440 28 L1440 72 L0 72 Z"
+                fill="#ffffff" />
+          <path d="M0 72 C240 36 600 68 900 32 C1140 8 1320 52 1440 40 L1440 72 L0 72 Z"
+                fill="#ffffff" fillOpacity="0.5" />
+        </svg>
+        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: '18px' }}>
+          <div className="relative flex items-center gap-3">
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.4))' }} />
+            <div className="w-3 h-3 rotate-45 flex-shrink-0"
+                 style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)', boxShadow: '0 0 12px rgba(217,119,6,0.5)' }} />
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, rgba(217,119,6,0.4), transparent)' }} />
+          </div>
+        </div>
+      </div>
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 
