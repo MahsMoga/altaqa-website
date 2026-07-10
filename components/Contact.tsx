@@ -130,20 +130,12 @@ export default function Contact() {
         {/* Top amber rule */}
         <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
         {/* Dark band */}
-        <div className="flex items-center justify-center" style={{ height: '52px', background: 'linear-gradient(90deg, #050e1d 0%, #0f1c3f 50%, #050e1d 100%)' }}>
+        <div className="relative" style={{ height: '52px', background: 'linear-gradient(90deg, #050e1d 0%, #0f1c3f 50%, #050e1d 100%)' }}>
           {/* Circuit dot pattern */}
           <div className="absolute inset-0" style={{
             backgroundImage: 'radial-gradient(rgba(47,128,237,0.08) 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }} />
-          {/* Label */}
-          <div className="relative flex items-center gap-4">
-            <div style={{ width: '48px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.7))' }} />
-            <span style={{ color: '#D97706', fontSize: '10px', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase' }}>
-              Contact Us
-            </span>
-            <div style={{ width: '48px', height: '1px', background: 'linear-gradient(90deg, rgba(217,119,6,0.7), transparent)' }} />
-          </div>
         </div>
         {/* Bottom amber rule */}
         <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
