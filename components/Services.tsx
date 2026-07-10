@@ -133,7 +133,7 @@ function ServiceCard({ service }: { service: Service }) {
         {/* Description — slides up on hover */}
         <p
           className="text-white/72 text-sm leading-relaxed mb-4 transition-all duration-400
-                     opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
+                     lg:opacity-0 lg:translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
         >
           {service.desc}
         </p>
@@ -141,7 +141,7 @@ function ServiceCard({ service }: { service: Service }) {
         {/* Feature pills */}
         <div
           className="flex flex-wrap gap-1.5 transition-all duration-400
-                     opacity-0 translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
+                     lg:opacity-0 lg:translate-y-3 group-hover:opacity-100 group-hover:translate-y-0"
           style={{ transitionDelay: '60ms' }}
         >
           {service.highlights.map((h) => (

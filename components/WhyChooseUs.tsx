@@ -82,7 +82,7 @@ export default function WhyChooseUs() {
         {/* ── Left: padded content panel ── */}
         <div className="relative z-10 lg:w-[45%] flex flex-col justify-center
                         px-6 sm:px-10 lg:px-16 xl:px-20
-                        pt-24 pb-12 lg:pt-28 lg:pb-16">
+                        pt-16 pb-10 lg:pt-28 lg:pb-16">
 
           {/* Header */}
           <AnimateIn className="mb-10">

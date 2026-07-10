@@ -323,7 +323,7 @@ export default function ProcessFlow() {
                     </span>
                   </div>
                   <h3 className="font-display text-white font-semibold text-sm mb-1">{s.title}</h3>
-                  <p className="text-white/45 text-xs leading-relaxed">{s.desc}</p>
+                  <p className="text-white/60 text-xs leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             )

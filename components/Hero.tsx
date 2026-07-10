@@ -72,7 +72,7 @@ export default function Hero() {
       </div>
 
       {/* Content */}
-      <div className="container-narrow relative z-10 pt-32 pb-28">
+      <div className="container-narrow relative z-10 pt-28 pb-16 lg:pt-32 lg:pb-28">
         <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 items-center">
 
           {/* Left: Copy */}

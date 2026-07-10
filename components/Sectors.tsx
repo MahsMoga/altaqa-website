@@ -98,7 +98,7 @@ export default function Sectors() {
                   </h3>
 
                   <p className="text-white/70 text-sm leading-relaxed mb-4 max-w-sm
-                                opacity-0 translate-y-2 transition-all duration-300
+                                lg:opacity-0 lg:translate-y-2 transition-all duration-300
                                 group-hover:opacity-100 group-hover:translate-y-0">
                     {sector.desc}
                   </p>

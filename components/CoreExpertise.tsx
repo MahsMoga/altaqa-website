@@ -114,14 +114,14 @@ export default function CoreExpertise() {
           </AnimateIn>
 
           <AnimateIn delay={80} className="lg:col-span-7">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <ExpertiseCard item={expertise[1]} />
               <ExpertiseCard item={expertise[2]} />
             </div>
           </AnimateIn>
 
           <AnimateIn delay={160} className="lg:col-span-7">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <ExpertiseCard item={expertise[3]} />
               <ExpertiseCard item={expertise[4]} />
             </div>
@@ -139,7 +139,7 @@ function ExpertiseCard({ item, tall = false }: { item: typeof expertise[0]; tall
       className={`group relative rounded-3xl overflow-hidden cursor-default
                   transition-all duration-500 ease-out
                   hover:-translate-y-2
-                  ${tall ? 'h-[560px] lg:h-full min-h-[560px]' : 'h-64'}`}
+                  ${tall ? 'h-64 lg:h-full lg:min-h-[560px]' : 'h-64'}`}
       style={{
         boxShadow: `0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04)`,
       }}

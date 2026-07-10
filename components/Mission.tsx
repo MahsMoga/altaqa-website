@@ -42,7 +42,7 @@ const commitments = [
 
 function CommitmentCard({ item }: { item: typeof commitments[0] }) {
   return (
-    <div className="group relative rounded-3xl overflow-hidden cursor-default h-72 lg:h-80
+    <div className="group relative rounded-3xl overflow-hidden cursor-default h-48 lg:h-80
                     transition-all duration-500 hover:-translate-y-2"
          style={{ boxShadow: `0 4px 24px rgba(0,0,0,0.25)` }}
          onMouseEnter={e => {
@@ -97,7 +97,7 @@ function CommitmentCard({ item }: { item: typeof commitments[0] }) {
           {item.title}
         </h3>
 
-        <p className="text-white/65 text-xs leading-relaxed opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
+        <p className="text-white/65 text-xs leading-relaxed lg:opacity-0 lg:translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-400">
           {item.desc}
         </p>
       </div>
