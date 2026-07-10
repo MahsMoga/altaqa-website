@@ -66,17 +66,19 @@ export default function WhyChooseUs() {
 
   return (
     <section id="why-us" className="section-padding relative overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)' }}>
+      style={{
+        background: 'linear-gradient(160deg, #f8f7f5 0%, #f3f2ef 100%)',
+        clipPath: 'polygon(0 0, 100% 48px, 100% 100%, 0 100%)',
+        marginTop: '-48px',
+        paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
+      }}>
 
-      {/* Amber transition accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" aria-hidden="true"
-           style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.6) 30%, rgba(217,119,6,0.6) 70%, transparent 100%)' }} />
-
-      {/* Circuit grid */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
-        backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
-        backgroundSize: '48px 48px',
-      }} />
+      {/* Dot pattern */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
+           style={{
+             backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
+             backgroundSize: '20px 20px',
+           }} />
 
       <div className="container-narrow relative z-10">
 
@@ -88,11 +90,11 @@ export default function WhyChooseUs() {
             <span className="w-4 h-px bg-accent/50" />
           </span>
           <div className="flex flex-col lg:flex-row lg:items-end gap-4">
-            <h2 className="font-display text-white text-3xl lg:text-4xl font-bold leading-tight">
+            <h2 className="font-display text-navy text-3xl lg:text-4xl font-bold leading-tight">
               Six Reasons Clients{' '}
               <span className="text-accent">Choose Us</span>
             </h2>
-            <p className="text-white/45 text-sm leading-relaxed max-w-sm lg:ml-auto lg:mb-0.5">
+            <p className="text-slate-500 text-sm leading-relaxed max-w-sm lg:ml-auto lg:mb-0.5">
               Engineering competence meets operational reliability across Abu Dhabi.
             </p>
           </div>
@@ -112,9 +114,9 @@ export default function WhyChooseUs() {
                     onClick={() => setActive(idx)}
                     className="w-full text-left rounded-2xl transition-all duration-300 overflow-hidden"
                     style={{
-                      background: isActive ? `${item.color}14` : 'rgba(255,255,255,0.03)',
-                      border: `1px solid ${isActive ? item.color + '50' : 'rgba(255,255,255,0.08)'}`,
-                      boxShadow: isActive ? `0 8px 32px ${item.color}18` : 'none',
+                      background: isActive ? `${item.color}12` : 'rgba(255,255,255,0.7)',
+                      border: `1px solid ${isActive ? item.color + '50' : 'rgba(0,0,0,0.08)'}`,
+                      boxShadow: isActive ? `0 8px 32px ${item.color}18` : '0 1px 4px rgba(0,0,0,0.06)',
                     }}
                   >
                     <div className="flex items-center gap-3.5 p-4">
@@ -122,8 +124,8 @@ export default function WhyChooseUs() {
                       <div
                         className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center font-display font-bold text-xs transition-all duration-300"
                         style={{
-                          background: isActive ? item.color : 'rgba(255,255,255,0.06)',
-                          color: isActive ? '#fff' : 'rgba(255,255,255,0.35)',
+                          background: isActive ? item.color : 'rgba(0,0,0,0.06)',
+                          color: isActive ? '#fff' : 'rgba(0,0,0,0.30)',
                           boxShadow: isActive ? `0 0 16px ${item.color}50` : 'none',
                         }}
                       >
@@ -133,7 +135,7 @@ export default function WhyChooseUs() {
                       {/* Title */}
                       <span
                         className="text-sm font-semibold leading-snug transition-colors duration-300"
-                        style={{ color: isActive ? '#fff' : 'rgba(255,255,255,0.45)' }}
+                        style={{ color: isActive ? '#fff' : 'rgba(0,0,0,0.55)' }}
                       >
                         {item.short}
                       </span>
@@ -159,8 +161,8 @@ export default function WhyChooseUs() {
             </div>
 
             {/* CTA below selector */}
-            <div className="mt-5 p-5 rounded-2xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
-              <p className="text-white/35 text-xs leading-relaxed italic mb-4">
+            <div className="mt-5 p-5 rounded-2xl" style={{ background: 'rgba(255,255,255,0.8)', border: '1px solid rgba(0,0,0,0.08)' }}>
+              <p className="text-slate-400 text-xs leading-relaxed italic mb-4">
                 &ldquo;Our mission extends beyond technical implementation — we build partnerships that support long-term operational success.&rdquo;
               </p>
               <a href="#contact" className="btn-primary w-full justify-center">
