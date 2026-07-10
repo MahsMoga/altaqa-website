@@ -114,18 +114,26 @@ export default function WhyChooseUs() {
                     onClick={() => setActive(idx)}
                     className="w-full text-left rounded-2xl transition-all duration-300 overflow-hidden"
                     style={{
-                      background: isActive ? `${item.color}12` : 'rgba(255,255,255,0.7)',
-                      border: `1px solid ${isActive ? item.color + '50' : 'rgba(0,0,0,0.08)'}`,
-                      boxShadow: isActive ? `0 8px 32px ${item.color}18` : '0 1px 4px rgba(0,0,0,0.06)',
+                      background: isActive ? `${item.color}12` : 'rgba(255,255,255,0.85)',
+                      border: `1px solid ${isActive ? item.color + '50' : 'rgba(0,0,0,0.07)'}`,
+                      boxShadow: isActive ? `0 8px 32px ${item.color}20` : '0 1px 4px rgba(0,0,0,0.05)',
                     }}
                   >
                     <div className="flex items-center gap-3.5 p-4">
+                      {/* Colored left accent bar */}
+                      <div className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full transition-all duration-300"
+                           style={{
+                             background: item.color,
+                             opacity: isActive ? 1 : 0.25,
+                           }} />
+
                       {/* Number */}
                       <div
                         className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center font-display font-bold text-xs transition-all duration-300"
                         style={{
-                          background: isActive ? item.color : 'rgba(0,0,0,0.06)',
-                          color: isActive ? '#fff' : 'rgba(0,0,0,0.30)',
+                          background: isActive ? item.color : `${item.color}18`,
+                          color: isActive ? '#fff' : item.color,
+                          border: `1px solid ${isActive ? 'transparent' : item.color + '40'}`,
                           boxShadow: isActive ? `0 0 16px ${item.color}50` : 'none',
                         }}
                       >
@@ -135,15 +143,18 @@ export default function WhyChooseUs() {
                       {/* Title */}
                       <span
                         className="text-sm font-semibold leading-snug transition-colors duration-300"
-                        style={{ color: isActive ? '#fff' : 'rgba(0,0,0,0.55)' }}
+                        style={{ color: isActive ? item.color : 'rgba(0,0,0,0.65)' }}
                       >
                         {item.short}
                       </span>
 
-                      {/* Active arrow */}
+                      {/* Arrow — always visible, colored */}
                       <svg
                         className="ml-auto flex-shrink-0 transition-all duration-300"
-                        style={{ opacity: isActive ? 1 : 0, transform: isActive ? 'translateX(0)' : 'translateX(-6px)' }}
+                        style={{
+                          opacity: isActive ? 1 : 0.3,
+                          transform: isActive ? 'translateX(0)' : 'translateX(-4px)',
+                        }}
                         width="14" height="14" viewBox="0 0 14 14" fill="none"
                       >
                         <path d="M3 7h8M8 4l3 3-3 3" stroke={item.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
