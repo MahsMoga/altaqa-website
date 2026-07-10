@@ -124,33 +124,31 @@ export default function Contact() {
      }`
 
   return (
-    <section id="contact" className="section-padding section-light relative">
-      {/* Bold full-bleed section divider */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-56px', zIndex: 1 }} aria-hidden="true">
-        {/* Top amber rule */}
-        <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
-        {/* Dark band */}
-        <div className="relative" style={{ height: '52px', background: 'linear-gradient(90deg, #050e1d 0%, #0f1c3f 50%, #050e1d 100%)' }}>
-          {/* Circuit dot pattern */}
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(rgba(47,128,237,0.08) 1px, transparent 1px)',
-            backgroundSize: '20px 20px',
-          }} />
-        </div>
-        {/* Bottom amber rule */}
-        <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
-      </div>
+    <section id="contact" className="section-padding relative overflow-hidden"
+      style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)' }}>
+      {/* Amber accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none" aria-hidden="true"
+           style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.6) 30%, rgba(217,119,6,0.6) 70%, transparent 100%)' }} />
+      {/* Circuit grid */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+        backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px',
+      }} />
+      {/* Ambient orb */}
+      <div className="orb w-96 h-96 bg-accent/[0.07] bottom-0 right-0 animate-float-slow" style={{ filter: 'blur(90px)' }} />
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
 
           {/* ── Left: contact info ─────────────────────────────── */}
           <AnimateIn>
-            <span className="label-tag">Contact Us</span>
-            <h2 className="heading-section mb-5">
+            <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-5">
+              <span className="w-4 h-px bg-accent/50" />Contact Us
+            </span>
+            <h2 className="font-display text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight mb-5">
               Ready to Transform{' '}
               <span className="text-accent">Your Facility?</span>
             </h2>
-            <p className="body-lead mb-10 text-base">
+            <p className="text-white/55 text-base leading-relaxed mb-10">
               Speak with our engineering team to discover how Al Taqa Technical
               can elevate your building&apos;s intelligence, efficiency, and sustainability.
             </p>
@@ -158,21 +156,24 @@ export default function Contact() {
             <div className="space-y-4">
               {infoItems.map((item) => (
                 <div key={item.label}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-white border border-slate-border
-                             shadow-sm hover:border-accent/15 hover:shadow-card transition-all duration-200">
-                  <div className="w-10 h-10 bg-gradient-to-br from-accent/15 to-accent/[0.04]
-                                  rounded-xl flex items-center justify-center flex-shrink-0 border border-accent/10">
+                  className="flex items-start gap-4 p-4 rounded-2xl transition-all duration-200"
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(47,128,237,0.3)' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(255,255,255,0.1)' }}
+                >
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                       style={{ background: 'rgba(47,128,237,0.15)', border: '1px solid rgba(47,128,237,0.25)' }}>
                     {item.icon}
                   </div>
                   <div className="pt-0.5">
-                    <div className="font-display text-navy font-semibold text-sm mb-0.5">{item.label}</div>
+                    <div className="font-display text-white font-semibold text-sm mb-0.5">{item.label}</div>
                     {item.href ? (
                       <a href={item.href}
-                        className="text-slate-500 text-sm hover:text-accent transition-colors duration-150">
+                        className="text-white/50 text-sm hover:text-accent transition-colors duration-150">
                         {item.value}
                       </a>
                     ) : (
-                      <div className="text-slate-500 text-sm">{item.value}</div>
+                      <div className="text-white/50 text-sm">{item.value}</div>
                     )}
                   </div>
                 </div>
@@ -182,7 +183,7 @@ export default function Contact() {
 
           {/* ── Right: contact form ────────────────────────────── */}
           <AnimateIn delay={120}>
-            <div className="bg-white rounded-2xl border border-slate-border p-8 shadow-card-xl">
+            <div className="rounded-2xl p-8" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}>
               {submitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center
@@ -192,25 +193,25 @@ export default function Contact() {
                             strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <h3 className="font-display text-navy font-bold text-xl mb-2">Message Sent</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs mx-auto">
+                  <h3 className="font-display text-white font-bold text-xl mb-2">Message Sent</h3>
+                  <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
                     Thank you for reaching out. Our team will be in touch within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                   <div className="mb-6">
-                    <h3 className="font-display text-navy font-bold text-xl mb-1">
+                    <h3 className="font-display text-white font-bold text-xl mb-1">
                       Send Us a Message
                     </h3>
-                    <p className="text-slate-400 text-xs">Fields marked * are required</p>
+                    <p className="text-white/35 text-xs">Fields marked * are required</p>
                   </div>
 
                   {/* Service selector */}
                   <div>
-                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
+                    <label className="block text-white/70 text-xs font-semibold mb-3 tracking-wide uppercase">
                       Service Required
-                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
+                      <span className="text-white/30 font-normal ml-1">(optional)</span>
                     </label>
                     <div className="flex flex-wrap gap-2">
                       {SERVICE_OPTIONS.map(opt => {
@@ -241,7 +242,7 @@ export default function Contact() {
                   {/* Name */}
                   <div>
                     <label htmlFor="contact-name"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Full Name *
                     </label>
                     <input
@@ -264,7 +265,7 @@ export default function Contact() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="contact-email"
-                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
                         Email Address *
                       </label>
                       <input
@@ -285,7 +286,7 @@ export default function Contact() {
 
                     <div>
                       <label htmlFor="contact-whatsapp"
-                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
                         WhatsApp Number
                         <span className="text-slate-400 font-normal ml-1">(optional)</span>
                       </label>
@@ -310,7 +311,7 @@ export default function Contact() {
                   {/* Company */}
                   <div>
                     <label htmlFor="contact-company"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Company / Organisation *
                     </label>
                     <input
@@ -364,7 +365,7 @@ export default function Contact() {
                   {/* Message */}
                   <div>
                     <label htmlFor="contact-message"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Message *
                     </label>
                     <textarea
