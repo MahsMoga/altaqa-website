@@ -146,7 +146,8 @@ export default function ProcessFlow() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding section-light relative overflow-hidden"
+      className="section-padding relative overflow-hidden"
+      style={{ background: '#f1f5f9' }}
     >
       {/* Subtle radial accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
