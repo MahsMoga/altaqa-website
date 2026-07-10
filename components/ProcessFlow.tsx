@@ -146,33 +146,22 @@ export default function ProcessFlow() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding relative"
-      style={{ background: '#f1f5f9' }}
+      className="section-padding relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)',
+        clipPath: 'polygon(0 48px, 100% 0, 100% 100%, 0 100%)',
+        marginTop: '-48px',
+        paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
+      }}
     >
-      {/* Artistic wave divider — sits at top, bleeds over the section above */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-60px', zIndex: 1 }} aria-hidden="true">
-        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="w-full block" style={{ height: '64px' }}>
-          {/* Warm cream fill matches Services background */}
-          <path d="M0 0 C240 60 480 0 720 36 C960 72 1200 12 1440 48 L1440 0 L0 0 Z"
-                fill="#f8f7f5" />
-          {/* Subtle secondary wave */}
-          <path d="M0 0 C360 48 720 8 1080 40 C1260 56 1380 24 1440 32 L1440 0 L0 0 Z"
-                fill="#f8f7f5" fillOpacity="0.5" />
-        </svg>
-
-        {/* Centered amber diamond accent on the wave */}
-        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: '28px' }}>
-          <div className="relative flex items-center gap-3">
-            {/* Left line */}
-            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.4))' }} />
-            {/* Diamond */}
-            <div className="w-3 h-3 rotate-45 flex-shrink-0"
-                 style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)', boxShadow: '0 0 12px rgba(217,119,6,0.5)' }} />
-            {/* Right line */}
-            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, rgba(217,119,6,0.4), transparent)' }} />
-          </div>
-        </div>
-      </div>
+      {/* Amber accent line */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" aria-hidden="true"
+           style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.5) 30%, rgba(217,119,6,0.5) 70%, transparent 100%)', height: '2px', top: '48px' }} />
+      {/* Circuit grid */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{
+        backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px',
+      }} />
 
       {/* Subtle radial accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
@@ -192,11 +181,11 @@ export default function ProcessFlow() {
             Our Methodology
             <span className="w-4 h-px bg-accent/50" />
           </span>
-          <h2 className="font-display text-navy text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="font-display text-white text-3xl lg:text-4xl font-bold mb-4">
             How We Deliver{' '}
             <span className="text-accent">End-to-End Value</span>
           </h2>
-          <p className="text-slate-500 text-sm leading-relaxed">
+          <p className="text-white/50 text-sm leading-relaxed">
             A structured five-stage methodology — from initial design through
             ongoing support — ensuring seamless delivery and measurable results.
           </p>
@@ -220,7 +209,7 @@ export default function ProcessFlow() {
                   >
                     {/* Step number above */}
                     <div className="font-display text-xs font-bold tracking-widest mb-3 transition-colors duration-300"
-                         style={{ color: isActive ? s.color : 'rgba(0,0,0,0.25)' }}>
+                         style={{ color: isActive ? s.color : 'rgba(255,255,255,0.25)' }}>
                       {s.step}
                     </div>
 
@@ -230,8 +219,8 @@ export default function ProcessFlow() {
                       style={{
                         background: isActive || isPast
                           ? `linear-gradient(135deg, ${s.color}, ${s.color}99)`
-                          : 'rgba(0,0,0,0.06)',
-                        border: `2px solid ${isActive ? s.color : isPast ? s.color + '60' : 'rgba(0,0,0,0.12)'}`,
+                          : 'rgba(255,255,255,0.06)',
+                        border: `2px solid ${isActive ? s.color : isPast ? s.color + '60' : 'rgba(255,255,255,0.12)'}`,
                         boxShadow: isActive ? `0 0 24px ${s.color}50, 0 0 0 6px ${s.color}15` : 'none',
                         transform: isActive ? 'scale(1.12)' : 'scale(1)',
                       }}
@@ -252,7 +241,7 @@ export default function ProcessFlow() {
                       <div className="font-display font-bold text-sm" style={{ color: s.color }}>
                         {s.kpi}
                       </div>
-                      <div className="text-slate-400 text-[10px]">{s.kpiLabel}</div>
+                      <div className="text-white/35 text-[10px]">{s.kpiLabel}</div>
                     </div>
                   </button>
 
@@ -288,11 +277,11 @@ export default function ProcessFlow() {
                         style={{ color: steps[active].color }}>
                     STEP {steps[active].step}
                   </span>
-                  <span className="text-slate-300 text-xs">—</span>
-                  <span className="text-slate-400 text-xs">{steps[active].kpi} {steps[active].kpiLabel}</span>
+                  <span className="text-white/20 text-xs">—</span>
+                  <span className="text-white/40 text-xs">{steps[active].kpi} {steps[active].kpiLabel}</span>
                 </div>
-                <h3 className="font-display text-navy font-bold text-xl mb-2">{steps[active].title}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed max-w-2xl">{steps[active].desc}</p>
+                <h3 className="font-display text-white font-bold text-xl mb-2">{steps[active].title}</h3>
+                <p className="text-white/55 text-sm leading-relaxed max-w-2xl">{steps[active].desc}</p>
               </div>
             </div>
           </div>
@@ -333,8 +322,8 @@ export default function ProcessFlow() {
                       {s.kpi} {s.kpiLabel}
                     </span>
                   </div>
-                  <h3 className="font-display text-navy font-semibold text-sm mb-1">{s.title}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{s.desc}</p>
+                  <h3 className="font-display text-white font-semibold text-sm mb-1">{s.title}</h3>
+                  <p className="text-white/45 text-xs leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             )
@@ -350,7 +339,7 @@ export default function ProcessFlow() {
                     strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </a>
-          <p className="text-slate-400 text-xs mt-4">No obligation · Response within 24 hours</p>
+          <p className="text-white/25 text-xs mt-4">No obligation · Response within 24 hours</p>
         </div>
 
       </div>
