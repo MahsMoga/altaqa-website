@@ -229,25 +229,11 @@ export default function About() {
       </div>
 
       {/* ── Pillar cards ──────────────────────────────────── */}
-      <div className="section-padding relative overflow-hidden"
-           style={{ background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)' }}>
-        {/* Amber accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px pointer-events-none"
-             style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.6) 30%, rgba(217,119,6,0.6) 70%, transparent 100%)' }} />
-        {/* Circuit grid */}
-        <div className="absolute inset-0 pointer-events-none"
-             style={{
-               backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
-               backgroundSize: '48px 48px',
-             }} />
-        <div className="container-narrow relative z-10">
+      <div className="section-padding bg-white">
+        <div className="container-narrow">
           <AnimateIn className="text-center max-w-xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-4">
-              <span className="w-4 h-px bg-accent/50" />
-              What Sets Us Apart
-              <span className="w-4 h-px bg-accent/50" />
-            </span>
-            <h2 className="font-display text-white text-3xl lg:text-4xl font-bold">
+            <span className="label-tag">What Sets Us Apart</span>
+            <h2 className="heading-section">
               Built on Four <span className="text-accent">Core Principles</span>
             </h2>
           </AnimateIn>
