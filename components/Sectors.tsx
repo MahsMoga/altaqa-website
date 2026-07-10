@@ -35,8 +35,20 @@ const sectors = [
 
 export default function Sectors() {
   return (
-    <section id="sectors" className="section-padding section-light">
-      <div className="container-narrow">
+    <section id="sectors" className="section-padding relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(160deg, #f8f7f5 0%, #f3f2ef 100%)',
+        clipPath: 'polygon(0 0, 100% 48px, 100% 100%, 0 100%)',
+        marginTop: '-48px',
+        paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
+      }}>
+      {/* Dot pattern */}
+      <div className="absolute inset-0 pointer-events-none"
+           style={{
+             backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
+             backgroundSize: '20px 20px',
+           }} />
+      <div className="container-narrow relative z-10">
 
         <AnimateIn className="max-w-xl mb-14">
           <span className="label-tag">Sectors We Serve</span>
