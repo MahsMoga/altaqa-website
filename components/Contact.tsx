@@ -183,7 +183,7 @@ export default function Contact() {
 
           {/* ── Right: contact form ────────────────────────────── */}
           <AnimateIn delay={120}>
-            <div className="rounded-2xl p-8" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(12px)' }}>
+            <div className="rounded-2xl p-8 bg-white" style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.3)' }}>
               {submitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center
@@ -193,25 +193,25 @@ export default function Contact() {
                             strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <h3 className="font-display text-white font-bold text-xl mb-2">Message Sent</h3>
-                  <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
+                  <h3 className="font-display text-navy font-bold text-xl mb-2">Message Sent</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-xs mx-auto">
                     Thank you for reaching out. Our team will be in touch within 24 hours.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                   <div className="mb-6">
-                    <h3 className="font-display text-white font-bold text-xl mb-1">
+                    <h3 className="font-display text-navy font-bold text-xl mb-1">
                       Send Us a Message
                     </h3>
-                    <p className="text-white/35 text-xs">Fields marked * are required</p>
+                    <p className="text-slate-400 text-xs">Fields marked * are required</p>
                   </div>
 
                   {/* Service selector */}
                   <div>
-                    <label className="block text-white/70 text-xs font-semibold mb-3 tracking-wide uppercase">
+                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
                       Service Required
-                      <span className="text-white/30 font-normal ml-1">(optional)</span>
+                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
                     </label>
                     <div className="flex flex-wrap gap-2">
                       {SERVICE_OPTIONS.map(opt => {
@@ -242,7 +242,7 @@ export default function Contact() {
                   {/* Name */}
                   <div>
                     <label htmlFor="contact-name"
-                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Full Name *
                     </label>
                     <input
@@ -265,7 +265,7 @@ export default function Contact() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
                       <label htmlFor="contact-email"
-                        className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
                         Email Address *
                       </label>
                       <input
@@ -286,7 +286,7 @@ export default function Contact() {
 
                     <div>
                       <label htmlFor="contact-whatsapp"
-                        className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
                         WhatsApp Number
                         <span className="text-slate-400 font-normal ml-1">(optional)</span>
                       </label>
@@ -311,7 +311,7 @@ export default function Contact() {
                   {/* Company */}
                   <div>
                     <label htmlFor="contact-company"
-                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Company / Organisation *
                     </label>
                     <input
@@ -365,7 +365,7 @@ export default function Contact() {
                   {/* Message */}
                   <div>
                     <label htmlFor="contact-message"
-                      className="block text-white/70 text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
                       Message *
                     </label>
                     <textarea
