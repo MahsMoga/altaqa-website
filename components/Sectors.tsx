@@ -37,26 +37,33 @@ export default function Sectors() {
   return (
     <section id="sectors" className="section-padding relative overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, #f8f7f5 0%, #f3f2ef 100%)',
+        background: 'linear-gradient(160deg, #0a1628 0%, #0f1c3f 60%, #0d1f3c 100%)',
         clipPath: 'polygon(0 0, 100% 48px, 100% 100%, 0 100%)',
         marginTop: '-48px',
         paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
       }}>
-      {/* Dot pattern */}
+      {/* Amber accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+           style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(217,119,6,0.6) 30%, rgba(217,119,6,0.6) 70%, transparent 100%)' }} />
+      {/* Circuit grid */}
       <div className="absolute inset-0 pointer-events-none"
            style={{
-             backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
-             backgroundSize: '20px 20px',
+             backgroundImage: `linear-gradient(rgba(47,128,237,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(47,128,237,0.04) 1px, transparent 1px)`,
+             backgroundSize: '48px 48px',
            }} />
       <div className="container-narrow relative z-10">
 
         <AnimateIn className="max-w-xl mb-14">
-          <span className="label-tag">Sectors We Serve</span>
-          <h2 className="heading-section mb-4">
+          <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-4">
+            <span className="w-4 h-px bg-accent/50" />
+            Sectors We Serve
+            <span className="w-4 h-px bg-accent/50" />
+          </span>
+          <h2 className="font-display text-white text-3xl lg:text-4xl font-bold leading-tight mb-4">
             Expertise Across Every{' '}
             <span className="text-accent">Building Type</span>
           </h2>
-          <p className="body-lead">
+          <p className="text-white/50 text-sm leading-relaxed">
             From luxury hotels to critical healthcare facilities — our BMS and
             automation expertise spans the full range of commercial, industrial,
             and institutional buildings.
