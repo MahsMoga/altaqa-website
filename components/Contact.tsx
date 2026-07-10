@@ -125,22 +125,28 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section-padding section-light relative">
-      {/* Artistic wave + amber diamond divider above Contact */}
-      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-60px', zIndex: 1 }} aria-hidden="true">
-        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="w-full block" style={{ height: '64px' }}>
-          <path d="M0 72 C360 12 720 60 1080 24 C1260 8 1380 44 1440 28 L1440 72 L0 72 Z"
-                fill="#ffffff" />
-          <path d="M0 72 C240 36 600 68 900 32 C1140 8 1320 52 1440 40 L1440 72 L0 72 Z"
-                fill="#ffffff" fillOpacity="0.5" />
-        </svg>
-        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: '18px' }}>
-          <div className="relative flex items-center gap-3">
-            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.4))' }} />
-            <div className="w-3 h-3 rotate-45 flex-shrink-0"
-                 style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)', boxShadow: '0 0 12px rgba(217,119,6,0.5)' }} />
-            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, rgba(217,119,6,0.4), transparent)' }} />
+      {/* Bold full-bleed section divider */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-56px', zIndex: 1 }} aria-hidden="true">
+        {/* Top amber rule */}
+        <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
+        {/* Dark band */}
+        <div className="flex items-center justify-center" style={{ height: '52px', background: 'linear-gradient(90deg, #050e1d 0%, #0f1c3f 50%, #050e1d 100%)' }}>
+          {/* Circuit dot pattern */}
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(rgba(47,128,237,0.08) 1px, transparent 1px)',
+            backgroundSize: '20px 20px',
+          }} />
+          {/* Label */}
+          <div className="relative flex items-center gap-4">
+            <div style={{ width: '48px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.7))' }} />
+            <span style={{ color: '#D97706', fontSize: '10px', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase' }}>
+              Contact Us
+            </span>
+            <div style={{ width: '48px', height: '1px', background: 'linear-gradient(90deg, rgba(217,119,6,0.7), transparent)' }} />
           </div>
         </div>
+        {/* Bottom amber rule */}
+        <div style={{ height: '3px', background: 'linear-gradient(90deg, transparent 0%, #D97706 20%, #F59E0B 50%, #D97706 80%, transparent 100%)' }} />
       </div>
       <div className="container-narrow">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
