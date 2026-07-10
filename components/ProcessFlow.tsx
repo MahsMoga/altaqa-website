@@ -146,9 +146,34 @@ export default function ProcessFlow() {
   return (
     <section
       ref={sectionRef}
-      className="section-padding relative overflow-hidden"
+      className="section-padding relative"
       style={{ background: '#f1f5f9' }}
     >
+      {/* Artistic wave divider — sits at top, bleeds over the section above */}
+      <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ marginTop: '-60px', zIndex: 1 }} aria-hidden="true">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="w-full block" style={{ height: '64px' }}>
+          {/* Warm cream fill matches Services background */}
+          <path d="M0 0 C240 60 480 0 720 36 C960 72 1200 12 1440 48 L1440 0 L0 0 Z"
+                fill="#f8f7f5" />
+          {/* Subtle secondary wave */}
+          <path d="M0 0 C360 48 720 8 1080 40 C1260 56 1380 24 1440 32 L1440 0 L0 0 Z"
+                fill="#f8f7f5" fillOpacity="0.5" />
+        </svg>
+
+        {/* Centered amber diamond accent on the wave */}
+        <div className="absolute left-1/2 -translate-x-1/2" style={{ top: '28px' }}>
+          <div className="relative flex items-center gap-3">
+            {/* Left line */}
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.4))' }} />
+            {/* Diamond */}
+            <div className="w-3 h-3 rotate-45 flex-shrink-0"
+                 style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)', boxShadow: '0 0 12px rgba(217,119,6,0.5)' }} />
+            {/* Right line */}
+            <div className="w-16 h-px" style={{ background: 'linear-gradient(90deg, rgba(217,119,6,0.4), transparent)' }} />
+          </div>
+        </div>
+      </div>
+
       {/* Subtle radial accent */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
            style={{ background: 'radial-gradient(circle, rgba(47,128,237,0.05) 0%, transparent 70%)' }} aria-hidden="true" />
