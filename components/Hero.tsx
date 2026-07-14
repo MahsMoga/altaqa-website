@@ -52,17 +52,31 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center bg-navy overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 hero-pattern" />
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#0a1628' }}>
+      {/* Hero background image */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover object-center"
+          style={{ filter: 'brightness(0.38) saturate(0.8) contrast(1.1)' }}
+        />
+      </div>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_30%_-10%,rgba(47,128,237,0.13),transparent)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_85%_60%,rgba(16,185,129,0.06),transparent)]" />
+      {/* Dark gradient — stronger on left for text legibility, fades right */}
+      <div className="absolute inset-0"
+           style={{ background: 'linear-gradient(105deg, rgba(8,18,40,0.92) 0%, rgba(8,18,40,0.75) 45%, rgba(8,18,40,0.40) 100%)' }} />
+
+      {/* Blue accent glow top-left */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_20%_0%,rgba(47,128,237,0.18),transparent)]" />
+
+      {/* Subtle grid overlay */}
+      <div className="absolute inset-0 hero-pattern opacity-20" />
 
       {/* Ambient orbs */}
-      <div className="orb w-[420px] h-[420px] bg-accent/[0.10] -top-24 -right-16 animate-float" style={{ filter: 'blur(80px)' }} />
-      <div className="orb w-80 h-80 bg-blue-900/30 bottom-24 -left-16 animate-float-slow" style={{ filter: 'blur(64px)' }} />
+      <div className="orb w-[420px] h-[420px] bg-accent/[0.08] -top-24 -right-16 animate-float" style={{ filter: 'blur(80px)' }} />
+      <div className="orb w-80 h-80 bg-blue-900/20 bottom-24 -left-16 animate-float-slow" style={{ filter: 'blur(64px)' }} />
 
       {/* Wave divider — smooth curve */}
       <div className="absolute bottom-0 left-0 right-0">
