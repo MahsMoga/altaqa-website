@@ -100,51 +100,74 @@ const brands = [
 function BrandCard({ brand }: { brand: typeof brands[0] }) {
   return (
     <div
-      className="group relative flex-shrink-0 w-[280px] rounded-2xl overflow-hidden cursor-default flex flex-col"
+      className="group relative flex-shrink-0 w-[288px] rounded-2xl overflow-hidden cursor-default flex flex-col"
       style={{
-        background: 'rgba(255,255,255,0.04)',
-        border: `1px solid ${brand.color}25`,
-        backdropFilter: 'blur(12px)',
-        transition: 'all 0.3s ease',
+        /* Deep dark base with brand-color radial spotlight from top */
+        background: `radial-gradient(ellipse 160% 100% at 50% 0%, ${brand.color}18 0%, #0b1526 55%, #080f1c 100%)`,
+        /* Layered border: outer faint, inner shimmer */
+        border: `1px solid ${brand.color}30`,
+        boxShadow: `0 0 0 1px rgba(255,255,255,0.04) inset, 0 4px 24px rgba(0,0,0,0.5), 0 1px 0 ${brand.color}30 inset`,
+        backdropFilter: 'blur(16px)',
+        transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.35s ease',
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLDivElement
-        el.style.background = `linear-gradient(135deg, ${brand.color}14 0%, rgba(255,255,255,0.03) 100%)`
-        el.style.borderColor = `${brand.color}55`
-        el.style.boxShadow = `0 16px 48px ${brand.color}28, inset 0 1px 0 rgba(255,255,255,0.06)`
-        el.style.transform = 'translateY(-4px)'
+        el.style.transform = 'translateY(-6px) scale(1.015)'
+        el.style.borderColor = `${brand.color}60`
+        el.style.boxShadow = `0 0 0 1px rgba(255,255,255,0.06) inset, 0 24px 64px ${brand.color}35, 0 8px 24px rgba(0,0,0,0.6), 0 1px 0 ${brand.color}50 inset`
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLDivElement
-        el.style.background = 'rgba(255,255,255,0.04)'
-        el.style.borderColor = `${brand.color}25`
-        el.style.boxShadow = 'none'
-        el.style.transform = 'translateY(0)'
+        el.style.transform = 'translateY(0) scale(1)'
+        el.style.borderColor = `${brand.color}30`
+        el.style.boxShadow = `0 0 0 1px rgba(255,255,255,0.04) inset, 0 4px 24px rgba(0,0,0,0.5), 0 1px 0 ${brand.color}30 inset`
       }}
     >
-      {/* Colored top border */}
-      <div className="absolute top-0 left-0 right-0 h-[2px]"
-           style={{ background: `linear-gradient(90deg, ${brand.color}80, ${brand.color}, ${brand.color}80)` }} />
+      {/* ── Top accent bar: 3px gradient ── */}
+      <div className="absolute top-0 left-0 right-0 h-[3px] z-10"
+           style={{ background: `linear-gradient(90deg, transparent 0%, ${brand.color}90 30%, ${brand.color} 50%, ${brand.color}90 70%, transparent 100%)` }} />
 
-      {/* Top glow on hover */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-           style={{ background: `linear-gradient(90deg, transparent, ${brand.color}, transparent)` }} />
+      {/* ── Diagonal shine / reflection across card face ── */}
+      <div className="absolute inset-0 pointer-events-none"
+           style={{
+             background: `linear-gradient(115deg, rgba(255,255,255,0.055) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.025) 100%)`,
+           }} />
+
+      {/* ── Radial spotlight that intensifies on hover ── */}
+      <div className="absolute top-0 left-0 right-0 h-40 pointer-events-none transition-opacity duration-500 opacity-60 group-hover:opacity-100"
+           style={{ background: `radial-gradient(ellipse 80% 60% at 50% 0%, ${brand.color}22 0%, transparent 100%)` }} />
+
+      {/* ── Bottom dark footer band ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-[70px] pointer-events-none rounded-b-2xl"
+           style={{ background: 'linear-gradient(to top, rgba(4,8,16,0.7) 0%, transparent 100%)' }} />
 
       {/* Header row */}
-      <div className="flex items-start justify-between p-5 pb-3">
-        {/* Icon */}
-        <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-             style={{
-               background: `linear-gradient(135deg, ${brand.color}25, ${brand.color}10)`,
-               border: `1px solid ${brand.color}40`,
-               color: brand.color,
-             }}>
-          {brand.icon}
+      <div className="relative z-10 flex items-start justify-between p-5 pb-3">
+        {/* Icon with deep glow ring */}
+        <div className="relative w-13 h-13">
+          {/* Glow halo behind icon */}
+          <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+               style={{ background: brand.color, filter: 'blur(16px)', transform: 'scale(0.7)', opacity: 0 }}
+               onMouseEnter={e => { (e.currentTarget as HTMLDivElement).style.opacity = '0.35' }}
+          />
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-400 group-hover:scale-110"
+               style={{
+                 background: `linear-gradient(145deg, ${brand.color}30 0%, ${brand.color}10 100%)`,
+                 border: `1px solid ${brand.color}50`,
+                 color: brand.color,
+                 boxShadow: `0 0 20px ${brand.color}20, inset 0 1px 0 rgba(255,255,255,0.1)`,
+               }}>
+            {brand.icon}
+          </div>
         </div>
 
         {/* Certified badge */}
-        <div className="flex items-center gap-1 px-2 py-1 rounded-full"
-             style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)' }}>
+        <div className="flex items-center gap-1 px-2.5 py-1 rounded-full mt-0.5"
+             style={{
+               background: 'linear-gradient(135deg, rgba(16,185,129,0.14), rgba(16,185,129,0.06))',
+               border: '1px solid rgba(16,185,129,0.28)',
+               boxShadow: '0 0 12px rgba(16,185,129,0.1)',
+             }}>
           <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
             <path d="M2 5l2 2 4-4" stroke="#10b981" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -153,15 +176,18 @@ function BrandCard({ brand }: { brand: typeof brands[0] }) {
       </div>
 
       {/* Content */}
-      <div className="px-5 pb-5 flex flex-col flex-1">
-        <div className="font-display font-bold text-white text-[15px] leading-snug mb-0.5">
+      <div className="relative z-10 px-5 pb-5 flex flex-col flex-1">
+        <div className="font-display font-bold text-white text-base leading-snug mb-0.5 tracking-tight">
           {brand.name}
         </div>
-        <div className="text-xs font-semibold mb-3" style={{ color: brand.color }}>
+        <div className="text-[11px] font-semibold mb-3 uppercase tracking-wider" style={{ color: brand.color }}>
           {brand.sub}
         </div>
 
-        <div className="text-[11px] leading-relaxed text-white/45 mb-4 flex-1">
+        {/* Thin separator */}
+        <div className="mb-3 rounded-full" style={{ height: '1px', background: `linear-gradient(90deg, ${brand.color}40, transparent)` }} />
+
+        <div className="text-[11px] leading-relaxed mb-4 flex-1" style={{ color: 'rgba(255,255,255,0.42)' }}>
           {brand.detail}
         </div>
 
@@ -169,8 +195,13 @@ function BrandCard({ brand }: { brand: typeof brands[0] }) {
         <div className="flex flex-wrap gap-1.5">
           {brand.tags.map(tag => (
             <span key={tag}
-                  className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-                  style={{ background: `${brand.color}14`, color: brand.color, border: `1px solid ${brand.color}30` }}>
+                  className="text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
+                  style={{
+                    background: `linear-gradient(135deg, ${brand.color}18, ${brand.color}08)`,
+                    color: brand.color,
+                    border: `1px solid ${brand.color}35`,
+                    boxShadow: `0 0 8px ${brand.color}12`,
+                  }}>
               {tag}
             </span>
           ))}
