@@ -71,8 +71,10 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
 
                 {/* Product image */}
                 {variant.image && (
-                  <div className="relative overflow-hidden flex-shrink-0" style={{ height: '160px', background: '#f4f6fa' }}>
-                    <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                  <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
+                    <div className="relative w-full overflow-hidden" style={{ height: '148px', background: '#ffffff', borderRadius: '6px' }}>
+                      <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '16px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                    </div>
                   </div>
                 )}
 
@@ -173,8 +175,10 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
 
                     {/* Product image */}
                     {variant.image && (
-                      <div className="relative overflow-hidden flex-shrink-0" style={{ height: '140px', background: '#f4f6fa' }}>
-                        <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '16px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                      <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
+                        <div className="relative w-full overflow-hidden" style={{ height: '128px', background: '#ffffff', borderRadius: '6px' }}>
+                          <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '14px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                        </div>
                       </div>
                     )}
 
