@@ -101,6 +101,10 @@ export default function HomePage() {
         <meta property="og:url"         content={META.url} />
         <meta property="og:title"       content={META.title} />
         <meta property="og:description" content={META.description} />
+        <meta property="og:image"       content={`${META.url}/og-image.png`} />
+        <meta property="og:image:width"  content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt"    content="Al Taqa Technical — Building Intelligence. Delivering Excellence." />
         <meta property="og:locale"      content="en_AE" />
         <meta property="og:site_name"   content="Al Taqa Technical" />
 
@@ -108,6 +112,7 @@ export default function HomePage() {
         <meta name="twitter:card"        content="summary_large_image" />
         <meta name="twitter:title"       content={META.title} />
         <meta name="twitter:description" content={META.description} />
+        <meta name="twitter:image"       content={`${META.url}/og-image.png`} />
 
         {/* Robots */}
         <meta name="robots" content="index, follow" />
