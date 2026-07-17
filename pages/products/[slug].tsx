@@ -304,18 +304,17 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
 
   const hasFilters = gases.length || enclosures.length || protocols.length || search
 
-  // Filter bar chip — dark navy background
+  // Filter bar chip — white default, hero navy when active
   function chipClass(active: boolean) {
     return `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border cursor-pointer select-none transition-all duration-150 ${
       active
-        ? ''
-        : 'bg-transparent text-white/55 border-white/15 hover:text-white hover:border-white/40'
+        ? 'text-white border-transparent'
+        : 'bg-white text-slate-700 border-white hover:bg-white/90'
     }`
   }
   const activeChipStyle = {
-    background: 'rgba(96,165,250,0.18)',
-    color: '#93c5fd',
-    border: '1px solid rgba(96,165,250,0.4)',
+    background: '#0f1c35',
+    border: '1px solid #0f1c35',
   }
 
   return (
