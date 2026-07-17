@@ -1,19 +1,25 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-function CountUp({ target, suffix = '' }: { target: number; suffix?: string }) {
-  const [val, setVal] = useState(0)
+// Realistic per-metric fluctuation ranges for a UAE commercial building
+const FLUCTUATION: Record<string, { delta: number; decimals: number }> = {
+  'kWh': { delta: 14, decimals: 0 },
+  '°C':  { delta: 0.3, decimals: 1 },
+  '%':   { delta: 3, decimals: 0 },
+  'ppm': { delta: 9, decimals: 0 },
+}
+
+function useLiveValue(base: number, unit: string) {
+  const cfg = FLUCTUATION[unit] ?? { delta: 0, decimals: 0 }
+  const [val, setVal] = useState(base)
   useEffect(() => {
-    let start = 0
-    const step = target / 40
     const t = setInterval(() => {
-      start += step
-      if (start >= target) { setVal(target); clearInterval(t) }
-      else setVal(Math.floor(start))
-    }, 35)
+      const next = base + (Math.random() - 0.5) * 2 * cfg.delta
+      setVal(+next.toFixed(cfg.decimals))
+    }, 4200)
     return () => clearInterval(t)
-  }, [target])
-  return <>{val}{suffix}</>
+  }, [base, cfg.delta, cfg.decimals])
+  return val
 }
 
 function Sparkline({ data, color }: { data: number[]; color: string }) {
@@ -32,10 +38,10 @@ function Sparkline({ data, color }: { data: number[]; color: string }) {
 }
 
 const metrics = [
-  { label: 'Energy Usage', value: 847, unit: 'kWh', change: '-12% vs last month', up: false, color: '#2f80ed', data: [90,85,88,70,74,68,65,72,60,55,58,52] },
-  { label: 'Indoor Temp', value: 23, unit: '°C', change: 'Optimal comfort range', up: null, color: '#10b981', data: [24,23.5,23,23.2,23,22.8,23,23.1,23,22.9,23,23] },
-  { label: 'Occupancy', value: 76, unit: '%', change: '+4% today', up: true, color: '#f59e0b', data: [60,65,70,68,72,74,75,73,76,74,77,76] },
-  { label: 'CO₂ Level', value: 412, unit: 'ppm', change: 'Air quality: Good', up: null, color: '#10b981', data: [430,425,420,418,415,414,412,413,411,412,410,412] },
+  { label: 'Energy Usage', value: 186,  unit: 'kWh', change: '-12% vs last month', up: false, color: '#2f80ed', data: [210,204,198,195,190,188,186,184,187,183,186,184] },
+  { label: 'Indoor Temp', value: 22.4,  unit: '°C',  change: 'Optimal comfort range', up: null,  color: '#10b981', data: [23.1,22.8,22.6,22.5,22.4,22.3,22.4,22.5,22.4,22.3,22.4,22.4] },
+  { label: 'Occupancy',   value: 74,    unit: '%',   change: '+4% today',  up: true,  color: '#f59e0b', data: [60,65,70,68,72,74,75,73,76,74,77,74] },
+  { label: 'CO₂ Level',   value: 624,   unit: 'ppm', change: 'Air quality: Good',   up: null,  color: '#10b981', data: [640,635,630,628,626,624,622,625,621,624,620,624] },
 ]
 
 const alerts = [
@@ -44,12 +50,28 @@ const alerts = [
   { zone: 'AHU-07 Filter', status: 'Replace soon', ok: false },
 ]
 
+function MetricCard({ m }: { m: typeof metrics[0] }) {
+  const live = useLiveValue(m.value, m.unit)
+  return (
+    <div className="bg-[#0a1628]/80 p-3.5">
+      <div className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-1">{m.label}</div>
+      <div className="flex items-end justify-between">
+        <div>
+          <span className="text-white text-xl font-bold font-display leading-none">{live}</span>
+          <span className="text-white/50 text-xs ml-1">{m.unit}</span>
+        </div>
+        <Sparkline data={m.data} color={m.color} />
+      </div>
+      <div className={`text-[10px] font-medium mt-1.5 truncate ${
+        m.up === false ? 'text-emerald-400' : m.up === true ? 'text-yellow-400' : 'text-emerald-400'
+      }`}>
+        {m.change}
+      </div>
+    </div>
+  )
+}
+
 export default function Hero() {
-  const [tick, setTick] = useState(0)
-  useEffect(() => {
-    const t = setInterval(() => setTick(v => v + 1), 4000)
-    return () => clearInterval(t)
-  }, [])
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#0a1628' }}>
@@ -214,25 +236,7 @@ export default function Hero() {
 
                 {/* Metrics grid */}
                 <div className="grid grid-cols-2 gap-px bg-white/[0.06] p-px mx-4 mt-4 rounded-xl overflow-hidden">
-                  {metrics.map((m) => (
-                    <div key={m.label} className="bg-[#0a1628]/80 p-3.5">
-                      <div className="text-white/40 text-[10px] font-semibold uppercase tracking-widest mb-1">{m.label}</div>
-                      <div className="flex items-end justify-between">
-                        <div>
-                          <span className="text-white text-xl font-bold font-display leading-none">
-                            <CountUp key={`${m.label}-${tick}`} target={m.value} />
-                          </span>
-                          <span className="text-white/50 text-xs ml-1">{m.unit}</span>
-                        </div>
-                        <Sparkline data={m.data} color={m.color} />
-                      </div>
-                      <div className={`text-[10px] font-medium mt-1.5 truncate ${
-                        m.up === false ? 'text-emerald-400' : m.up === true ? 'text-yellow-400' : 'text-emerald-400'
-                      }`}>
-                        {m.change}
-                      </div>
-                    </div>
-                  ))}
+                  {metrics.map((m) => <MetricCard key={m.label} m={m} />)}
                 </div>
 
                 {/* Zone bar chart */}
