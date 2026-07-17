@@ -16,7 +16,7 @@ import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import MobileStickyBar from '../components/MobileStickyBar'
 import Testimonials from '../components/Testimonials'
-import Projects from '../components/Projects'
+const Projects = dynamic(() => import('../components/Projects'), { ssr: false })
 import { use3DEnabled } from '@/hooks/use3DEnabled'
 
 /**

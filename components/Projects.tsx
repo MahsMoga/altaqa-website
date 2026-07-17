@@ -229,52 +229,43 @@ export default function Projects() {
   return (
     <section id="projects" className="relative overflow-hidden"
       style={{
-        /* Near-black with warm amber tint — completely distinct from the navy sections */
-        background: 'radial-gradient(ellipse 100% 70% at 15% 40%, rgba(245,158,11,0.13) 0%, transparent 55%), radial-gradient(ellipse 70% 60% at 85% 10%, rgba(47,128,237,0.08) 0%, transparent 50%), #05060a',
+        background: 'linear-gradient(160deg, #f0f4ff 0%, #eef1f8 50%, #f2f0fb 100%)',
         paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
         paddingBottom: 'var(--section-padding, 5rem)',
-        /* Diagonal cut from Testimonials (light) into this dark section */
         clipPath: 'polygon(0 48px, 100% 0, 100% 100%, 0 100%)',
         marginTop: '-48px',
       }}
     >
-      {/* Noise texture overlay for depth */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
+      {/* Dot pattern */}
+      <div className="absolute inset-0 pointer-events-none"
+           suppressHydrationWarning
            style={{
-             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
-             backgroundSize: '180px 180px',
+             backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.055) 1px, transparent 1px)',
+             backgroundSize: '22px 22px',
            }} />
 
-      {/* Diagonal amber accent line at clip edge */}
-      <div className="absolute top-[48px] left-0 right-0 h-px pointer-events-none"
-           style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.7) 25%, rgba(245,158,11,0.7) 75%, transparent)' }} />
+      {/* Soft ambient colour blobs */}
+      <div className="absolute top-0 left-0 w-[600px] h-[400px] pointer-events-none rounded-full"
+           style={{ background: 'radial-gradient(ellipse, rgba(47,128,237,0.07) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[350px] pointer-events-none rounded-full"
+           style={{ background: 'radial-gradient(ellipse, rgba(139,92,246,0.06) 0%, transparent 70%)' }} />
 
-      {/* Large ambient amber orb */}
-      <div className="absolute top-0 left-0 w-[700px] h-[500px] pointer-events-none"
-           style={{ background: 'radial-gradient(ellipse, rgba(245,158,11,0.09) 0%, transparent 70%)' }} />
+      {/* Accent line at diagonal edge */}
+      <div className="absolute top-[48px] left-0 right-0 h-px pointer-events-none"
+           style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.45) 30%, rgba(217,119,6,0.45) 70%, transparent)' }} />
 
       <div className="container-narrow relative z-10">
 
         {/* Header */}
         <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-8 mb-12">
           <div className="flex-1">
-            <span className="inline-flex items-center gap-2 text-amber-400 text-xs font-bold tracking-widest uppercase mb-5">
-              <span className="w-4 h-px bg-amber-400/50" />
-              Project References
-              <span className="w-4 h-px bg-amber-400/50" />
-            </span>
+            <span className="label-tag">Project References</span>
             {/* Massive display headline */}
-            <h2 className="font-display font-black text-white leading-[1.0] tracking-tight"
+            <h2 className="font-display font-black text-navy leading-[1.0] tracking-tight"
                 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
               Real Work.{' '}
               <br className="hidden lg:block" />
-              <span style={{
-                background: 'linear-gradient(90deg, #F59E0B, #FBBF24, #F59E0B)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>
-                Real Results.
-              </span>
+              <span className="text-accent">Real Results.</span>
             </h2>
           </div>
 
@@ -284,19 +275,19 @@ export default function Projects() {
               { value: '500+', label: 'Projects', color: '#F59E0B' },
               { value: '20+',  label: 'Years',    color: '#2F80ED' },
               { value: '4',    label: 'Sectors',  color: '#10b981' },
-              { value: 'UAE',  label: 'Wide',     color: '#BF5AF2' },
+              { value: 'UAE',  label: 'Wide',     color: '#8b5cf6' },
             ].map(s => (
               <div key={s.label}
                    className="rounded-2xl px-4 py-3 text-center"
                    style={{
-                     background: `${s.color}0d`,
-                     border: `1px solid ${s.color}25`,
+                     background: `${s.color}10`,
+                     border: `1px solid ${s.color}30`,
                    }}>
                 <div className="font-display font-black text-xl leading-none mb-0.5"
                      style={{ color: s.color }}>
                   {s.value}
                 </div>
-                <div className="text-[10px] uppercase tracking-widest font-semibold text-white/30">
+                <div className="text-[10px] uppercase tracking-widest font-semibold text-slate-400">
                   {s.label}
                 </div>
               </div>
@@ -324,19 +315,18 @@ export default function Projects() {
         {/* Bottom CTA strip */}
         <AnimateIn>
           <div className="relative rounded-2xl overflow-hidden"
-               style={{ border: '1px solid rgba(245,158,11,0.2)' }}>
-            {/* Amber glow bg */}
+               style={{ border: '1px solid rgba(217,119,6,0.2)', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(8px)' }}>
             <div className="absolute inset-0"
-                 style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.03) 100%)' }} />
+                 style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(47,128,237,0.04) 100%)' }} />
             <div className="absolute top-0 left-0 right-0 h-px"
-                 style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6), transparent)' }} />
+                 style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.5), transparent)' }} />
 
             <div className="relative z-10 px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div>
-                <div className="font-display font-black text-white text-xl mb-1">
+                <div className="font-display font-black text-navy text-xl mb-1">
                   Your facility could be next
                 </div>
-                <div className="text-white/35 text-sm">
+                <div className="text-slate-500 text-sm">
                   500+ projects delivered. 20+ years of trusted engineering across the UAE.
                 </div>
               </div>
