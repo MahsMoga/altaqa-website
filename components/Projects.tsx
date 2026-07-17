@@ -1,257 +1,355 @@
+import Image from 'next/image'
 import AnimateIn from './AnimateIn'
 
 const projects = [
   {
     number: '01',
-    name: 'Meleha Dairy Farm',
-    type: 'Vehicle & Animal Sanitization System',
-    sector: 'Industrial',
-    color: '#10b981',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
+    name: 'Palm Jumeirah MJL RIWA',
+    client: 'MERAAS',
+    type: 'BMS Installation',
+    sector: 'Residential',
+    sectorColor: '#2F80ED',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=85',
+    color: '#2F80ED',
+    featured: true,
   },
   {
     number: '02',
-    name: 'Palm Jumeirah MJL RIWA',
-    type: 'BMS Installation',
-    sector: 'Residential · MERAAS',
-    color: '#2F80ED',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
-        <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
-      </svg>
-    ),
+    name: 'Anantara The Palm',
+    client: 'Hospitality',
+    type: 'PLC-Based Hot Water Control',
+    sector: 'Hospitality',
+    sectorColor: '#BF5AF2',
+    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=900&q=85',
+    color: '#BF5AF2',
+    featured: false,
   },
   {
     number: '03',
-    name: 'Madheef Border Post',
-    type: 'BMS Installation Work',
-    sector: 'Government',
-    color: '#F59E0B',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21V10l9-7 9 7v11"/><rect x="8" y="14" width="3" height="7"/><rect x="13" y="14" width="3" height="7"/>
-      </svg>
-    ),
+    name: 'Maryah Tower',
+    client: 'Abu Dhabi',
+    type: 'Staircase Pressurization System',
+    sector: 'Commercial',
+    sectorColor: '#8b5cf6',
+    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=85',
+    color: '#8b5cf6',
+    featured: false,
   },
   {
     number: '04',
-    name: 'Maryah Tower',
-    type: 'Staircase Pressurization System',
-    sector: 'Commercial',
-    color: '#8b5cf6',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/>
-        <line x1="8" y1="14" x2="12" y2="14"/>
-      </svg>
-    ),
+    name: 'Ashkal Industries',
+    client: 'Industrial',
+    type: 'BMS & Energy Monitoring System',
+    sector: 'Industrial',
+    sectorColor: '#f97316',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=85',
+    color: '#f97316',
+    featured: false,
   },
   {
     number: '05',
-    name: 'Abu Dhabi Villa',
-    type: 'BMS Installation Work',
-    sector: 'Residential',
-    color: '#06b6d4',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-      </svg>
-    ),
+    name: 'Meleha Dairy Farm',
+    client: 'Industrial · Al Ain',
+    type: 'Vehicle & Animal Sanitization System',
+    sector: 'Industrial',
+    sectorColor: '#10b981',
+    image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=900&q=85',
+    color: '#10b981',
+    featured: false,
   },
   {
     number: '06',
-    name: 'Ashkal Industries',
-    type: 'BMS & Energy Monitoring System',
-    sector: 'Industrial',
-    color: '#f97316',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 16l5-8 4 4 5-10 6 14"/><path d="M2 20h20"/>
-      </svg>
-    ),
+    name: 'Madheef Border Post',
+    client: 'Government',
+    type: 'BMS Installation Work',
+    sector: 'Government',
+    sectorColor: '#F59E0B',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=85',
+    color: '#F59E0B',
+    featured: false,
   },
   {
     number: '07',
     name: 'Al Quoz Warehouse',
+    client: 'Industrial',
     type: 'VAAYU Hybrid HVAC Spot Cooling',
     sector: 'Industrial',
-    color: '#10b981',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 10 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/>
-      </svg>
-    ),
+    sectorColor: '#06b6d4',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=85',
+    color: '#06b6d4',
+    featured: false,
   },
   {
     number: '08',
-    name: 'Anantara The Palm',
-    type: 'PLC-Based Hot Water Control',
-    sector: 'Hospitality',
-    color: '#BF5AF2',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 2a10 10 0 0 0 0 20"/><line x1="12" y1="2" x2="12" y2="22"/>
-        <line x1="2" y1="12" x2="22" y2="12"/>
-      </svg>
-    ),
+    name: 'Abu Dhabi Villa',
+    client: 'Residential',
+    type: 'BMS Installation Work',
+    sector: 'Residential',
+    sectorColor: '#2F80ED',
+    image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=85',
+    color: '#2F80ED',
+    featured: false,
   },
   {
     number: '09',
     name: 'Zakat Fund',
+    client: 'Government · Abu Dhabi',
     type: 'Staircase Pressurization System',
     sector: 'Government',
-    color: '#2F80ED',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/>
-        <line x1="8" y1="14" x2="12" y2="14"/>
-      </svg>
-    ),
+    sectorColor: '#F59E0B',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85',
+    color: '#F59E0B',
+    featured: false,
   },
 ]
 
-const sectorColors: Record<string, string> = {
-  Industrial:  '#f97316',
-  Residential: '#2F80ED',
-  Commercial:  '#8b5cf6',
-  Government:  '#F59E0B',
-  Hospitality: '#BF5AF2',
+const stats = [
+  { value: '500+', label: 'Projects Delivered' },
+  { value: '4',    label: 'Sectors Served' },
+  { value: '20+',  label: 'Years Experience' },
+  { value: 'UAE',  label: 'Wide Presence' },
+]
+
+function FeaturedCard({ p }: { p: typeof projects[0] }) {
+  return (
+    <div
+      className="group relative rounded-3xl overflow-hidden cursor-default
+                 transition-all duration-500 hover:-translate-y-2 lg:row-span-2"
+      style={{ minHeight: '480px', boxShadow: `0 8px 40px rgba(0,0,0,0.5)` }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 32px 80px ${p.color}40, 0 8px 32px rgba(0,0,0,0.6)`
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 40px rgba(0,0,0,0.5)`
+      }}
+    >
+      <Image src={p.image} alt={p.name} fill
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        style={{ filter: 'brightness(0.6) contrast(1.1) saturate(1.1)' }}
+        sizes="(max-width: 1024px) 100vw, 40vw"
+      />
+
+      {/* Color grade */}
+      <div className="absolute inset-0" style={{ background: `${p.color}18`, mixBlendMode: 'multiply' }} />
+
+      {/* Gradients */}
+      <div className="absolute inset-0"
+           style={{ background: 'linear-gradient(to top, rgba(5,10,30,0.98) 0%, rgba(5,10,30,0.5) 45%, rgba(5,10,30,0.1) 80%, transparent 100%)' }} />
+      <div className="absolute inset-0"
+           style={{ background: `linear-gradient(135deg, ${p.color}25 0%, transparent 60%)` }} />
+
+      {/* Top bar */}
+      <div className="absolute top-0 left-0 right-0 h-[3px]"
+           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}60, transparent)` }} />
+
+      {/* Number watermark */}
+      <div className="absolute top-4 right-6 font-display font-black text-[120px] leading-none
+                      select-none pointer-events-none"
+           style={{ color: p.color, opacity: 0.08 }}>
+        {p.number}
+      </div>
+
+      {/* Sector badge top-left */}
+      <div className="absolute top-5 left-5">
+        <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
+              style={{ background: `${p.color}30`, color: p.color, border: `1px solid ${p.color}60`,
+                       backdropFilter: 'blur(8px)' }}>
+          {p.sector}
+        </span>
+      </div>
+
+      {/* Content bottom */}
+      <div className="absolute inset-0 p-7 flex flex-col justify-end">
+        <div className="flex items-center gap-2 mb-3">
+          <div className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${p.color}80, transparent)` }} />
+          <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: p.color }}>
+            Featured Project
+          </span>
+        </div>
+
+        <div className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-1">
+          {p.type}
+        </div>
+        <h3 className="font-display font-black text-white text-2xl lg:text-3xl leading-tight mb-1"
+            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
+          {p.name}
+        </h3>
+        <div className="text-white/40 text-xs mb-4">{p.client}</div>
+
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: p.color }} />
+          <span className="text-white/40 text-xs">Completed · UAE</span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-function getSector(sector: string) {
-  const base = sector.split('·')[0].trim()
-  return { label: sector, color: sectorColors[base] ?? '#64748b' }
+function ProjectCard({ p }: { p: typeof projects[0] }) {
+  return (
+    <div
+      className="group relative rounded-2xl overflow-hidden cursor-default
+                 transition-all duration-400 hover:-translate-y-1.5"
+      style={{ height: '220px', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 56px ${p.color}35, 0 4px 16px rgba(0,0,0,0.5)`
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 24px rgba(0,0,0,0.4)'
+      }}
+    >
+      <Image src={p.image} alt={p.name} fill
+        className="object-cover transition-transform duration-600 group-hover:scale-106"
+        style={{ filter: 'brightness(0.55) contrast(1.1) saturate(1.0)' }}
+        sizes="(max-width: 1024px) 100vw, 30vw"
+      />
+
+      <div className="absolute inset-0" style={{ background: `${p.color}14`, mixBlendMode: 'multiply' }} />
+      <div className="absolute inset-0"
+           style={{ background: 'linear-gradient(to top, rgba(5,10,30,0.97) 0%, rgba(5,10,30,0.4) 55%, transparent 100%)' }} />
+
+      {/* Top accent */}
+      <div className="absolute top-0 left-0 right-0 h-[2px]"
+           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}50, transparent)` }} />
+
+      {/* Number watermark */}
+      <div className="absolute -bottom-2 right-3 font-display font-black text-[80px] leading-none
+                      select-none pointer-events-none"
+           style={{ color: p.color, opacity: 0.07 }}>
+        {p.number}
+      </div>
+
+      {/* Sector badge */}
+      <div className="absolute top-3.5 left-3.5">
+        <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full"
+              style={{ background: `${p.color}28`, color: p.color, border: `1px solid ${p.color}50`,
+                       backdropFilter: 'blur(6px)' }}>
+          {p.sector}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="absolute inset-0 p-4 flex flex-col justify-end">
+        <div className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: p.color }}>
+          {p.type}
+        </div>
+        <div className="font-display font-bold text-white text-base leading-snug mb-2"
+             style={{ textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+          {p.name}
+        </div>
+        <div className="flex items-center gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: p.color }} />
+          <span className="text-white/35 text-[10px]">Completed · UAE</span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default function Projects() {
+  const [featured, ...rest] = projects
+
   return (
     <section
       id="projects"
       className="section-padding relative overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, #f8f7f5 0%, #f3f2ef 100%)',
+        background: 'linear-gradient(160deg, #060e1d 0%, #0a1628 50%, #0d1f3c 100%)',
         clipPath: 'polygon(0 48px, 100% 0, 100% 100%, 0 100%)',
         marginTop: '-48px',
         paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
       }}
     >
-      {/* Dot pattern */}
-      <div className="absolute inset-0 opacity-40" style={{
-        backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
-        backgroundSize: '20px 20px',
+      {/* Circuit grid */}
+      <div className="absolute inset-0 pointer-events-none" style={{
+        backgroundImage: `linear-gradient(rgba(47,128,237,0.035) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(47,128,237,0.035) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px',
       }} />
+
+      {/* Ambient glows */}
+      <div className="absolute top-0 left-1/4 w-[500px] h-[300px] pointer-events-none"
+           style={{ background: 'radial-gradient(ellipse, rgba(47,128,237,0.1) 0%, transparent 70%)' }} />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[300px] pointer-events-none"
+           style={{ background: 'radial-gradient(ellipse, rgba(191,90,242,0.08) 0%, transparent 70%)' }} />
+
+      {/* Amber accent line at diagonal edge */}
+      <div className="absolute top-[48px] left-0 right-0 h-px pointer-events-none"
+           style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.5) 30%, rgba(217,119,6,0.5) 70%, transparent)' }} />
 
       <div className="container-narrow relative z-10">
 
         {/* Header */}
-        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-6 mb-14">
+        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-6 mb-10">
           <div className="flex-1">
-            <span className="label-tag">Project References</span>
-            <h2 className="heading-section">
-              Delivered Across{' '}
-              <span className="text-accent">Diverse Sectors</span>
+            <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-5">
+              <span className="w-4 h-px bg-accent/50" />
+              Project References
+              <span className="w-4 h-px bg-accent/50" />
+            </span>
+            <h2 className="font-display text-3xl lg:text-5xl font-black text-white leading-[1.05] tracking-tight">
+              Real Work.{' '}
+              <span className="text-accent">Real Results.</span>
             </h2>
           </div>
-          <p className="text-slate-500 text-sm leading-relaxed max-w-xs lg:mb-1">
-            A selection of projects spanning residential, commercial, hospitality,
-            industrial, and government facilities across the UAE.
+          <p className="text-white/40 text-sm leading-relaxed max-w-xs lg:mb-2">
+            Delivered across the UAE — from luxury hotels and government facilities
+            to industrial plants and iconic residential towers.
           </p>
         </AnimateIn>
 
-        {/* Project grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {projects.map((p, idx) => {
-            const { label, color: sColor } = getSector(p.sector)
-            return (
-              <AnimateIn key={p.number} delay={idx * 40}>
-                <div
-                  className="group relative rounded-2xl bg-white overflow-hidden
-                              transition-all duration-400 hover:-translate-y-1.5 cursor-default"
-                  style={{
-                    border: `1px solid rgba(0,0,0,0.07)`,
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLDivElement
-                    el.style.boxShadow = `0 16px 48px ${p.color}22, 0 2px 8px rgba(0,0,0,0.08)`
-                    el.style.borderColor = `${p.color}30`
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLDivElement
-                    el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'
-                    el.style.borderColor = 'rgba(0,0,0,0.07)'
-                  }}
-                >
-                  {/* Colored top accent */}
-                  <div className="h-[3px] w-full"
-                       style={{ background: `linear-gradient(90deg, ${p.color}90, ${p.color}, ${p.color}90)` }} />
+        {/* Stats strip */}
+        <AnimateIn className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
+          {stats.map((s) => (
+            <div key={s.label}
+                 className="rounded-2xl px-5 py-4 text-center"
+                 style={{
+                   background: 'rgba(255,255,255,0.04)',
+                   border: '1px solid rgba(255,255,255,0.08)',
+                   backdropFilter: 'blur(8px)',
+                 }}>
+              <div className="font-display font-black text-2xl lg:text-3xl text-accent leading-none mb-1">
+                {s.value}
+              </div>
+              <div className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </AnimateIn>
 
-                  <div className="p-5">
-                    {/* Row: number badge + sector tag */}
-                    <div className="flex items-center justify-between mb-4">
-                      <div
-                        className="w-8 h-8 rounded-lg flex items-center justify-center font-display font-bold text-[11px]"
-                        style={{
-                          background: `${p.color}15`,
-                          color: p.color,
-                          border: `1px solid ${p.color}30`,
-                        }}
-                      >
-                        {p.number}
-                      </div>
-                      <span
-                        className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full"
-                        style={{ background: `${sColor}12`, color: sColor, border: `1px solid ${sColor}25` }}
-                      >
-                        {label}
-                      </span>
-                    </div>
+        {/* ── Bento project grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
 
-                    {/* Icon + project type */}
-                    <div className="flex items-start gap-3 mb-3">
-                      <div
-                        className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center mt-0.5"
-                        style={{
-                          background: `${p.color}12`,
-                          color: p.color,
-                          border: `1px solid ${p.color}25`,
-                        }}
-                      >
-                        {p.icon}
-                      </div>
-                      <div>
-                        <div className="text-[11px] font-semibold uppercase tracking-wider mb-1" style={{ color: p.color }}>
-                          {p.type}
-                        </div>
-                        <div className="font-display font-bold text-navy text-[15px] leading-snug">
-                          {p.name}
-                        </div>
-                      </div>
-                    </div>
+          {/* Featured — spans 2 rows on left */}
+          <AnimateIn className="lg:row-span-2">
+            <FeaturedCard p={featured} />
+          </AnimateIn>
 
-                    {/* Bottom separator line */}
-                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full" style={{ background: p.color }} />
-                      <span className="text-slate-400 text-[11px]">Completed · UAE</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimateIn>
-            )
-          })}
+          {/* 8 smaller cards in 2-col right area */}
+          {rest.map((p, idx) => (
+            <AnimateIn key={p.number} delay={idx * 50}>
+              <ProjectCard p={p} />
+            </AnimateIn>
+          ))}
         </div>
 
         {/* Bottom CTA */}
-        <AnimateIn className="mt-12 text-center">
-          <p className="text-slate-500 text-sm mb-5">
-            Interested in seeing how we can deliver for your facility?
-          </p>
-          <a href="#contact" className="btn-primary inline-flex">
+        <AnimateIn className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6
+                              rounded-2xl px-8 py-6"
+                   style={{
+                     background: 'rgba(255,255,255,0.04)',
+                     border: '1px solid rgba(255,255,255,0.08)',
+                   }}>
+          <div>
+            <div className="font-display font-bold text-white text-lg mb-1">
+              Your project could be next
+            </div>
+            <div className="text-white/40 text-sm">
+              Join 500+ clients who trust Al Taqa Technical across the UAE
+            </div>
+          </div>
+          <a href="#contact" className="btn-primary flex-shrink-0">
             Discuss Your Project
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
