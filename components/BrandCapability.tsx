@@ -95,6 +95,63 @@ const brands = [
       </svg>
     ),
   },
+  {
+    name: 'Siemens',
+    sub: 'BMS & Automation Products',
+    color: '#00A0E3',
+    detail: 'World-class Siemens BMS and automation products for intelligent building solutions.',
+    tags: ['BMS', 'Automation', 'Desigo CC'],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <rect x="6" y="6" width="28" height="28" rx="5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M12 20h16M20 12v16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <circle cx="20" cy="20" r="4" stroke="currentColor" strokeWidth="1.3"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Zennio',
+    sub: 'Home Automation Solutions',
+    color: '#E8282A',
+    detail: 'Cutting-edge KNX home automation and intelligent control devices from Zennio.',
+    tags: ['KNX', 'Home Automation', 'Smart Control'],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <path d="M8 28 L20 8 L32 28 Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+        <path d="M12 28 h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="20" cy="18" r="3" fill="currentColor" opacity="0.7"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Ontrol',
+    sub: 'Controls, GRMS & Automation',
+    color: '#F59E0B',
+    detail: 'Automatic controls, guest room management, and home automation systems by Ontrol.',
+    tags: ['GRMS', 'Controls', 'Automation'],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <rect x="8" y="12" width="24" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
+        <circle cx="16" cy="20" r="3" stroke="currentColor" strokeWidth="1.3"/>
+        <circle cx="24" cy="20" r="3" stroke="currentColor" strokeWidth="1.3"/>
+        <path d="M16 8 v4 M24 8 v4 M16 28 v4 M24 28 v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
+    name: 'Air Concepts',
+    sub: 'VAV Boxes & Airflow Systems',
+    color: '#06B6D4',
+    detail: 'VAV boxes and precision airflow measuring stations for HVAC optimisation.',
+    tags: ['VAV Boxes', 'Airflow', 'HVAC'],
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" width="32" height="32">
+        <path d="M6 20 Q13 12 20 20 Q27 28 34 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        <path d="M6 26 Q13 18 20 26 Q27 34 34 26" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+        <path d="M6 14 Q13 6 20 14 Q27 22 34 14" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" opacity="0.5"/>
+      </svg>
+    ),
+  },
 ]
 
 function BrandCard({ brand }: { brand: typeof brands[0] }) {
@@ -260,10 +317,10 @@ export default function BrandCapability() {
           <style>{`
             @keyframes marquee {
               0%   { transform: translateX(0); }
-              100% { transform: translateX(calc(-280px * ${brands.length} - ${brands.length * 16}px)); }
+              100% { transform: translateX(calc(-288px * ${brands.length} - ${brands.length * 16}px)); }
             }
             .marquee-track {
-              animation: marquee ${brands.length * 4}s linear infinite;
+              animation: marquee ${brands.length * 3.5}s linear infinite;
             }
             .marquee-track:hover {
               animation-play-state: paused;

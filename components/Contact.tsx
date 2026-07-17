@@ -45,8 +45,19 @@ const infoItems = [
       </svg>
     ),
     label: 'Location',
-    value: 'Abu Dhabi, United Arab Emirates',
+    value: 'P.O. Box 70158, Abu Dhabi, United Arab Emirates',
     href: undefined,
+  },
+  {
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M3 3h1.5l2 4.5-1.5 1A10 10 0 0 0 9 13l1-1.5L14.5 13.5V15A1.5 1.5 0 0 1 13 16.5 12 12 0 0 1 1.5 5 1.5 1.5 0 0 1 3 3z"
+          stroke="#2F80ED" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+    label: 'Phone',
+    value: '+971 50 834 0095  ·  +971 58 599 1377',
+    href: 'tel:+971508340095',
   },
   {
     icon: (
@@ -56,7 +67,7 @@ const infoItems = [
       </svg>
     ),
     label: 'Email',
-    value: 'info@altaqauae.com',
+    value: 'info@altaqauae.com  ·  rk@altaqauae.com',
     href: 'mailto:info@altaqauae.com',
   },
   {

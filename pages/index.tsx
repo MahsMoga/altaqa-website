@@ -16,6 +16,7 @@ import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 import MobileStickyBar from '../components/MobileStickyBar'
 import Testimonials from '../components/Testimonials'
+import Projects from '../components/Projects'
 import { use3DEnabled } from '@/hooks/use3DEnabled'
 
 /**
@@ -125,15 +126,24 @@ export default function HomePage() {
               logo: `${META.url}/al-taqa-logo.png`,
               image: `${META.url}/al-taqa-logo.png`,
               email: 'info@altaqauae.com',
-              contactPoint: {
-                '@type': 'ContactPoint',
-                contactType: 'customer service',
-                availableLanguage: ['English', 'Arabic'],
-                contactOption: 'TollFree',
-              },
+              telephone: '+971508340095',
+              contactPoint: [
+                {
+                  '@type': 'ContactPoint',
+                  telephone: '+971508340095',
+                  contactType: 'customer service',
+                  availableLanguage: ['English', 'Arabic'],
+                },
+                {
+                  '@type': 'ContactPoint',
+                  telephone: '+971585991377',
+                  contactType: 'sales',
+                  availableLanguage: ['English', 'Arabic'],
+                },
+              ],
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: 'Office 1306, Lamar Tower, Roof Floor, Al Nahyan Camp',
+                postOfficeBoxNumber: '70158',
                 addressLocality: 'Abu Dhabi',
                 addressCountry: 'AE',
                 addressRegion: 'Abu Dhabi',
@@ -209,6 +219,7 @@ export default function HomePage() {
         <ProcessFlow />
         <WhyChooseUs />
         <Testimonials />
+        <Projects />
         <Mission />
         <Products />
         <Contact />
