@@ -69,6 +69,13 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                 {/* Top bar */}
                 <div style={{ height: '3px', background: `linear-gradient(90deg, ${cfg.color}, ${cfg.color}44, transparent)` }} />
 
+                {/* Product image */}
+                {variant.image && (
+                  <div className="relative overflow-hidden flex-shrink-0" style={{ height: '160px', background: '#f4f6fa' }}>
+                    <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                  </div>
+                )}
+
                 <div className="p-5 flex-1 flex flex-col gap-4">
                   {/* Model badge row */}
                   <div className="flex items-center justify-between">
@@ -163,6 +170,13 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                     onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'; el.style.borderColor = '#e8ecf2' }}
                   >
                     <div style={{ height: '2px', background: 'linear-gradient(90deg, #34d399, #34d39944, transparent)' }} />
+
+                    {/* Product image */}
+                    {variant.image && (
+                      <div className="relative overflow-hidden flex-shrink-0" style={{ height: '140px', background: '#f4f6fa' }}>
+                        <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '16px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                      </div>
+                    )}
 
                     <div className="p-4 flex-1 flex flex-col gap-3">
                       {/* Model number — hero element */}
