@@ -8,6 +8,220 @@ import Footer from '../../components/Footer'
 import AnimateIn from '../../components/AnimateIn'
 import { products, getProductBySlug, Product, ProductVariant } from '@/data/products'
 
+// ── PLC family layout ─────────────────────────────────────────────────────────
+
+const SMARTY7_VARIANTS: Record<string, { badge: string; color: string; bg: string; border: string; highlight: string }> = {
+  'S7':  { badge: 'S7',  color: '#60a5fa', bg: 'rgba(96,165,250,0.12)',  border: 'rgba(96,165,250,0.25)',  highlight: 'S7-compatible — drop-in for existing Siemens networks' },
+  'HV':  { badge: 'HV',  color: '#f472b6', bg: 'rgba(244,114,182,0.12)', border: 'rgba(244,114,182,0.25)', highlight: 'Direct 230V AC inputs — no signal conditioning needed' },
+  'RL':  { badge: 'RL',  color: '#fb923c', bg: 'rgba(251,146,60,0.12)',  border: 'rgba(251,146,60,0.25)',  highlight: 'Integrated relays up to 10A — drives pumps & dampers directly' },
+  'XA':  { badge: 'XA',  color: '#a78bfa', bg: 'rgba(167,139,250,0.12)', border: 'rgba(167,139,250,0.25)', highlight: 'Expanded 0–10V / 4–20mA analog channels for multi-zone control' },
+  'XD':  { badge: 'XD',  color: '#34d399', bg: 'rgba(52,211,153,0.12)',  border: 'rgba(52,211,153,0.25)',  highlight: 'High-density digital I/O for large BMS panel point counts' },
+}
+
+function getSmartySuffix(name: string) {
+  const m = name.match(/PLC-(\w+)/)
+  return m ? m[1] : 'S7'
+}
+
+function PlcVariants({ variants }: { variants: ProductVariant[] }) {
+  const smarty7 = variants.filter(v => v.name.startsWith('smarty7'))
+  const driveWeb = variants.filter(v => v.name.startsWith('drive.web'))
+
+  // Group drive.web by series prefix (dw230, dw250, etc.)
+  const dwGroups: Record<string, ProductVariant[]> = {}
+  driveWeb.forEach(v => {
+    const m = v.name.match(/dw(\d{3})/)
+    const key = m ? `dw${m[1]}` : 'other'
+    if (!dwGroups[key]) dwGroups[key] = []
+    dwGroups[key].push(v)
+  })
+
+  return (
+    <div>
+      {/* ── smarty7 PLC family ── */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-1 h-8 rounded-full" style={{ background: 'linear-gradient(180deg, #60a5fa, #3b82f6)' }} />
+          <div>
+            <div className="text-[10px] font-bold tracking-widest uppercase text-slate-400">Product Family</div>
+            <h3 className="font-display font-bold text-xl text-navy">smarty7 PLC Series</h3>
+          </div>
+        </div>
+        <p className="text-slate-500 text-sm mb-8 ml-4">
+          IEC 61131-3 programmable controllers — S7-compatible, DIN-rail mounted, built for HVAC and industrial BMS panels.
+        </p>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {smarty7.map((variant, i) => {
+            const suffix = getSmartySuffix(variant.name)
+            const cfg = SMARTY7_VARIANTS[suffix] ?? SMARTY7_VARIANTS['S7']
+            const dl = variant.downloads[0]
+            const commSpec = variant.specs.find(s => s.label === 'Communication')?.value ?? ''
+            const protos = commSpec.split(',').map(p => p.trim()).filter(Boolean)
+
+            return (
+              <div key={i}
+                className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
+                style={{ background: 'linear-gradient(150deg, #0f1f3d 0%, #0b1730 100%)', border: `1px solid ${cfg.border}`, boxShadow: '0 4px 20px rgba(0,0,0,0.18)' }}
+                onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-4px)'; el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.28), 0 0 0 1px ${cfg.border}` }}
+                onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 4px 20px rgba(0,0,0,0.18)' }}
+              >
+                {/* Top bar */}
+                <div style={{ height: '3px', background: `linear-gradient(90deg, ${cfg.color}, ${cfg.color}44, transparent)` }} />
+
+                <div className="p-5 flex-1 flex flex-col gap-4">
+                  {/* Model badge row */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-full"
+                          style={{ color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.border}` }}>
+                      {cfg.badge}
+                    </span>
+                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest">IEC 61131-3</span>
+                  </div>
+
+                  {/* Name */}
+                  <h4 className="font-display font-bold text-sm leading-snug text-white/90">
+                    {variant.name}
+                  </h4>
+
+                  {/* Key differentiator */}
+                  <div className="rounded-xl px-4 py-3 flex items-start gap-2.5"
+                       style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
+                    <svg className="mt-0.5 shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <circle cx="6" cy="6" r="5" stroke={cfg.color} strokeWidth="1.2"/>
+                      <path d="M4 6l1.5 1.5L8 4.5" stroke={cfg.color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span className="text-[11px] leading-relaxed font-medium" style={{ color: cfg.color }}>{cfg.highlight}</span>
+                  </div>
+
+                  {/* Protocols */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {protos.map(p => (
+                      <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
+                            style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 20px' }} />
+
+                <div className="p-4">
+                  {dl?.file ? (
+                    <a href={dl.file} download target="_blank" rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
+                      style={{ background: 'linear-gradient(135deg, #b45309, #d97706)', color: 'white', boxShadow: '0 2px 10px rgba(180,83,9,0.4)' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)' }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 2px 10px rgba(180,83,9,0.4)' }}>
+                      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                        <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      Download Datasheet
+                    </a>
+                  ) : (
+                    <a href="#inquiry" className="flex items-center justify-center w-full py-2.5 rounded-xl text-xs font-semibold"
+                       style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.09)' }}>
+                      Request Datasheet
+                    </a>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* ── drive.web modules ── */}
+      <div>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-1 h-8 rounded-full" style={{ background: 'linear-gradient(180deg, #34d399, #059669)' }} />
+          <div>
+            <div className="text-[10px] font-bold tracking-widest uppercase text-slate-400">Product Family</div>
+            <h3 className="font-display font-bold text-xl text-navy">drive.web Modules</h3>
+          </div>
+        </div>
+        <p className="text-slate-500 text-sm mb-8 ml-4">
+          Drive-mounted web server modules — connect variable frequency drives to BACnet/IP and Modbus TCP/IP networks with zero additional hardware.
+        </p>
+
+        {Object.entries(dwGroups).map(([series, items]) => (
+          <div key={series} className="mb-8">
+            <div className="text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-3 ml-1">{series} Series</div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {items.map((variant, i) => {
+                const dl = variant.downloads[0]
+                const protoSpec = variant.specs.find(s => s.label === 'Protocols')?.value ?? ''
+                const protos = protoSpec.split(',').map(p => p.trim()).filter(Boolean)
+                const modelNum = variant.name.replace('drive.web ', '')
+
+                return (
+                  <div key={i}
+                    className="relative flex flex-col rounded-xl overflow-hidden transition-all duration-300"
+                    style={{ background: 'linear-gradient(150deg, #0d2d28 0%, #0a2420 100%)', border: '1px solid rgba(52,211,153,0.2)', boxShadow: '0 2px 12px rgba(0,0,0,0.15)' }}
+                    onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 12px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(52,211,153,0.35)' }}
+                    onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.15)' }}
+                  >
+                    <div style={{ height: '2px', background: 'linear-gradient(90deg, #34d399, #34d39944, transparent)' }} />
+
+                    <div className="p-4 flex-1 flex flex-col gap-3">
+                      {/* Model number — hero element */}
+                      <div>
+                        <div className="text-[9px] font-bold tracking-widest uppercase mb-1" style={{ color: 'rgba(52,211,153,0.5)' }}>Model</div>
+                        <div className="font-mono font-bold text-base" style={{ color: '#34d399' }}>{modelNum}</div>
+                      </div>
+
+                      {/* Protocols */}
+                      {protos.length > 0 && (
+                        <div>
+                          <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>Protocols</div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {protos.map(p => (
+                              <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
+                                    style={{ background: 'rgba(52,211,153,0.1)', color: '#6ee7b7', border: '1px solid rgba(52,211,153,0.2)' }}>
+                                {p}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Form factor */}
+                      <div className="text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                        Drive-mounted · Powered from host drive
+                      </div>
+                    </div>
+
+                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 16px' }} />
+
+                    <div className="p-3">
+                      {dl?.file ? (
+                        <a href={dl.file} download target="_blank" rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-1.5 w-full py-2 rounded-lg text-[11px] font-bold transition-all duration-200"
+                          style={{ background: 'linear-gradient(135deg, #b45309, #d97706)', color: 'white', boxShadow: '0 2px 8px rgba(180,83,9,0.35)' }}>
+                          <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                          Download Datasheet
+                        </a>
+                      ) : (
+                        <a href="#inquiry" className="flex items-center justify-center w-full py-2 rounded-lg text-[11px] font-semibold"
+                           style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.09)' }}>
+                          Request Datasheet
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ── Sensor filter UI (used when a product has > 5 variants) ──────────────────
 
 const GAS_TAGS = ['CO', 'CO₂', 'NO₂', 'H₂', 'H₂S', 'NH₃', 'CH₄', 'O₂', 'LPG', 'PM', 'TVOC', 'CH₃SH', 'Cl₂', 'Temperature']
@@ -683,8 +897,21 @@ export default function ProductDetailPage({ slug }: PageProps) {
           >
             <div className="container-narrow">
 
-              {/* Large variant set → filter UI */}
-              {product.variants.length > 5 ? (
+              {/* PLC page → grouped family layout */}
+              {product.slug === 'plc-control-systems' ? (
+                <>
+                  <AnimateIn className="max-w-xl mb-10">
+                    <span className="label-tag">Product Range</span>
+                    <h2 className="heading-section">
+                      Controllers &amp; <span className="text-accent">Integration Modules</span>
+                    </h2>
+                    <p className="body-lead">
+                      Two complementary product families — smarty7 PLC controllers for standalone automation, and drive.web modules for connecting variable frequency drives to your BMS network.
+                    </p>
+                  </AnimateIn>
+                  <PlcVariants variants={product.variants} />
+                </>
+              ) : product.variants.length > 5 ? (
                 <>
                   <AnimateIn className="max-w-xl mb-10">
                     <span className="label-tag">Sensor Range</span>
