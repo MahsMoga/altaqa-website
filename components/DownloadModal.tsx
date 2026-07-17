@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { gtagEvent } from '../lib/gtag'
 
 interface Props {
   open: boolean
@@ -38,6 +39,7 @@ export default function DownloadModal({ open, onClose }: Props) {
         body: JSON.stringify({ name, company, email }),
       })
       setStage('done')
+      gtagEvent('company_profile_download', { company, email })
       // Trigger download after a short delay so the success state is visible
       setTimeout(() => {
         const a = document.createElement('a')

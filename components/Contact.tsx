@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react'
 import AnimateIn from './AnimateIn'
+import { gtagEvent } from '../lib/gtag'
 
 type FormState = {
   name: string; email: string; whatsapp: string; company: string
@@ -180,6 +181,7 @@ export default function Contact() {
         body: JSON.stringify(form),
       })
       if (!res.ok) throw new Error('send failed')
+      gtagEvent('site_survey_request', { facility_type: form.facilityType, company: form.company })
       setSubmitted(true)
     } catch {
       alert('Sorry, something went wrong. Please email us directly at info@altaqauae.com')
