@@ -22,40 +22,36 @@ const projects = [
     sectorColor: '#BF5AF2',
     image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=900&q=85',
     color: '#BF5AF2',
-    featured: false,
   },
   {
     number: '03',
     name: 'Maryah Tower',
     client: 'Abu Dhabi',
-    type: 'Staircase Pressurization System',
+    type: 'Staircase Pressurization',
     sector: 'Commercial',
     sectorColor: '#8b5cf6',
     image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=900&q=85',
     color: '#8b5cf6',
-    featured: false,
   },
   {
     number: '04',
     name: 'Ashkal Industries',
     client: 'Industrial',
-    type: 'BMS & Energy Monitoring System',
+    type: 'BMS & Energy Monitoring',
     sector: 'Industrial',
     sectorColor: '#f97316',
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=85',
     color: '#f97316',
-    featured: false,
   },
   {
     number: '05',
     name: 'Meleha Dairy Farm',
-    client: 'Industrial · Al Ain',
-    type: 'Vehicle & Animal Sanitization System',
+    client: 'Al Ain',
+    type: 'Vehicle & Animal Sanitization',
     sector: 'Industrial',
     sectorColor: '#10b981',
     image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?auto=format&fit=crop&w=900&q=85',
     color: '#10b981',
-    featured: false,
   },
   {
     number: '06',
@@ -66,7 +62,6 @@ const projects = [
     sectorColor: '#F59E0B',
     image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=85',
     color: '#F59E0B',
-    featured: false,
   },
   {
     number: '07',
@@ -77,7 +72,6 @@ const projects = [
     sectorColor: '#06b6d4',
     image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=85',
     color: '#06b6d4',
-    featured: false,
   },
   {
     number: '08',
@@ -88,98 +82,84 @@ const projects = [
     sectorColor: '#2F80ED',
     image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=85',
     color: '#2F80ED',
-    featured: false,
   },
   {
     number: '09',
     name: 'Zakat Fund',
-    client: 'Government · Abu Dhabi',
-    type: 'Staircase Pressurization System',
+    client: 'Abu Dhabi',
+    type: 'Staircase Pressurization',
     sector: 'Government',
     sectorColor: '#F59E0B',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=85',
     color: '#F59E0B',
-    featured: false,
   },
-]
-
-const stats = [
-  { value: '500+', label: 'Projects Delivered' },
-  { value: '4',    label: 'Sectors Served' },
-  { value: '20+',  label: 'Years Experience' },
-  { value: 'UAE',  label: 'Wide Presence' },
 ]
 
 function FeaturedCard({ p }: { p: typeof projects[0] }) {
   return (
     <div
       className="group relative rounded-3xl overflow-hidden cursor-default
-                 transition-all duration-500 hover:-translate-y-2 lg:row-span-2"
-      style={{ minHeight: '480px', boxShadow: `0 8px 40px rgba(0,0,0,0.5)` }}
-      onMouseEnter={e => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 32px 80px ${p.color}40, 0 8px 32px rgba(0,0,0,0.6)`
-      }}
-      onMouseLeave={e => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 40px rgba(0,0,0,0.5)`
+                 transition-all duration-500 hover:scale-[1.01]"
+      style={{
+        minHeight: '500px',
+        boxShadow: `0 0 0 1px rgba(255,255,255,0.06), 0 32px 80px rgba(0,0,0,0.7)`,
       }}
     >
       <Image src={p.image} alt={p.name} fill
         className="object-cover transition-transform duration-700 group-hover:scale-105"
-        style={{ filter: 'brightness(0.6) contrast(1.1) saturate(1.1)' }}
+        style={{ filter: 'brightness(0.55) contrast(1.15) saturate(1.1)' }}
         sizes="(max-width: 1024px) 100vw, 40vw"
       />
 
-      {/* Color grade */}
-      <div className="absolute inset-0" style={{ background: `${p.color}18`, mixBlendMode: 'multiply' }} />
+      {/* Color tone */}
+      <div className="absolute inset-0" style={{ background: `${p.color}1a`, mixBlendMode: 'screen' }} />
 
       {/* Gradients */}
       <div className="absolute inset-0"
-           style={{ background: 'linear-gradient(to top, rgba(5,10,30,0.98) 0%, rgba(5,10,30,0.5) 45%, rgba(5,10,30,0.1) 80%, transparent 100%)' }} />
+           style={{ background: 'linear-gradient(to top, rgba(3,5,12,0.99) 0%, rgba(3,5,12,0.55) 45%, rgba(3,5,12,0.15) 80%, transparent 100%)' }} />
       <div className="absolute inset-0"
-           style={{ background: `linear-gradient(135deg, ${p.color}25 0%, transparent 60%)` }} />
+           style={{ background: `linear-gradient(135deg, ${p.color}30 0%, transparent 55%)` }} />
 
-      {/* Top bar */}
+      {/* Top glowing bar */}
       <div className="absolute top-0 left-0 right-0 h-[3px]"
-           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}60, transparent)` }} />
+           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}60, transparent)`,
+                    boxShadow: `0 0 20px ${p.color}80` }} />
 
-      {/* Number watermark */}
-      <div className="absolute top-4 right-6 font-display font-black text-[120px] leading-none
-                      select-none pointer-events-none"
-           style={{ color: p.color, opacity: 0.08 }}>
-        {p.number}
+      {/* "FEATURED" ribbon */}
+      <div className="absolute top-5 left-5 flex items-center gap-2">
+        <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: p.color }} />
+        <span className="text-[9px] font-black uppercase tracking-[0.2em]"
+              style={{ color: p.color }}>
+          Featured Project
+        </span>
       </div>
 
-      {/* Sector badge top-left */}
-      <div className="absolute top-5 left-5">
-        <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full"
-              style={{ background: `${p.color}30`, color: p.color, border: `1px solid ${p.color}60`,
-                       backdropFilter: 'blur(8px)' }}>
+      {/* Sector badge top right */}
+      <div className="absolute top-4 right-4">
+        <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full"
+              style={{ background: 'rgba(0,0,0,0.5)', color: p.sectorColor,
+                       border: `1px solid ${p.sectorColor}50`, backdropFilter: 'blur(8px)' }}>
           {p.sector}
         </span>
       </div>
 
-      {/* Content bottom */}
-      <div className="absolute inset-0 p-7 flex flex-col justify-end">
-        <div className="flex items-center gap-2 mb-3">
-          <div className="h-px flex-1" style={{ background: `linear-gradient(90deg, ${p.color}80, transparent)` }} />
-          <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: p.color }}>
-            Featured Project
-          </span>
-        </div>
+      {/* Watermark */}
+      <div className="absolute bottom-0 right-4 font-display font-black text-[130px] leading-none
+                      select-none pointer-events-none"
+           style={{ color: 'rgba(255,255,255,0.04)' }}>
+        {p.number}
+      </div>
 
-        <div className="text-white/50 text-xs font-semibold uppercase tracking-widest mb-1">
+      {/* Bottom content */}
+      <div className="absolute inset-0 p-8 flex flex-col justify-end">
+        <div className="text-[11px] font-bold uppercase tracking-[0.18em] mb-2" style={{ color: p.color }}>
           {p.type}
         </div>
-        <h3 className="font-display font-black text-white text-2xl lg:text-3xl leading-tight mb-1"
-            style={{ textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
+        <h3 className="font-display font-black text-white text-2xl lg:text-3xl leading-tight mb-1">
           {p.name}
         </h3>
-        <div className="text-white/40 text-xs mb-4">{p.client}</div>
-
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: p.color }} />
-          <span className="text-white/40 text-xs">Completed · UAE</span>
-        </div>
+        <div className="text-white/35 text-xs mb-5">{p.client}</div>
+        <div className="w-10 h-[2px] rounded-full" style={{ background: p.color, boxShadow: `0 0 12px ${p.color}` }} />
       </div>
     </div>
   )
@@ -190,56 +170,53 @@ function ProjectCard({ p }: { p: typeof projects[0] }) {
     <div
       className="group relative rounded-2xl overflow-hidden cursor-default
                  transition-all duration-400 hover:-translate-y-1.5"
-      style={{ height: '220px', boxShadow: '0 4px 24px rgba(0,0,0,0.4)' }}
+      style={{
+        height: '230px',
+        boxShadow: '0 0 0 1px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.5)',
+      }}
       onMouseEnter={e => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 20px 56px ${p.color}35, 0 4px 16px rgba(0,0,0,0.5)`
+        (e.currentTarget as HTMLDivElement).style.boxShadow =
+          `0 0 0 1px ${p.color}40, 0 24px 64px ${p.color}30, 0 8px 24px rgba(0,0,0,0.6)`
       }}
       onMouseLeave={e => {
-        (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 24px rgba(0,0,0,0.4)'
+        (e.currentTarget as HTMLDivElement).style.boxShadow =
+          '0 0 0 1px rgba(255,255,255,0.05), 0 8px 32px rgba(0,0,0,0.5)'
       }}
     >
       <Image src={p.image} alt={p.name} fill
-        className="object-cover transition-transform duration-600 group-hover:scale-106"
-        style={{ filter: 'brightness(0.55) contrast(1.1) saturate(1.0)' }}
+        className="object-cover transition-transform duration-600 group-hover:scale-105"
+        style={{ filter: 'brightness(0.5) contrast(1.1) saturate(0.9)' }}
         sizes="(max-width: 1024px) 100vw, 30vw"
       />
 
-      <div className="absolute inset-0" style={{ background: `${p.color}14`, mixBlendMode: 'multiply' }} />
+      <div className="absolute inset-0" style={{ background: `${p.color}12`, mixBlendMode: 'screen' }} />
       <div className="absolute inset-0"
-           style={{ background: 'linear-gradient(to top, rgba(5,10,30,0.97) 0%, rgba(5,10,30,0.4) 55%, transparent 100%)' }} />
+           style={{ background: 'linear-gradient(to top, rgba(3,5,12,0.98) 0%, rgba(3,5,12,0.35) 55%, transparent 100%)' }} />
 
-      {/* Top accent */}
+      {/* Top color bar */}
       <div className="absolute top-0 left-0 right-0 h-[2px]"
-           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}50, transparent)` }} />
+           style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}40, transparent)` }} />
 
-      {/* Number watermark */}
-      <div className="absolute -bottom-2 right-3 font-display font-black text-[80px] leading-none
-                      select-none pointer-events-none"
-           style={{ color: p.color, opacity: 0.07 }}>
-        {p.number}
-      </div>
-
-      {/* Sector badge */}
-      <div className="absolute top-3.5 left-3.5">
+      {/* Sector */}
+      <div className="absolute top-3 right-3">
         <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded-full"
-              style={{ background: `${p.color}28`, color: p.color, border: `1px solid ${p.color}50`,
-                       backdropFilter: 'blur(6px)' }}>
+              style={{ background: 'rgba(0,0,0,0.55)', color: p.sectorColor,
+                       border: `1px solid ${p.sectorColor}40`, backdropFilter: 'blur(6px)' }}>
           {p.sector}
         </span>
       </div>
 
+      {/* Number */}
+      <div className="absolute top-3 left-4 font-display font-black text-xs"
+           style={{ color: p.color, opacity: 0.7 }}>{p.number}</div>
+
       {/* Content */}
-      <div className="absolute inset-0 p-4 flex flex-col justify-end">
+      <div className="absolute inset-0 p-5 flex flex-col justify-end">
         <div className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: p.color }}>
           {p.type}
         </div>
-        <div className="font-display font-bold text-white text-base leading-snug mb-2"
-             style={{ textShadow: '0 1px 12px rgba(0,0,0,0.8)' }}>
+        <div className="font-display font-bold text-white text-[15px] leading-snug">
           {p.name}
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-1.5 h-1.5 rounded-full" style={{ background: p.color }} />
-          <span className="text-white/35 text-[10px]">Completed · UAE</span>
         </div>
       </div>
     </div>
@@ -250,112 +227,128 @@ export default function Projects() {
   const [featured, ...rest] = projects
 
   return (
-    <section
-      id="projects"
-      className="section-padding relative overflow-hidden"
+    <section id="projects" className="relative overflow-hidden"
       style={{
-        background: 'linear-gradient(160deg, #060e1d 0%, #0a1628 50%, #0d1f3c 100%)',
+        /* Near-black with warm amber tint — completely distinct from the navy sections */
+        background: 'radial-gradient(ellipse 100% 70% at 15% 40%, rgba(245,158,11,0.13) 0%, transparent 55%), radial-gradient(ellipse 70% 60% at 85% 10%, rgba(47,128,237,0.08) 0%, transparent 50%), #05060a',
+        paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
+        paddingBottom: 'var(--section-padding, 5rem)',
+        /* Diagonal cut from Testimonials (light) into this dark section */
         clipPath: 'polygon(0 48px, 100% 0, 100% 100%, 0 100%)',
         marginTop: '-48px',
-        paddingTop: 'calc(var(--section-padding, 5rem) + 48px)',
       }}
     >
-      {/* Circuit grid */}
-      <div className="absolute inset-0 pointer-events-none" style={{
-        backgroundImage: `linear-gradient(rgba(47,128,237,0.035) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(47,128,237,0.035) 1px, transparent 1px)`,
-        backgroundSize: '60px 60px',
-      }} />
+      {/* Noise texture overlay for depth */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.025]"
+           style={{
+             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+             backgroundSize: '180px 180px',
+           }} />
 
-      {/* Ambient glows */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[300px] pointer-events-none"
-           style={{ background: 'radial-gradient(ellipse, rgba(47,128,237,0.1) 0%, transparent 70%)' }} />
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[300px] pointer-events-none"
-           style={{ background: 'radial-gradient(ellipse, rgba(191,90,242,0.08) 0%, transparent 70%)' }} />
-
-      {/* Amber accent line at diagonal edge */}
+      {/* Diagonal amber accent line at clip edge */}
       <div className="absolute top-[48px] left-0 right-0 h-px pointer-events-none"
-           style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.5) 30%, rgba(217,119,6,0.5) 70%, transparent)' }} />
+           style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.7) 25%, rgba(245,158,11,0.7) 75%, transparent)' }} />
+
+      {/* Large ambient amber orb */}
+      <div className="absolute top-0 left-0 w-[700px] h-[500px] pointer-events-none"
+           style={{ background: 'radial-gradient(ellipse, rgba(245,158,11,0.09) 0%, transparent 70%)' }} />
 
       <div className="container-narrow relative z-10">
 
         {/* Header */}
-        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-6 mb-10">
+        <AnimateIn className="flex flex-col lg:flex-row lg:items-end gap-8 mb-12">
           <div className="flex-1">
-            <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-5">
-              <span className="w-4 h-px bg-accent/50" />
+            <span className="inline-flex items-center gap-2 text-amber-400 text-xs font-bold tracking-widest uppercase mb-5">
+              <span className="w-4 h-px bg-amber-400/50" />
               Project References
-              <span className="w-4 h-px bg-accent/50" />
+              <span className="w-4 h-px bg-amber-400/50" />
             </span>
-            <h2 className="font-display text-3xl lg:text-5xl font-black text-white leading-[1.05] tracking-tight">
+            {/* Massive display headline */}
+            <h2 className="font-display font-black text-white leading-[1.0] tracking-tight"
+                style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)' }}>
               Real Work.{' '}
-              <span className="text-accent">Real Results.</span>
+              <br className="hidden lg:block" />
+              <span style={{
+                background: 'linear-gradient(90deg, #F59E0B, #FBBF24, #F59E0B)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                Real Results.
+              </span>
             </h2>
           </div>
-          <p className="text-white/40 text-sm leading-relaxed max-w-xs lg:mb-2">
-            Delivered across the UAE — from luxury hotels and government facilities
-            to industrial plants and iconic residential towers.
-          </p>
+
+          {/* Right: stats 2×2 */}
+          <div className="grid grid-cols-2 gap-3 lg:min-w-[280px]">
+            {[
+              { value: '500+', label: 'Projects', color: '#F59E0B' },
+              { value: '20+',  label: 'Years',    color: '#2F80ED' },
+              { value: '4',    label: 'Sectors',  color: '#10b981' },
+              { value: 'UAE',  label: 'Wide',     color: '#BF5AF2' },
+            ].map(s => (
+              <div key={s.label}
+                   className="rounded-2xl px-4 py-3 text-center"
+                   style={{
+                     background: `${s.color}0d`,
+                     border: `1px solid ${s.color}25`,
+                   }}>
+                <div className="font-display font-black text-xl leading-none mb-0.5"
+                     style={{ color: s.color }}>
+                  {s.value}
+                </div>
+                <div className="text-[10px] uppercase tracking-widest font-semibold text-white/30">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </AnimateIn>
 
-        {/* Stats strip */}
-        <AnimateIn className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
-          {stats.map((s) => (
-            <div key={s.label}
-                 className="rounded-2xl px-5 py-4 text-center"
-                 style={{
-                   background: 'rgba(255,255,255,0.04)',
-                   border: '1px solid rgba(255,255,255,0.08)',
-                   backdropFilter: 'blur(8px)',
-                 }}>
-              <div className="font-display font-black text-2xl lg:text-3xl text-accent leading-none mb-1">
-                {s.value}
-              </div>
-              <div className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </AnimateIn>
-
-        {/* ── Bento project grid ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-
-          {/* Featured — spans 2 rows on left */}
+        {/* ── Project bento grid ── */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+          {/* Featured — spans 2 rows */}
           <AnimateIn className="lg:row-span-2">
-            <FeaturedCard p={featured} />
+            <div className="h-full" style={{ minHeight: '480px' }}>
+              <FeaturedCard p={featured} />
+            </div>
           </AnimateIn>
 
-          {/* 8 smaller cards in 2-col right area */}
+          {/* 8 smaller cards */}
           {rest.map((p, idx) => (
-            <AnimateIn key={p.number} delay={idx * 50}>
+            <AnimateIn key={p.number} delay={idx * 45}>
               <ProjectCard p={p} />
             </AnimateIn>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <AnimateIn className="mt-14 flex flex-col sm:flex-row items-center justify-between gap-6
-                              rounded-2xl px-8 py-6"
-                   style={{
-                     background: 'rgba(255,255,255,0.04)',
-                     border: '1px solid rgba(255,255,255,0.08)',
-                   }}>
-          <div>
-            <div className="font-display font-bold text-white text-lg mb-1">
-              Your project could be next
-            </div>
-            <div className="text-white/40 text-sm">
-              Join 500+ clients who trust Al Taqa Technical across the UAE
+        {/* Bottom CTA strip */}
+        <AnimateIn>
+          <div className="relative rounded-2xl overflow-hidden"
+               style={{ border: '1px solid rgba(245,158,11,0.2)' }}>
+            {/* Amber glow bg */}
+            <div className="absolute inset-0"
+                 style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.03) 100%)' }} />
+            <div className="absolute top-0 left-0 right-0 h-px"
+                 style={{ background: 'linear-gradient(90deg, transparent, rgba(245,158,11,0.6), transparent)' }} />
+
+            <div className="relative z-10 px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5">
+              <div>
+                <div className="font-display font-black text-white text-xl mb-1">
+                  Your facility could be next
+                </div>
+                <div className="text-white/35 text-sm">
+                  500+ projects delivered. 20+ years of trusted engineering across the UAE.
+                </div>
+              </div>
+              <a href="#contact" className="btn-primary flex-shrink-0">
+                Discuss Your Project
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
+                        strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
             </div>
           </div>
-          <a href="#contact" className="btn-primary flex-shrink-0">
-            Discuss Your Project
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
-                    strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
         </AnimateIn>
 
       </div>
