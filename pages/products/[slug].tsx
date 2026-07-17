@@ -271,9 +271,9 @@ function variantMatchesProtocol(variant: ProductVariant, proto: string) {
 }
 
 const ENC_CONFIG = {
-  ATEX:         { label: 'ATEX',         stripe: '#d97706', dot: '#d97706', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
-  Weatherproof: { label: 'Weatherproof', stripe: '#38bdf8', dot: '#38bdf8', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
-  Indoor:       { label: 'Indoor',       stripe: '#60a5fa', dot: '#60a5fa', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
+  ATEX:         { label: 'ATEX',         stripe: '#d97706', dot: '#d97706', badgeBg: 'rgba(245,158,11,0.12)', badgeText: '#b45309', cardTint: 'rgba(0,0,0,0)' },
+  Weatherproof: { label: 'Weatherproof', stripe: '#0891b2', dot: '#0891b2', badgeBg: 'rgba(8,145,178,0.1)',   badgeText: '#0e7490', cardTint: 'rgba(0,0,0,0)' },
+  Indoor:       { label: 'Indoor',       stripe: '#2563eb', dot: '#2563eb', badgeBg: 'rgba(37,99,235,0.1)',   badgeText: '#1d4ed8', cardTint: 'rgba(0,0,0,0)' },
 }
 
 function getEnclosureConfig(variant: ProductVariant) {
@@ -414,19 +414,21 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                 key={i}
                 className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 cursor-default"
                 style={{
-                  background: 'linear-gradient(150deg, #0f4541 0%, #0b3330 100%)',
-                  border: `1px solid ${enc.stripe}38`,
-                  boxShadow: '0 2px 16px rgba(0,0,0,0.18)',
+                  background: '#ffffff',
+                  border: '1px solid #e8ecf2',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget
                   el.style.transform = 'translateY(-5px)'
-                  el.style.boxShadow = `0 20px 48px rgba(0,0,0,0.28), 0 0 0 1px ${enc.stripe}55`
+                  el.style.boxShadow = `0 20px 48px rgba(0,0,0,0.12), 0 0 0 1px ${enc.stripe}55`
+                  el.style.borderColor = `${enc.stripe}55`
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget
                   el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = '0 2px 16px rgba(0,0,0,0.18)'
+                  el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'
+                  el.style.borderColor = '#e8ecf2'
                 }}
               >
                 {/* Top accent bar — full width, type color */}
@@ -450,36 +452,43 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                     </div>
 
                     <div className="flex gap-1">
-                      {commProtos.map(p => (
+                      {commProtos.map(p => {
+                        const isLoRa = p.toLowerCase().includes('lorawan')
+                        const isMod  = p.toLowerCase().includes('modbus')
+                        return (
                           <span key={p}
                             className="flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full"
                             style={{
-                              background: 'rgba(255,255,255,0.07)',
-                              color: 'rgba(255,255,255,0.55)',
-                              border: '1px solid rgba(255,255,255,0.1)',
+                              background: isLoRa ? 'rgba(6,182,212,0.1)' : isMod ? 'rgba(100,116,139,0.1)' : 'rgba(0,0,0,0.05)',
+                              color:      isLoRa ? '#0891b2'              : isMod ? '#475569'              : '#64748b',
+                              border:     isLoRa ? '1px solid rgba(6,182,212,0.25)' : isMod ? '1px solid rgba(100,116,139,0.2)' : '1px solid rgba(0,0,0,0.08)',
                             }}>
+                            {isLoRa && (
+                              <svg width="7" height="7" viewBox="0 0 10 10" fill="none">
+                                <path d="M1 3.5C2.5 1.8 4 1 5 1s2.5.8 4 2.5M2.5 5.5C3.3 4.4 4.1 4 5 4s1.7.4 2.5 1.5M5 8v.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                              </svg>
+                            )}
                             {p}
                           </span>
-                      ))}
+                        )
+                      })}
                     </div>
                   </div>
 
                   {/* Row 2 — sensor name */}
-                  <h3 className="font-display font-bold text-[13px] leading-snug"
-                      style={{ color: 'rgba(255,255,255,0.92)' }}>
+                  <h3 className="font-display font-bold text-[13px] leading-snug text-navy">
                     {variant.name}
                   </h3>
 
                   {/* Row 3 — parameter chips */}
                   {paramChips.length > 0 && (
                     <div className="flex-1">
-                      <div className="text-[9px] font-semibold tracking-widest uppercase mb-2"
-                           style={{ color: 'rgba(255,255,255,0.25)' }}>Detects</div>
+                      <div className="text-[9px] font-bold tracking-widest uppercase mb-2 text-slate-400">Detects</div>
                       <div className="flex flex-wrap gap-1.5">
                         {paramChips.map(chip => (
                           <span key={chip}
                             className="text-[10px] font-semibold px-2.5 py-1 rounded-lg"
-                            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            style={{ background: 'rgba(5,150,105,0.08)', color: '#047857', border: '1px solid rgba(5,150,105,0.18)' }}>
                             {chip}
                           </span>
                         ))}
@@ -489,7 +498,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                 </div>
 
                 {/* Divider */}
-                <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 20px' }} />
+                <div style={{ height: '1px', background: '#eef1f6', margin: '0 20px' }} />
 
                 {/* Download button */}
                 <div className="p-4">
@@ -501,22 +510,22 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                       rel={dl.file ? 'noopener noreferrer' : undefined}
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
                       style={{
-                        background: 'rgba(255,255,255,0.08)',
-                        color: 'rgba(255,255,255,0.75)',
-                        border: '1px solid rgba(255,255,255,0.12)',
+                        background: '#f4f6fa',
+                        color: '#374151',
+                        border: '1px solid #e2e6ef',
                         letterSpacing: '0.02em',
                       }}
                       onMouseEnter={e => {
                         const el = e.currentTarget as HTMLElement
-                        el.style.background = 'rgba(255,255,255,0.14)'
-                        el.style.color = 'rgba(255,255,255,0.95)'
-                        el.style.borderColor = 'rgba(255,255,255,0.22)'
+                        el.style.background = enc.stripe + '14'
+                        el.style.color = enc.stripe
+                        el.style.borderColor = enc.stripe + '44'
                       }}
                       onMouseLeave={e => {
                         const el = e.currentTarget as HTMLElement
-                        el.style.background = 'rgba(255,255,255,0.08)'
-                        el.style.color = 'rgba(255,255,255,0.75)'
-                        el.style.borderColor = 'rgba(255,255,255,0.12)'
+                        el.style.background = '#f4f6fa'
+                        el.style.color = '#374151'
+                        el.style.borderColor = '#e2e6ef'
                       }}
                     >
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
