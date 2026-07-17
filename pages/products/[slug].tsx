@@ -308,9 +308,14 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
   function chipClass(active: boolean) {
     return `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border cursor-pointer select-none transition-all duration-150 ${
       active
-        ? 'bg-white text-[#0f1c35] border-white shadow-sm'
-        : 'bg-transparent text-white/55 border-white/15 hover:text-white hover:border-white/40 hover:bg-white/8'
+        ? ''
+        : 'bg-transparent text-white/55 border-white/15 hover:text-white hover:border-white/40'
     }`
+  }
+  const activeChipStyle = {
+    background: 'rgba(96,165,250,0.18)',
+    color: '#93c5fd',
+    border: '1px solid rgba(96,165,250,0.4)',
   }
 
   return (
@@ -344,7 +349,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
             <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Gas / Parameter</div>
             <div className="flex flex-wrap gap-1.5">
               {GAS_TAGS.map(g => (
-                <button key={g} onClick={() => toggleFilter(gases, g, setGases)} className={chipClass(gases.includes(g))}>
+                <button key={g} onClick={() => toggleFilter(gases, g, setGases)} className={chipClass(gases.includes(g))} style={gases.includes(g) ? activeChipStyle : undefined}>
                   {gases.includes(g) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                   {g}
                 </button>
@@ -357,7 +362,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
               <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Enclosure</div>
               <div className="flex flex-wrap gap-1.5">
                 {ENCLOSURE_TAGS.map(e => (
-                  <button key={e} onClick={() => toggleFilter(enclosures, e, setEnclosures)} className={chipClass(enclosures.includes(e))}>
+                  <button key={e} onClick={() => toggleFilter(enclosures, e, setEnclosures)} className={chipClass(enclosures.includes(e))} style={enclosures.includes(e) ? activeChipStyle : undefined}>
                     {enclosures.includes(e) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                     {e}
                   </button>
@@ -368,7 +373,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
               <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Protocol</div>
               <div className="flex flex-wrap gap-1.5">
                 {PROTOCOL_TAGS.map(p => (
-                  <button key={p} onClick={() => toggleFilter(protocols, p, setProtocols)} className={chipClass(protocols.includes(p))}>
+                  <button key={p} onClick={() => toggleFilter(protocols, p, setProtocols)} className={chipClass(protocols.includes(p))} style={protocols.includes(p) ? activeChipStyle : undefined}>
                     {protocols.includes(p) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                     {p}
                   </button>
