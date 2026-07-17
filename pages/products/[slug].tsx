@@ -56,11 +56,10 @@ function variantMatchesProtocol(variant: ProductVariant, proto: string) {
   return true
 }
 
-// Enclosure config — drives the card's top glow stripe and indicator dot
 const ENC_CONFIG = {
-  ATEX:         { label: 'ATEX',         stripe: '#f59e0b', dot: '#f59e0b', glow: 'rgba(245,158,11,0.35)' },
-  Weatherproof: { label: 'Weatherproof', stripe: '#06b6d4', dot: '#06b6d4', glow: 'rgba(6,182,212,0.30)'  },
-  Indoor:       { label: 'Indoor',       stripe: '#2f80ed', dot: '#2f80ed', glow: 'rgba(47,128,237,0.28)' },
+  ATEX:         { label: 'ATEX',         stripe: '#f59e0b', dot: '#f59e0b', badgeBg: 'rgba(245,158,11,0.18)', badgeText: '#fbbf24', cardTint: 'rgba(245,158,11,0.04)' },
+  Weatherproof: { label: 'Weatherproof', stripe: '#06b6d4', dot: '#06b6d4', badgeBg: 'rgba(6,182,212,0.16)',  badgeText: '#22d3ee', cardTint: 'rgba(6,182,212,0.04)'  },
+  Indoor:       { label: 'Indoor',       stripe: '#2f80ed', dot: '#2f80ed', badgeBg: 'rgba(47,128,237,0.16)', badgeText: '#60a5fa', cardTint: 'rgba(47,128,237,0.04)' },
 }
 
 function getEnclosureConfig(variant: ProductVariant) {
@@ -96,7 +95,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
     return `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border cursor-pointer select-none transition-all duration-150 ${
       active
         ? 'bg-[#0f1c35] text-white border-[#0f1c35] shadow-sm'
-        : 'bg-white text-slate-600 border-slate-200 hover:border-[#0f1c35] hover:text-[#0f1c35]'
+        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100 hover:border-slate-400 hover:text-slate-900 hover:shadow-sm'
     }`
   }
 
@@ -199,41 +198,39 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                 key={i}
                 className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
                 style={{
-                  background: 'linear-gradient(160deg, #111d33 0%, #0a1525 100%)',
-                  border: '1px solid rgba(255,255,255,0.07)',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.18)',
+                  background: `linear-gradient(150deg, color-mix(in srgb, #0D3D3A 94%, ${enc.stripe}) 0%, #0a302e 100%)`,
+                  border: `1px solid ${enc.stripe}40`,
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget
-                  el.style.transform = 'translateY(-3px)'
-                  el.style.boxShadow = `0 12px 40px rgba(0,0,0,0.28), 0 0 0 1px ${enc.stripe}40`
+                  el.style.transform = 'translateY(-4px)'
+                  el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.22), 0 0 0 1px ${enc.stripe}55`
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget
                   el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.18)'
+                  el.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'
                 }}
               >
-                {/* Glowing top stripe */}
-                <div style={{
-                  height: '3px',
-                  background: `linear-gradient(90deg, ${enc.stripe}, ${enc.stripe}88, transparent)`,
-                  boxShadow: `0 0 12px ${enc.glow}`,
-                }} />
+                {/* Colored left border stripe */}
+                <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
+                     style={{ background: `linear-gradient(180deg, ${enc.stripe}, ${enc.stripe}66)` }} />
 
-                <div className="p-5 flex-1">
+                <div className="pl-6 pr-5 pt-5 flex-1">
                   {/* Status row */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      {/* Pulsing indicator dot */}
                       <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-50"
                               style={{ backgroundColor: enc.dot }} />
                         <span className="relative inline-flex rounded-full h-2 w-2"
                               style={{ backgroundColor: enc.dot }} />
                       </span>
-                      <span className="text-[10px] font-bold tracking-widest uppercase"
-                            style={{ color: enc.dot }}>{enc.label}</span>
+                      <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
+                            style={{ color: enc.badgeText, background: enc.badgeBg, border: `1px solid ${enc.stripe}35` }}>
+                        {enc.label}
+                      </span>
                     </div>
 
                     {/* Protocol pills */}
@@ -241,7 +238,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                       {commProtos.map(p => (
                         <span key={p}
                           className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-                          style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                          style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.12)' }}>
                           {p}
                         </span>
                       ))}
@@ -250,26 +247,26 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
 
                   {/* Sensor name */}
                   <h3 className="font-display font-bold text-sm leading-snug mb-4"
-                      style={{ color: 'rgba(255,255,255,0.92)' }}>
+                      style={{ color: 'rgba(255,255,255,0.90)' }}>
                     {variant.name}
                   </h3>
 
-                  {/* Measures — terminal readout style */}
+                  {/* Measures — terminal readout */}
                   {params && (
                     <div className="rounded-xl px-4 py-3"
-                         style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                         style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)' }}>
                       <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5"
-                           style={{ color: 'rgba(255,255,255,0.25)' }}>Measures</div>
+                           style={{ color: 'rgba(255,255,255,0.28)' }}>Measures</div>
                       <div className="font-mono text-xs leading-relaxed"
-                           style={{ color: '#4ade80' }}>
+                           style={{ color: '#6ee7b7' }}>
                         {params}
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* Download button — amber, full width */}
-                <div className="px-5 pb-5">
+                {/* Download button */}
+                <div className="pl-6 pr-5 pb-5 pt-4">
                   {dl ? (
                     <a
                       href={dl.file ?? '#inquiry'}
@@ -280,10 +277,10 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                       style={{
                         background: 'linear-gradient(135deg, #d97706, #f59e0b)',
                         color: 'white',
-                        boxShadow: '0 2px 12px rgba(217,119,6,0.3)',
+                        boxShadow: '0 2px 12px rgba(217,119,6,0.35)',
                       }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(217,119,6,0.5)' }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 12px rgba(217,119,6,0.3)' }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)' }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 12px rgba(217,119,6,0.35)' }}
                     >
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
                         <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -292,8 +289,8 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                     </a>
                   ) : (
                     <a href="#inquiry"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
-                      style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold"
+                      style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.1)' }}>
                       Request Datasheet
                     </a>
                   )}
