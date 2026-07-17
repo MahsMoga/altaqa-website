@@ -271,9 +271,9 @@ function variantMatchesProtocol(variant: ProductVariant, proto: string) {
 }
 
 const ENC_CONFIG = {
-  ATEX:         { label: 'ATEX',         stripe: '#f59e0b', dot: '#f59e0b', badgeBg: 'rgba(245,158,11,0.18)', badgeText: '#fbbf24', cardTint: 'rgba(245,158,11,0.04)' },
-  Weatherproof: { label: 'Weatherproof', stripe: '#06b6d4', dot: '#06b6d4', badgeBg: 'rgba(6,182,212,0.16)',  badgeText: '#22d3ee', cardTint: 'rgba(6,182,212,0.04)'  },
-  Indoor:       { label: 'Indoor',       stripe: '#2f80ed', dot: '#2f80ed', badgeBg: 'rgba(47,128,237,0.16)', badgeText: '#60a5fa', cardTint: 'rgba(47,128,237,0.04)' },
+  ATEX:         { label: 'ATEX',         stripe: '#d97706', dot: '#d97706', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
+  Weatherproof: { label: 'Weatherproof', stripe: '#38bdf8', dot: '#38bdf8', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
+  Indoor:       { label: 'Indoor',       stripe: '#60a5fa', dot: '#60a5fa', badgeBg: 'rgba(255,255,255,0.07)', badgeText: 'rgba(255,255,255,0.65)', cardTint: 'rgba(0,0,0,0)' },
 }
 
 function getEnclosureConfig(variant: ProductVariant) {
@@ -450,25 +450,17 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                     </div>
 
                     <div className="flex gap-1">
-                      {commProtos.map(p => {
-                        const isWireless = p.toLowerCase().includes('lorawan') || p.toLowerCase().includes('wireless')
-                        return (
+                      {commProtos.map(p => (
                           <span key={p}
                             className="flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full"
                             style={{
-                              background: isWireless ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.07)',
-                              color: isWireless ? '#67e8f9' : 'rgba(255,255,255,0.45)',
-                              border: `1px solid ${isWireless ? 'rgba(34,211,238,0.25)' : 'rgba(255,255,255,0.1)'}`,
+                              background: 'rgba(255,255,255,0.07)',
+                              color: 'rgba(255,255,255,0.55)',
+                              border: '1px solid rgba(255,255,255,0.1)',
                             }}>
-                            {isWireless && (
-                              <svg width="7" height="7" viewBox="0 0 10 10" fill="none">
-                                <path d="M1 3.5C2.5 1.8 4 1 5 1s2.5.8 4 2.5M2.5 5.5C3.3 4.4 4.1 4 5 4s1.7.4 2.5 1.5M5 8v.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-                              </svg>
-                            )}
                             {p}
                           </span>
-                        )
-                      })}
+                      ))}
                     </div>
                   </div>
 
@@ -487,7 +479,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                         {paramChips.map(chip => (
                           <span key={chip}
                             className="text-[10px] font-semibold px-2.5 py-1 rounded-lg"
-                            style={{ background: 'rgba(110,231,183,0.1)', color: '#6ee7b7', border: '1px solid rgba(110,231,183,0.2)' }}>
+                            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)' }}>
                             {chip}
                           </span>
                         ))}
@@ -509,20 +501,22 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                       rel={dl.file ? 'noopener noreferrer' : undefined}
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
                       style={{
-                        background: 'linear-gradient(135deg, #b45309, #d97706)',
-                        color: 'rgba(255,255,255,0.95)',
-                        boxShadow: '0 2px 10px rgba(180,83,9,0.4)',
+                        background: 'rgba(255,255,255,0.08)',
+                        color: 'rgba(255,255,255,0.75)',
+                        border: '1px solid rgba(255,255,255,0.12)',
                         letterSpacing: '0.02em',
                       }}
                       onMouseEnter={e => {
                         const el = e.currentTarget as HTMLElement
-                        el.style.background = 'linear-gradient(135deg, #d97706, #f59e0b)'
-                        el.style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)'
+                        el.style.background = 'rgba(255,255,255,0.14)'
+                        el.style.color = 'rgba(255,255,255,0.95)'
+                        el.style.borderColor = 'rgba(255,255,255,0.22)'
                       }}
                       onMouseLeave={e => {
                         const el = e.currentTarget as HTMLElement
-                        el.style.background = 'linear-gradient(135deg, #b45309, #d97706)'
-                        el.style.boxShadow = '0 2px 10px rgba(180,83,9,0.4)'
+                        el.style.background = 'rgba(255,255,255,0.08)'
+                        el.style.color = 'rgba(255,255,255,0.75)'
+                        el.style.borderColor = 'rgba(255,255,255,0.12)'
                       }}
                     >
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
