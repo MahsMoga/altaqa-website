@@ -304,22 +304,22 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
 
   const hasFilters = gases.length || enclosures.length || protocols.length || search
 
-  // Filter bar chip — white with navy active state
+  // Filter bar chip — dark navy background
   function chipClass(active: boolean) {
     return `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border cursor-pointer select-none transition-all duration-150 ${
       active
-        ? 'bg-[#0f1c35] text-white border-[#0f1c35] shadow-sm'
-        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100 hover:border-slate-400 hover:text-slate-900 hover:shadow-sm'
+        ? 'bg-white text-[#0f1c35] border-white shadow-sm'
+        : 'bg-transparent text-white/55 border-white/15 hover:text-white hover:border-white/40 hover:bg-white/8'
     }`
   }
 
   return (
     <div>
-      {/* ── Filter bar — white control panel on cream ── */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 mb-8 shadow-sm">
+      {/* ── Filter bar — dark navy ── */}
+      <div className="rounded-2xl p-5 mb-8" style={{ background: 'linear-gradient(150deg, #0f1c35 0%, #0b1528 100%)', border: '1px solid rgba(255,255,255,0.07)' }}>
         {/* Search */}
         <div className="relative mb-5">
-          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2" width="14" height="14" viewBox="0 0 16 16" fill="none" style={{ color: 'rgba(255,255,255,0.3)' }}>
             <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
             <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
           </svg>
@@ -328,14 +328,20 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
             placeholder="Search by sensor name or gas (e.g. CO2, hydrogen, methane…)"
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm text-navy
-                       placeholder:text-slate-400 focus:outline-none focus:border-[#0f1c35] focus:ring-1 focus:ring-[#0f1c35]/10"
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm outline-none transition-colors"
+            style={{
+              background: 'rgba(255,255,255,0.06)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'rgba(255,255,255,0.85)',
+            }}
+            onFocus={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)')}
+            onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)')}
           />
         </div>
 
         <div className="space-y-3.5">
           <div>
-            <div className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mb-2">Gas / Parameter</div>
+            <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Gas / Parameter</div>
             <div className="flex flex-wrap gap-1.5">
               {GAS_TAGS.map(g => (
                 <button key={g} onClick={() => toggleFilter(gases, g, setGases)} className={chipClass(gases.includes(g))}>
@@ -348,7 +354,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
 
           <div className="grid sm:grid-cols-2 gap-3">
             <div>
-              <div className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mb-2">Enclosure</div>
+              <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Enclosure</div>
               <div className="flex flex-wrap gap-1.5">
                 {ENCLOSURE_TAGS.map(e => (
                   <button key={e} onClick={() => toggleFilter(enclosures, e, setEnclosures)} className={chipClass(enclosures.includes(e))}>
@@ -359,7 +365,7 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
               </div>
             </div>
             <div>
-              <div className="text-slate-400 text-[10px] font-bold tracking-widest uppercase mb-2">Protocol</div>
+              <div className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>Protocol</div>
               <div className="flex flex-wrap gap-1.5">
                 {PROTOCOL_TAGS.map(p => (
                   <button key={p} onClick={() => toggleFilter(protocols, p, setProtocols)} className={chipClass(protocols.includes(p))}>
@@ -372,13 +378,13 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-          <span className="text-sm text-slate-500">
-            Showing <span className="font-semibold text-navy">{filtered.length}</span> of {variants.length} sensors
+        <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            Showing <span className="font-semibold" style={{ color: 'rgba(255,255,255,0.8)' }}>{filtered.length}</span> of {variants.length} sensors
           </span>
           {hasFilters && (
             <button onClick={() => { setGases([]); setEnclosures([]); setProtocols([]); setSearch('') }}
-              className="text-xs text-[#0f1c35] font-semibold hover:underline">
+              className="text-xs font-semibold hover:underline" style={{ color: 'rgba(255,255,255,0.5)' }}>
               Clear all
             </button>
           )}
