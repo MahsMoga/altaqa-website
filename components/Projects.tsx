@@ -280,14 +280,14 @@ export default function Projects() {
               <div key={s.label}
                    className="rounded-2xl px-4 py-3 text-center"
                    style={{
-                     background: `${s.color}10`,
-                     border: `1px solid ${s.color}30`,
+                     background: `linear-gradient(135deg, #0a1628 0%, #0f1c3f 100%)`,
+                     border: `1px solid ${s.color}40`,
                    }}>
                 <div className="font-display font-black text-xl leading-none mb-0.5"
                      style={{ color: s.color }}>
                   {s.value}
                 </div>
-                <div className="text-[10px] uppercase tracking-widest font-semibold text-slate-400">
+                <div className="text-[10px] uppercase tracking-widest font-semibold text-white/50">
                   {s.label}
                 </div>
               </div>
