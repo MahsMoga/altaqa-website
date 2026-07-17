@@ -845,7 +845,7 @@ export default function ProductDetailPage({ slug }: PageProps) {
               <AnimateIn>
                 {/* Quick stats — replaces the generic "Product Overview" label */}
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {product.variants.length > 0 && (
+                  {(product.variants ?? []).length > 0 && (
                     <span className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
                           style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.85)', border: '1px solid rgba(255,255,255,0.15)' }}>
                       <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -854,25 +854,25 @@ export default function ProductDetailPage({ slug }: PageProps) {
                         <rect x="1" y="7" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.2"/>
                         <rect x="7" y="7" width="4" height="4" rx="1" stroke="currentColor" strokeWidth="1.2"/>
                       </svg>
-                      {product.variants.length} Models
+                      {(product.variants ?? []).length} Models
                     </span>
                   )}
-                  {product.protocols.slice(0, 2).map(p => (
+                  {(product.protocols ?? []).slice(0, 2).map(p => (
                     <span key={p} className="text-xs font-bold px-3 py-1.5 rounded-full"
                           style={{ background: 'rgba(47,128,237,0.18)', color: '#93c5fd', border: '1px solid rgba(47,128,237,0.3)' }}>
                       {p}
                     </span>
                   ))}
-                  {product.variants.some(v =>
+                  {(product.variants ?? []).some(v =>
                     v.name.toLowerCase().includes('atex') ||
-                    v.specs.some(s => s.value.toLowerCase().includes('atex'))
+                    (v.specs ?? []).some(s => s.value.toLowerCase().includes('atex'))
                   ) && (
                     <span className="text-xs font-bold px-3 py-1.5 rounded-full"
                           style={{ background: 'rgba(245,158,11,0.18)', color: '#fcd34d', border: '1px solid rgba(245,158,11,0.3)' }}>
                       ATEX Certified
                     </span>
                   )}
-                  {product.applications.slice(0, 1).map(a => (
+                  {(product.applications ?? []).slice(0, 1).map(a => (
                     <span key={a} className="text-xs font-semibold px-3 py-1.5 rounded-full"
                           style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
                       {a}
