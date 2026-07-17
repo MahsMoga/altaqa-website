@@ -30,37 +30,49 @@ export default function Products() {
                 href={`/products/${product.slug}`}
                 aria-label={`View details for ${product.name}`}
                 className="group flex flex-col h-full rounded-2xl overflow-hidden
-                           bg-white border border-slate-200/70
-                           shadow-[0_2px_12px_rgba(0,0,0,0.06)]
-                           hover:shadow-[0_16px_48px_rgba(0,0,0,0.13)]
-                           hover:-translate-y-2 transition-all duration-350"
+                           hover:-translate-y-2 transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(160deg, #0d1527 0%, #0f1c3a 60%, #0c1830 100%)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.28)',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                    '0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(47,128,237,0.25)'
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.boxShadow =
+                    '0 4px 24px rgba(0,0,0,0.28)'
+                }}
               >
-                {/* Colored top bar — 3px */}
+                {/* Colored top bar */}
                 <div className={`h-[3px] w-full flex-shrink-0 ${product.strip}`} />
 
                 {/* Image area */}
-                <div className={`relative flex-shrink-0 overflow-hidden
-                                ${product.image ? 'h-48' : 'h-44'} ${!product.image ? product.iconBg : 'bg-slate-100'}`}>
+                <div className={`relative flex-shrink-0 overflow-hidden h-44
+                                ${!product.image ? product.iconBg : ''}`}
+                     style={product.image ? { background: '#07101f' } : undefined}>
                   {product.image ? (
                     <>
                       <Image
                         src={product.image}
-                        alt={`${product.name}`}
+                        alt={product.name}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="object-cover opacity-80 transition-all duration-500
+                                   group-hover:opacity-95 group-hover:scale-105"
                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
-                      {/* Gradient fade into card */}
+                      {/* Dark gradient fade into card */}
                       <div className="absolute inset-0"
-                           style={{ background: 'linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 55%)' }} />
+                           style={{ background: 'linear-gradient(to top, #0d1527 0%, rgba(13,21,39,0.4) 55%, transparent 100%)' }} />
                     </>
                   ) : (
                     <>
-                      <div className="absolute inset-0 dot-pattern-bg opacity-20" />
+                      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.3)' }} />
                       <div className="relative h-full flex items-center justify-center">
-                        <div className="w-16 h-16 bg-white rounded-2xl shadow-md flex items-center
-                                        justify-center border border-white/80
-                                        group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-16 h-16 rounded-2xl flex items-center justify-center
+                                        group-hover:scale-110 transition-transform duration-300"
+                             style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}>
                           {product.icon}
                         </div>
                       </div>
@@ -70,23 +82,23 @@ export default function Products() {
 
                 {/* Content */}
                 <div className="flex flex-col flex-1 px-5 pt-4 pb-5">
-                  <h3 className="font-display text-navy font-bold text-[15px] leading-snug mb-2">
+                  <h3 className="font-display text-white font-bold text-[15px] leading-snug mb-2">
                     {product.name}
                   </h3>
-                  <p className="text-slate-500 text-[13px] leading-relaxed flex-1">
+                  <p className="text-white/50 text-[13px] leading-relaxed flex-1">
                     {product.tagline}
                   </p>
 
                   {/* CTA row */}
-                  <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="mt-4 pt-4 flex items-center justify-between"
+                       style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                     <span className="text-accent text-[13px] font-semibold
-                                     group-hover:opacity-80 transition-opacity">
+                                     group-hover:text-accent-light transition-colors">
                       Explore Product
                     </span>
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center
-                                    ${product.iconBg}
-                                    group-hover:scale-110 group-hover:shadow-sm
-                                    transition-all duration-200`}>
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center
+                                    group-hover:scale-110 transition-all duration-200"
+                         style={{ background: 'rgba(47,128,237,0.15)', border: '1px solid rgba(47,128,237,0.3)' }}>
                       <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
                         <path d="M2.5 7h9M8 3.5L11.5 7 8 10.5"
                               stroke="#2F80ED" strokeWidth="1.5"
