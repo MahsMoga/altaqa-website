@@ -56,8 +56,11 @@ const pillars = [
   },
 ]
 
-function useCountUp(target: number, duration = 1400) {
-  const [val, setVal] = useState(0)
+function useCountUp(target: number, duration = 1200) {
+  // Start at target so SSR and the initial paint always show the real number.
+  // When the element scrolls into view, briefly animate down then back up for
+  // visual interest — but never show 0 or an implausible intermediate value.
+  const [val, setVal] = useState(target)
   const [started, setStarted] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -73,14 +76,17 @@ function useCountUp(target: number, duration = 1400) {
 
   useEffect(() => {
     if (!started) return
-    let start = 0
-    const steps = 50
-    const increment = target / steps
+    // Animate from 85% of target → target so it feels live without hitting 0
+    const from = Math.round(target * 0.85)
+    let current = from
+    const steps = 40
+    const increment = (target - from) / steps
     const interval = duration / steps
+    setVal(from)
     const t = setInterval(() => {
-      start += increment
-      if (start >= target) { setVal(target); clearInterval(t) }
-      else setVal(Math.floor(start))
+      current += increment
+      if (current >= target) { setVal(target); clearInterval(t) }
+      else setVal(Math.round(current))
     }, interval)
     return () => clearInterval(t)
   }, [started, target, duration])

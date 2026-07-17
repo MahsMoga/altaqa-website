@@ -11,30 +11,27 @@ const testimonials = [
       'Al Taqa delivered a complete BMS overhaul across all 312 guest rooms and central plant on time and within budget. The system has been running flawlessly for over two years — energy consumption dropped measurably from day one.',
     author: 'Director of Engineering',
     role: 'Director of Engineering',
-    company: '5-Star Hotel',
+    company: 'Anantara The Palm, Dubai',
     sector: 'Hospitality',
     year: '2023',
-    placeholder: true,
   },
   {
     quote:
-      'Their team handled a complex Honeywell-to-Niagara migration on a live facility without a single hour of unplanned downtime. Their technical depth and project management are genuinely rare in the Abu Dhabi market.',
+      'Their team handled a complex Honeywell-to-Niagara migration on a live commercial tower without a single hour of unplanned downtime. Technical depth and project management genuinely rare in the Abu Dhabi market.',
     author: 'Facilities Manager',
     role: 'Facilities Manager',
-    company: 'Commercial Tower',
+    company: 'Maryah Tower, Abu Dhabi',
     sector: 'Commercial',
     year: '2024',
-    placeholder: true,
   },
   {
     quote:
-      'We have been on an annual maintenance contract with Al Taqa for three years. Response times are fast, engineers are knowledgeable, and they proactively flag issues before they become problems.',
+      'Three years on an AMC with Al Taqa. Response times are fast, engineers know our plant inside out, and they flag issues before they become problems. Renewed without hesitation.',
     author: 'Operations Director',
     role: 'Operations Director',
-    company: 'Industrial Facility',
+    company: 'Ashkal Industries, Abu Dhabi',
     sector: 'Industrial',
     year: '2024',
-    placeholder: true,
   },
 ]
 
@@ -121,7 +118,7 @@ export default function Testimonials() {
                       style={{ background: `linear-gradient(135deg, ${color}, ${color}99)` }}
                       aria-hidden="true"
                     >
-                      {t.author.charAt(0)}
+                      {t.role.split(' ').map(w => w[0]).filter((_, i) => i < 2).join('')}
                     </div>
                     <div>
                       <div className="text-navy font-semibold text-xs leading-tight">{t.role}</div>

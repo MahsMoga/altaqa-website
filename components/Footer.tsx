@@ -57,11 +57,29 @@ export default function Footer() {
               </div>
             </div>
 
-            <p className="text-white/70 text-xs leading-relaxed mb-5">
+            <p className="text-white/70 text-xs leading-relaxed mb-4">
               Building Intelligence. Delivering Excellence.
               Premier provider of automation and energy management
               solutions in Abu Dhabi, UAE.
             </p>
+
+            {/* Credentials — required by UAE procurement checklists */}
+            <div className="space-y-1.5 mb-5">
+              {[
+                { label: 'Trade Licence', value: 'CN-1371498' },
+                { label: 'ISO 9001', value: 'Certified' },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex items-center gap-2">
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="flex-shrink-0">
+                    <circle cx="6" cy="6" r="5.25" stroke="#2F80ED" strokeWidth="1"/>
+                    <path d="M3.5 6l1.8 1.8L8.5 4.2" stroke="#2F80ED" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className="text-white/45 text-[11px]">
+                    <span className="text-white/60 font-medium">{label}:</span> {value}
+                  </span>
+                </div>
+              ))}
+            </div>
 
             <div className="flex items-center gap-2 mb-5">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">

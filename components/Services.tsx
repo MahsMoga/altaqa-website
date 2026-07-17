@@ -5,6 +5,16 @@ import AnimateIn from './AnimateIn'
 const services = [
   {
     number: '01',
+    title: 'BMS Design & Installation',
+    short: 'Your Core System, Built Right',
+    desc: 'End-to-end BMS engineering — from site survey and schematic design through installation, commissioning, and handover. Covering Johnson Controls, Schneider, Honeywell, Tridium Niagara, and Trend platforms.',
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=900&q=85',
+    color: '#f59e0b',
+    highlights: ['Site Survey & Design', 'Multi-Platform Certified', 'Full Commissioning', 'As-Built Documentation'],
+    stat: { value: '500+', label: 'Systems Installed' },
+  },
+  {
+    number: '03',
     title: 'Annual Maintenance Contracts',
     short: 'Ongoing System Health',
     desc: 'Brand-agnostic preventive maintenance and 24/7 emergency response to keep your BMS running at peak efficiency — year after year.',
@@ -14,7 +24,7 @@ const services = [
     stat: { value: '24/7', label: 'Emergency SLA' },
   },
   {
-    number: '02',
+    number: '04',
     title: 'Energy Retrofit Solutions',
     short: 'Transform Existing Facilities',
     desc: 'Comprehensive energy audits and retrofit programmes that cut operational costs significantly while meeting your sustainability targets.',
@@ -24,7 +34,7 @@ const services = [
     stat: { value: '30%', label: 'Avg. Energy Saved' },
   },
   {
-    number: '03',
+    number: '05',
     title: 'Smart Metering Solutions',
     short: 'Real-Time Utility Visibility',
     desc: 'BTU, water, and utility monitoring with tenant billing software — complete consumption visibility across every zone of your facility.',
