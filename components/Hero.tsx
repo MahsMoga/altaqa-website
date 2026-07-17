@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
+import DownloadModal from './DownloadModal'
 
 // Realistic per-metric fluctuation ranges for a UAE commercial building
 const FLUCTUATION: Record<string, { delta: number; decimals: number }> = {
@@ -72,6 +73,7 @@ function MetricCard({ m }: { m: typeof metrics[0] }) {
 }
 
 export default function Hero() {
+  const [modalOpen, setModalOpen] = useState(false)
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: '#0a1628' }}>
@@ -150,10 +152,19 @@ export default function Hero() {
                         strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
-              <a href="/energy-calculator" className="btn-outline" target="_blank" rel="noopener noreferrer">
-                Free Savings Calculator
-              </a>
+              <button
+                onClick={() => setModalOpen(true)}
+                className="btn-outline flex items-center gap-2"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 15V3M8 11l4 4 4-4M3 19h18" stroke="currentColor" strokeWidth="1.8"
+                        strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Company Profile
+              </button>
             </div>
+
+            <DownloadModal open={modalOpen} onClose={() => setModalOpen(false)} />
 
             {/* ── Certified Partner Strip ─────────────────────── */}
             {/* TODO: Replace each badge inner content with <img src="/images/partners/jci.svg" alt="..." /> once logos are available */}
