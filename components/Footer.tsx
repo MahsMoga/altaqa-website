@@ -139,7 +139,7 @@ export default function Footer() {
           {/* ── Contact info ───────────────────────────────────── */}
           <div>
             <div className="font-display text-white font-semibold text-sm mb-5">
-              Get in Touch
+              Request a Site Survey
             </div>
             <div className="space-y-4">
 

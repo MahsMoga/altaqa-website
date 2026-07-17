@@ -170,7 +170,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <a href={navHref('contact')} className="btn-primary text-sm py-2.5 px-5">
-              Get in Touch
+              Request a Site Survey
             </a>
           </div>
 
@@ -251,7 +251,7 @@ export default function Navbar() {
             <div className="pt-3 px-1">
               <a href={navHref('contact')} onClick={() => setMenuOpen(false)}
                 className="btn-primary w-full justify-center">
-                Get in Touch
+                Request a Site Survey
               </a>
             </div>
           </div>

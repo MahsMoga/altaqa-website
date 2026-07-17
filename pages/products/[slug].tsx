@@ -680,7 +680,7 @@ export default function ProductDetailPage({ slug }: PageProps) {
           <div className="container-narrow">
             <div className="grid lg:grid-cols-2 gap-14 lg:gap-16 items-start">
               <AnimateIn>
-                <span className="label-tag">Get in Touch</span>
+                <span className="label-tag">Request a Site Survey</span>
                 <h2 className="heading-section mb-5">
                   Request a Quote for{' '}
                   <span className="text-accent">{product.name}</span>
