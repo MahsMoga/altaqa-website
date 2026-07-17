@@ -315,18 +315,18 @@ export default function Projects() {
         {/* Bottom CTA strip */}
         <AnimateIn>
           <div className="relative rounded-2xl overflow-hidden"
-               style={{ border: '1px solid rgba(217,119,6,0.2)', background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(8px)' }}>
+               style={{ border: '1px solid rgba(217,119,6,0.3)', background: 'linear-gradient(135deg, #0a1628 0%, #0f1c3f 100%)' }}>
             <div className="absolute inset-0"
-                 style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.06) 0%, rgba(47,128,237,0.04) 100%)' }} />
+                 style={{ background: 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(47,128,237,0.05) 100%)' }} />
             <div className="absolute top-0 left-0 right-0 h-px"
-                 style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.5), transparent)' }} />
+                 style={{ background: 'linear-gradient(90deg, transparent, rgba(217,119,6,0.6), transparent)' }} />
 
             <div className="relative z-10 px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div>
-                <div className="font-display font-black text-navy text-xl mb-1">
+                <div className="font-display font-black text-white text-xl mb-1">
                   Your facility could be next
                 </div>
-                <div className="text-slate-500 text-sm">
+                <div className="text-white/60 text-sm">
                   500+ projects delivered. 20+ years of trusted engineering across the UAE.
                 </div>
               </div>
