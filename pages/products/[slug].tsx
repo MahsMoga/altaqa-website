@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useMemo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -7,6 +7,267 @@ import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 import AnimateIn from '../../components/AnimateIn'
 import { products, getProductBySlug, Product, ProductVariant } from '@/data/products'
+
+// ── Sensor filter UI (used when a product has > 5 variants) ──────────────────
+
+const GAS_TAGS = ['CO', 'CO₂', 'NO₂', 'H₂', 'H₂S', 'NH₃', 'CH₄', 'O₂', 'LPG', 'PM', 'TVOC', 'CH₃SH', 'Cl₂', 'Temperature']
+const ENCLOSURE_TAGS = ['Indoor', 'Weatherproof', 'ATEX']
+const PROTOCOL_TAGS = ['LoRaWAN', 'Modbus']
+
+function getSpecVal(variant: ProductVariant, label: string) {
+  return variant.specs.find(s => s.label === label)?.value ?? ''
+}
+
+function variantMatchesGas(variant: ProductVariant, gas: string) {
+  const params = getSpecVal(variant, 'Parameters').toLowerCase()
+  const name = variant.name.toLowerCase()
+  const map: Record<string, string[]> = {
+    'CO': ['co ','co,','(co)','carbon monoxide'],
+    'CO₂': ['co2','co₂','carbon dioxide'],
+    'NO₂': ['no2','no₂','nitrogen dioxide'],
+    'H₂': ['h2 ','h2,','h2)','hydrogen)','hydrogen '],
+    'H₂S': ['h2s','h₂s','hydrogen sulphide'],
+    'NH₃': ['nh3','nh₃','ammonia'],
+    'CH₄': ['ch4','ch₄','methane'],
+    'O₂': ['o2 ','o2,','o2)','oxygen'],
+    'LPG': ['lpg','propane','butane'],
+    'PM': ['pm1','pm2','pm10','particulate'],
+    'TVOC': ['tvoc'],
+    'CH₃SH': ['ch3sh','ch₃sh','methyl mercaptan'],
+    'Cl₂': ['cl2','cl₂','chlorine'],
+    'Temperature': ['temperature','temp'],
+  }
+  const terms = map[gas] ?? [gas.toLowerCase()]
+  return terms.some(t => params.includes(t) || name.includes(t))
+}
+
+function variantMatchesEnclosure(variant: ProductVariant, enc: string) {
+  const val = (getSpecVal(variant, 'Enclosure') + ' ' + variant.name).toLowerCase()
+  if (enc === 'Indoor') return val.includes('indoor') && !val.includes('weatherproof') && !val.includes('atex') && !val.includes('ip65') && !val.includes('ex ')
+  if (enc === 'Weatherproof') return val.includes('weatherproof') || val.includes('ip65') || val.includes('ip 65')
+  if (enc === 'ATEX') return val.includes('atex') || val.includes('ex enclosure') || val.includes('(ex)')
+  return true
+}
+
+function variantMatchesProtocol(variant: ProductVariant, proto: string) {
+  const val = getSpecVal(variant, 'Communication').toLowerCase()
+  if (proto === 'LoRaWAN') return val.includes('lorawan')
+  if (proto === 'Modbus') return val.includes('modbus')
+  return true
+}
+
+function enclosureBadge(variant: ProductVariant) {
+  const enc = getSpecVal(variant, 'Enclosure').toLowerCase() + ' ' + variant.name.toLowerCase()
+  if (enc.includes('atex')) return { label: 'ATEX', color: 'bg-red-50 text-red-600 border-red-200' }
+  if (enc.includes('weatherproof') || enc.includes('ip65')) return { label: 'Weatherproof', color: 'bg-cyan-50 text-cyan-700 border-cyan-200' }
+  return { label: 'Indoor', color: 'bg-slate-100 text-slate-600 border-slate-200' }
+}
+
+function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant[]; allDownloads: { label: string; type: string; file?: string }[] }) {
+  const [gases, setGases] = useState<string[]>([])
+  const [enclosures, setEnclosures] = useState<string[]>([])
+  const [protocols, setProtocols] = useState<string[]>([])
+  const [search, setSearch] = useState('')
+
+  function toggle<T>(arr: T[], val: T, set: (v: T[]) => void) {
+    set(arr.includes(val) ? arr.filter(x => x !== val) : [...arr, val])
+  }
+
+  const filtered = useMemo(() => variants.filter(v => {
+    if (search && !v.name.toLowerCase().includes(search.toLowerCase()) &&
+        !getSpecVal(v, 'Parameters').toLowerCase().includes(search.toLowerCase())) return false
+    if (gases.length && !gases.some(g => variantMatchesGas(v, g))) return false
+    if (enclosures.length && !enclosures.some(e => variantMatchesEnclosure(v, e))) return false
+    if (protocols.length && !protocols.some(p => variantMatchesProtocol(v, p))) return false
+    return true
+  }), [variants, search, gases, enclosures, protocols])
+
+  const hasFilters = gases.length || enclosures.length || protocols.length || search
+
+  function chipClass(active: boolean, color = '') {
+    return `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border cursor-pointer select-none transition-all duration-150 ${
+      active
+        ? 'bg-navy text-white border-navy shadow-sm'
+        : 'bg-white text-slate-600 border-slate-200 hover:border-accent hover:text-accent'
+    } ${color}`
+  }
+
+  return (
+    <div>
+      {/* ── Filter bar ── */}
+      <div className="bg-white rounded-2xl border border-slate-border p-5 mb-8 shadow-sm">
+        {/* Search */}
+        <div className="relative mb-5">
+          <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M11 11l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <input
+            type="text"
+            placeholder="Search sensors by name or gas (e.g. CO2, hydrogen…)"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-border text-sm text-navy
+                       placeholder:text-slate-400 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent/20"
+          />
+        </div>
+
+        <div className="space-y-3">
+          <div>
+            <div className="text-navy/40 text-[10px] font-bold tracking-widest uppercase mb-2">Gas / Parameter</div>
+            <div className="flex flex-wrap gap-1.5">
+              {GAS_TAGS.map(g => (
+                <button key={g} onClick={() => toggle(gases, g, setGases)} className={chipClass(gases.includes(g))}>
+                  {gases.includes(g) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                  {g}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div>
+              <div className="text-navy/40 text-[10px] font-bold tracking-widest uppercase mb-2">Enclosure</div>
+              <div className="flex flex-wrap gap-1.5">
+                {ENCLOSURE_TAGS.map(e => (
+                  <button key={e} onClick={() => toggle(enclosures, e, setEnclosures)} className={chipClass(enclosures.includes(e))}>
+                    {enclosures.includes(e) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                    {e}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="text-navy/40 text-[10px] font-bold tracking-widest uppercase mb-2">Protocol</div>
+              <div className="flex flex-wrap gap-1.5">
+                {PROTOCOL_TAGS.map(p => (
+                  <button key={p} onClick={() => toggle(protocols, p, setProtocols)} className={chipClass(protocols.includes(p))}>
+                    {protocols.includes(p) && <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2 3-3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+                    {p}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Result count + clear */}
+        <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
+          <span className="text-sm text-slate-500">
+            Showing <span className="font-semibold text-navy">{filtered.length}</span> of {variants.length} sensors
+          </span>
+          {hasFilters && (
+            <button
+              onClick={() => { setGases([]); setEnclosures([]); setProtocols([]); setSearch('') }}
+              className="text-xs text-accent font-semibold hover:underline"
+            >
+              Clear all filters
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* ── Sensor cards ── */}
+      {filtered.length === 0 ? (
+        <div className="text-center py-16 text-slate-400">
+          <svg className="mx-auto mb-3" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <circle cx="14" cy="14" r="9" stroke="currentColor" strokeWidth="1.5"/>
+            <path d="M21 21l6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          </svg>
+          <p className="text-sm">No sensors match those filters.</p>
+          <button onClick={() => { setGases([]); setEnclosures([]); setProtocols([]); setSearch('') }}
+            className="text-xs text-accent font-semibold hover:underline mt-2">Clear filters</button>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {filtered.map((variant, i) => {
+            const badge = enclosureBadge(variant)
+            const params = getSpecVal(variant, 'Parameters')
+            const comm = getSpecVal(variant, 'Communication')
+            const dl = variant.downloads[0]
+            return (
+              <div key={i} className="bg-white rounded-2xl border border-slate-border shadow-sm hover:shadow-card hover:border-accent/30 transition-all duration-200 flex flex-col">
+                <div className="p-5 flex-1">
+                  {/* Badges row */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${badge.color}`}>{badge.label}</span>
+                    {comm && comm.split('/').map(c => c.trim()).map(c => (
+                      <span key={c} className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-600 border border-blue-200">{c}</span>
+                    ))}
+                  </div>
+
+                  <h3 className="font-display text-navy font-bold text-sm leading-snug mb-2">{variant.name}</h3>
+
+                  {params && (
+                    <div className="flex items-start gap-2 mt-3">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mt-0.5">Measures</span>
+                      <span className="text-xs text-slate-600 font-medium leading-snug">{params}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Download footer */}
+                <div className="px-5 pb-5">
+                  {dl ? (
+                    <a
+                      href={dl.file ?? '#inquiry'}
+                      download={dl.file ? true : undefined}
+                      target={dl.file ? '_blank' : undefined}
+                      rel={dl.file ? 'noopener noreferrer' : undefined}
+                      className="group flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-slate-200
+                                 text-xs font-semibold text-navy hover:border-accent hover:text-accent
+                                 hover:bg-accent/[0.04] transition-all duration-200 w-full"
+                    >
+                      <div className="w-6 h-6 rounded-lg bg-accent/10 flex items-center justify-center shrink-0
+                                      group-hover:bg-accent group-hover:[&_path]:stroke-white transition-colors">
+                        <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
+                          <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                      </div>
+                      <span className="flex-1 truncate">{dl.label}</span>
+                      <span className="text-slate-400 font-normal shrink-0">{dl.file ? 'PDF' : 'On request'}</span>
+                    </a>
+                  ) : (
+                    <a href="#inquiry" className="text-xs text-accent font-semibold hover:underline">Request datasheet →</a>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
+      {/* All downloads accordion */}
+      {allDownloads.length > 0 && (
+        <div className="mt-10 bg-white rounded-2xl border border-slate-border p-7 shadow-card">
+          <div className="text-navy/40 text-xs font-bold tracking-widest uppercase mb-5">All Downloads</div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {allDownloads.map((dl) => (
+              <a key={dl.label} href={dl.file ?? '#inquiry'}
+                download={dl.file ? true : undefined}
+                target={dl.file ? '_blank' : undefined}
+                rel={dl.file ? 'noopener noreferrer' : undefined}
+                className="group flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-corporate
+                           border border-slate-border text-sm font-semibold text-navy
+                           hover:border-accent hover:text-accent hover:shadow-card transition-all duration-200">
+                <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0
+                                group-hover:bg-accent group-hover:[&_path]:stroke-white transition-colors">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="#2F80ED" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-navy/40 text-xs font-normal">{dl.type}</div>
+                  <div className="truncate leading-snug">{dl.label}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 const SITE_URL = 'https://www.altaqauae.com'
 
@@ -317,10 +578,28 @@ export default function ProductDetailPage({ slug }: PageProps) {
           </div>
         </section>
 
-        {/* ── When variants exist: full two-column model split ─────── */}
+        {/* ── When variants exist ──────────────────────────────────── */}
         {product.variants && product.variants.length > 0 ? (
           <section id="downloads" className="section-padding bg-slate-corporate">
             <div className="container-narrow">
+
+              {/* Large variant set → filter UI */}
+              {product.variants.length > 5 ? (
+                <>
+                  <AnimateIn className="max-w-xl mb-10">
+                    <span className="label-tag">Sensor Range</span>
+                    <h2 className="heading-section">
+                      Find Your <span className="text-accent">Sensor</span>
+                    </h2>
+                    <p className="body-lead">
+                      Filter by gas type, enclosure, or communication protocol to find the right
+                      sensor for your application. All models available through Al Taqa Technical.
+                    </p>
+                  </AnimateIn>
+                  <FilteredVariants variants={product.variants} allDownloads={product.downloads} />
+                </>
+              ) : (
+              <>
               <AnimateIn className="max-w-xl mb-12">
                 <span className="label-tag">Models in This Range</span>
                 <h2 className="heading-section">
@@ -510,6 +789,8 @@ export default function ProductDetailPage({ slug }: PageProps) {
                   </div>
                 </AnimateIn>
               )}
+              </>
+              )} {/* end small-variant else */}
             </div>
           </section>
         ) : (
