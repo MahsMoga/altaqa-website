@@ -193,80 +193,100 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
             const dl = variant.downloads[0]
             const commProtos = comm ? comm.split('/').map(c => c.trim()).filter(Boolean) : []
 
+            const paramChips = params ? params.split(',').map(p => p.trim()).filter(Boolean) : []
+
             return (
               <div
                 key={i}
-                className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
+                className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300 cursor-default"
                 style={{
-                  background: `linear-gradient(150deg, color-mix(in srgb, #0D3D3A 94%, ${enc.stripe}) 0%, #0a302e 100%)`,
-                  border: `1px solid ${enc.stripe}40`,
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                  background: 'linear-gradient(150deg, #0f4541 0%, #0b3330 100%)',
+                  border: `1px solid ${enc.stripe}38`,
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.18)',
                 }}
                 onMouseEnter={e => {
                   const el = e.currentTarget
-                  el.style.transform = 'translateY(-4px)'
-                  el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.22), 0 0 0 1px ${enc.stripe}55`
+                  el.style.transform = 'translateY(-5px)'
+                  el.style.boxShadow = `0 20px 48px rgba(0,0,0,0.28), 0 0 0 1px ${enc.stripe}55`
                 }}
                 onMouseLeave={e => {
                   const el = e.currentTarget
                   el.style.transform = 'translateY(0)'
-                  el.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)'
+                  el.style.boxShadow = '0 2px 16px rgba(0,0,0,0.18)'
                 }}
               >
-                {/* Colored left border stripe */}
-                <div className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl"
-                     style={{ background: `linear-gradient(180deg, ${enc.stripe}, ${enc.stripe}66)` }} />
+                {/* Top accent bar — full width, type color */}
+                <div style={{ height: '3px', background: `linear-gradient(90deg, ${enc.stripe} 0%, ${enc.stripe}44 70%, transparent 100%)` }} />
 
-                <div className="pl-6 pr-5 pt-5 flex-1">
-                  {/* Status row */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-50"
+                <div className="p-5 flex-1 flex flex-col gap-4">
+
+                  {/* Row 1 — enclosure badge + protocol */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60"
                               style={{ backgroundColor: enc.dot }} />
-                        <span className="relative inline-flex rounded-full h-2 w-2"
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5"
                               style={{ backgroundColor: enc.dot }} />
                       </span>
                       <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
-                            style={{ color: enc.badgeText, background: enc.badgeBg, border: `1px solid ${enc.stripe}35` }}>
+                            style={{ color: enc.badgeText, background: enc.badgeBg, border: `1px solid ${enc.stripe}30` }}>
                         {enc.label}
                       </span>
                     </div>
 
-                    {/* Protocol pills */}
                     <div className="flex gap-1">
-                      {commProtos.map(p => (
-                        <span key={p}
-                          className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-                          style={{ background: 'rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.12)' }}>
-                          {p}
-                        </span>
-                      ))}
+                      {commProtos.map(p => {
+                        const isWireless = p.toLowerCase().includes('lorawan') || p.toLowerCase().includes('wireless')
+                        return (
+                          <span key={p}
+                            className="flex items-center gap-1 text-[9px] font-bold px-2 py-0.5 rounded-full"
+                            style={{
+                              background: isWireless ? 'rgba(34,211,238,0.12)' : 'rgba(255,255,255,0.07)',
+                              color: isWireless ? '#67e8f9' : 'rgba(255,255,255,0.45)',
+                              border: `1px solid ${isWireless ? 'rgba(34,211,238,0.25)' : 'rgba(255,255,255,0.1)'}`,
+                            }}>
+                            {isWireless && (
+                              <svg width="7" height="7" viewBox="0 0 10 10" fill="none">
+                                <path d="M1 3.5C2.5 1.8 4 1 5 1s2.5.8 4 2.5M2.5 5.5C3.3 4.4 4.1 4 5 4s1.7.4 2.5 1.5M5 8v.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+                              </svg>
+                            )}
+                            {p}
+                          </span>
+                        )
+                      })}
                     </div>
                   </div>
 
-                  {/* Sensor name */}
-                  <h3 className="font-display font-bold text-sm leading-snug mb-4"
-                      style={{ color: 'rgba(255,255,255,0.90)' }}>
+                  {/* Row 2 — sensor name */}
+                  <h3 className="font-display font-bold text-[13px] leading-snug"
+                      style={{ color: 'rgba(255,255,255,0.92)' }}>
                     {variant.name}
                   </h3>
 
-                  {/* Measures — terminal readout */}
-                  {params && (
-                    <div className="rounded-xl px-4 py-3"
-                         style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5"
-                           style={{ color: 'rgba(255,255,255,0.28)' }}>Measures</div>
-                      <div className="font-mono text-xs leading-relaxed"
-                           style={{ color: '#6ee7b7' }}>
-                        {params}
+                  {/* Row 3 — parameter chips */}
+                  {paramChips.length > 0 && (
+                    <div className="flex-1">
+                      <div className="text-[9px] font-semibold tracking-widest uppercase mb-2"
+                           style={{ color: 'rgba(255,255,255,0.25)' }}>Detects</div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {paramChips.map(chip => (
+                          <span key={chip}
+                            className="text-[10px] font-semibold px-2.5 py-1 rounded-lg"
+                            style={{ background: 'rgba(110,231,183,0.1)', color: '#6ee7b7', border: '1px solid rgba(110,231,183,0.2)' }}>
+                            {chip}
+                          </span>
+                        ))}
                       </div>
                     </div>
                   )}
                 </div>
 
+                {/* Divider */}
+                <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 20px' }} />
+
                 {/* Download button */}
-                <div className="pl-6 pr-5 pb-5 pt-4">
+                <div className="p-4">
                   {dl ? (
                     <a
                       href={dl.file ?? '#inquiry'}
@@ -275,22 +295,34 @@ function FilteredVariants({ variants, allDownloads }: { variants: ProductVariant
                       rel={dl.file ? 'noopener noreferrer' : undefined}
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
                       style={{
-                        background: 'linear-gradient(135deg, #d97706, #f59e0b)',
-                        color: 'white',
-                        boxShadow: '0 2px 12px rgba(217,119,6,0.35)',
+                        background: 'linear-gradient(135deg, #b45309, #d97706)',
+                        color: 'rgba(255,255,255,0.95)',
+                        boxShadow: '0 2px 10px rgba(180,83,9,0.4)',
+                        letterSpacing: '0.02em',
                       }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)' }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 12px rgba(217,119,6,0.35)' }}
+                      onMouseEnter={e => {
+                        const el = e.currentTarget as HTMLElement
+                        el.style.background = 'linear-gradient(135deg, #d97706, #f59e0b)'
+                        el.style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)'
+                      }}
+                      onMouseLeave={e => {
+                        const el = e.currentTarget as HTMLElement
+                        el.style.background = 'linear-gradient(135deg, #b45309, #d97706)'
+                        el.style.boxShadow = '0 2px 10px rgba(180,83,9,0.4)'
+                      }}
                     >
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                        <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                       Download Datasheet
                     </a>
                   ) : (
                     <a href="#inquiry"
-                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold"
-                      style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-semibold transition-colors duration-200"
+                      style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.09)' }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.09)' }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.05)' }}
+                    >
                       Request Datasheet
                     </a>
                   )}
