@@ -62,9 +62,9 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
             return (
               <div key={i}
                 className="relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
-                style={{ background: 'linear-gradient(150deg, #0f1f3d 0%, #0b1730 100%)', border: `1px solid ${cfg.border}`, boxShadow: '0 4px 20px rgba(0,0,0,0.18)' }}
-                onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-4px)'; el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.28), 0 0 0 1px ${cfg.border}` }}
-                onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 4px 20px rgba(0,0,0,0.18)' }}
+                style={{ background: '#ffffff', border: '1px solid #e8ecf2', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-4px)'; el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.12), 0 0 0 1px ${cfg.border}`; el.style.borderColor = cfg.border }}
+                onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'; el.style.borderColor = '#e8ecf2' }}
               >
                 {/* Top bar */}
                 <div style={{ height: '3px', background: `linear-gradient(90deg, ${cfg.color}, ${cfg.color}44, transparent)` }} />
@@ -76,11 +76,11 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                           style={{ color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.border}` }}>
                       {cfg.badge}
                     </span>
-                    <span className="text-[10px] font-bold text-white/30 uppercase tracking-widest">IEC 61131-3</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">IEC 61131-3</span>
                   </div>
 
                   {/* Name */}
-                  <h4 className="font-display font-bold text-sm leading-snug text-white/90">
+                  <h4 className="font-display font-bold text-sm leading-snug text-navy">
                     {variant.name}
                   </h4>
 
@@ -98,22 +98,22 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                   <div className="flex flex-wrap gap-1.5">
                     {protos.map(p => (
                       <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-                            style={{ background: 'rgba(255,255,255,0.07)', color: 'rgba(255,255,255,0.45)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            style={{ background: 'rgba(0,0,0,0.05)', color: '#64748b', border: '1px solid rgba(0,0,0,0.08)' }}>
                         {p}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 20px' }} />
+                <div style={{ height: '1px', background: '#eef1f6', margin: '0 20px' }} />
 
                 <div className="p-4">
                   {dl?.file ? (
                     <a href={dl.file} download target="_blank" rel="noopener noreferrer"
                       className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all duration-200"
-                      style={{ background: 'linear-gradient(135deg, #b45309, #d97706)', color: 'white', boxShadow: '0 2px 10px rgba(180,83,9,0.4)' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 4px 20px rgba(217,119,6,0.55)' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = '0 2px 10px rgba(180,83,9,0.4)' }}>
+                      style={{ background: '#f4f6fa', color: '#374151', border: '1px solid #e2e6ef' }}
+                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = cfg.bg; el.style.color = cfg.color; el.style.borderColor = cfg.border }}
+                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#f4f6fa'; el.style.color = '#374151'; el.style.borderColor = '#e2e6ef' }}>
                       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
                         <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -121,7 +121,7 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                     </a>
                   ) : (
                     <a href="#inquiry" className="flex items-center justify-center w-full py-2.5 rounded-xl text-xs font-semibold"
-                       style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.09)' }}>
+                       style={{ background: '#f4f6fa', color: '#94a3b8', border: '1px solid #e2e6ef' }}>
                       Request Datasheet
                     </a>
                   )}
@@ -158,27 +158,27 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                 return (
                   <div key={i}
                     className="relative flex flex-col rounded-xl overflow-hidden transition-all duration-300"
-                    style={{ background: 'linear-gradient(150deg, #0d2d28 0%, #0a2420 100%)', border: '1px solid rgba(52,211,153,0.2)', boxShadow: '0 2px 12px rgba(0,0,0,0.15)' }}
-                    onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 12px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(52,211,153,0.35)' }}
-                    onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.15)' }}
+                    style={{ background: '#ffffff', border: '1px solid #e8ecf2', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                    onMouseEnter={e => { const el = e.currentTarget; el.style.transform = 'translateY(-3px)'; el.style.boxShadow = '0 12px 32px rgba(0,0,0,0.12), 0 0 0 1px rgba(52,211,153,0.35)'; el.style.borderColor = 'rgba(52,211,153,0.35)' }}
+                    onMouseLeave={e => { const el = e.currentTarget; el.style.transform = 'translateY(0)'; el.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'; el.style.borderColor = '#e8ecf2' }}
                   >
                     <div style={{ height: '2px', background: 'linear-gradient(90deg, #34d399, #34d39944, transparent)' }} />
 
                     <div className="p-4 flex-1 flex flex-col gap-3">
                       {/* Model number — hero element */}
                       <div>
-                        <div className="text-[9px] font-bold tracking-widest uppercase mb-1" style={{ color: 'rgba(52,211,153,0.5)' }}>Model</div>
-                        <div className="font-mono font-bold text-base" style={{ color: '#34d399' }}>{modelNum}</div>
+                        <div className="text-[9px] font-bold tracking-widest uppercase mb-1 text-slate-400">Model</div>
+                        <div className="font-mono font-bold text-base" style={{ color: '#059669' }}>{modelNum}</div>
                       </div>
 
                       {/* Protocols */}
                       {protos.length > 0 && (
                         <div>
-                          <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>Protocols</div>
+                          <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5 text-slate-400">Protocols</div>
                           <div className="flex flex-wrap gap-1.5">
                             {protos.map(p => (
                               <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
-                                    style={{ background: 'rgba(52,211,153,0.1)', color: '#6ee7b7', border: '1px solid rgba(52,211,153,0.2)' }}>
+                                    style={{ background: 'rgba(5,150,105,0.08)', color: '#059669', border: '1px solid rgba(5,150,105,0.18)' }}>
                                 {p}
                               </span>
                             ))}
@@ -187,18 +187,20 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                       )}
 
                       {/* Form factor */}
-                      <div className="text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                      <div className="text-[10px] font-medium text-slate-400">
                         Drive-mounted · Powered from host drive
                       </div>
                     </div>
 
-                    <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '0 16px' }} />
+                    <div style={{ height: '1px', background: '#eef1f6', margin: '0 16px' }} />
 
                     <div className="p-3">
                       {dl?.file ? (
                         <a href={dl.file} download target="_blank" rel="noopener noreferrer"
                           className="flex items-center justify-center gap-1.5 w-full py-2 rounded-lg text-[11px] font-bold transition-all duration-200"
-                          style={{ background: 'linear-gradient(135deg, #b45309, #d97706)', color: 'white', boxShadow: '0 2px 8px rgba(180,83,9,0.35)' }}>
+                          style={{ background: '#f4f6fa', color: '#374151', border: '1px solid #e2e6ef' }}
+                          onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(5,150,105,0.08)'; el.style.color = '#059669'; el.style.borderColor = 'rgba(5,150,105,0.25)' }}
+                          onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.background = '#f4f6fa'; el.style.color = '#374151'; el.style.borderColor = '#e2e6ef' }}>
                           <svg width="11" height="11" viewBox="0 0 16 16" fill="none">
                             <path d="M8 2v8m0 0l-3-3m3 3l3-3M3 13h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
@@ -206,7 +208,7 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                         </a>
                       ) : (
                         <a href="#inquiry" className="flex items-center justify-center w-full py-2 rounded-lg text-[11px] font-semibold"
-                           style={{ background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.4)', border: '1px solid rgba(255,255,255,0.09)' }}>
+                           style={{ background: '#f4f6fa', color: '#94a3b8', border: '1px solid #e2e6ef' }}>
                           Request Datasheet
                         </a>
                       )}
