@@ -3,18 +3,41 @@ import AnimateIn from './AnimateIn'
 
 type FormState = {
   name: string; email: string; whatsapp: string; company: string
-  service: string; timeline: string; message: string
+  facilityType: string; facilitySize: string; currentBms: string
+  priority: string; timeline: string; notes: string
 }
-type TouchedState = { name: boolean; email: boolean; company: boolean; message: boolean }
+type TouchedState = { name: boolean; email: boolean; company: boolean }
 
-const SERVICE_OPTIONS = [
-  { value: 'bms-installation',          label: 'BMS Installation',    color: '#2F80ED' },
-  { value: 'energy-management',         label: 'Energy Management',   color: '#10B981' },
-  { value: 'annual-maintenance',        label: 'Maintenance (AMC)',   color: '#F59E0B' },
-  { value: 'guest-room-management',     label: 'Guest Room (GRMS)',   color: '#8B5CF6' },
-  { value: 'smart-metering',            label: 'Smart Metering',      color: '#06B6D4' },
-  { value: 'automatic-control-systems', label: 'Control Systems',     color: '#EF4444' },
-  { value: 'other',                     label: 'Other / Not sure',    color: '#64748b' },
+const FACILITY_TYPES = [
+  { value: 'hotel',       label: 'Hotel & Hospitality', color: '#8B5CF6' },
+  { value: 'commercial',  label: 'Commercial Tower',    color: '#2F80ED' },
+  { value: 'residential', label: 'Residential / Villa', color: '#10B981' },
+  { value: 'industrial',  label: 'Industrial',          color: '#F59E0B' },
+  { value: 'government',  label: 'Government',          color: '#06B6D4' },
+]
+
+const FACILITY_SIZES = [
+  { value: 'under-5k',  label: '< 5,000 m²' },
+  { value: '5k-20k',    label: '5,000–20,000 m²' },
+  { value: '20k-50k',   label: '20,000–50,000 m²' },
+  { value: '50k-plus',  label: '50,000+ m²' },
+]
+
+const BMS_OPTIONS = [
+  { value: 'none',      label: 'No BMS yet' },
+  { value: 'jci',       label: 'Johnson Controls' },
+  { value: 'honeywell', label: 'Honeywell' },
+  { value: 'schneider', label: 'Schneider Electric' },
+  { value: 'siemens',   label: 'Siemens' },
+  { value: 'tridium',   label: 'Tridium Niagara' },
+  { value: 'other',     label: 'Other' },
+]
+
+const PRIORITY_OPTIONS = [
+  { value: 'new-bms',     label: 'New BMS',         color: '#2F80ED' },
+  { value: 'upgrade',     label: 'System Upgrade',  color: '#8B5CF6' },
+  { value: 'amc',         label: 'Maintenance AMC', color: '#10B981' },
+  { value: 'energy',      label: 'Energy Audit',    color: '#F59E0B' },
 ]
 
 const TIMELINE_OPTIONS = [
@@ -26,13 +49,47 @@ const TIMELINE_OPTIONS = [
 ]
 
 function validate(form: FormState) {
-  const errors: Partial<FormState> = {}
+  const errors: Partial<Record<keyof FormState, string>> = {}
   if (!form.name.trim())    errors.name    = 'Full name is required'
   if (!form.email.trim())   errors.email   = 'Email address is required'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = 'Enter a valid email address'
-  if (!form.company.trim()) errors.company = 'Company or organisation is required'
-  if (!form.message.trim()) errors.message = 'Please describe your requirements'
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = 'Enter a valid email'
+  if (!form.company.trim()) errors.company = 'Company or facility name is required'
   return errors
+}
+
+function ChipGroup({
+  label, options, value, onChange, color,
+}: {
+  label: string
+  options: { value: string; label: string; color?: string }[]
+  value: string
+  onChange: (v: string) => void
+  color?: string
+}) {
+  return (
+    <div>
+      <div className="text-navy text-xs font-semibold mb-2.5 uppercase tracking-wide">{label}</div>
+      <div className="flex flex-wrap gap-2">
+        {options.map(opt => {
+          const active = value === opt.value
+          const c = opt.color ?? color ?? '#2F80ED'
+          return (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onChange(active ? '' : opt.value)}
+              className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150"
+              style={active
+                ? { background: `${c}18`, borderColor: c, color: c }
+                : { background: 'transparent', borderColor: '#e2e8f0', color: '#94a3b8' }}
+            >
+              {opt.label}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
 }
 
 const infoItems = [
@@ -92,10 +149,12 @@ const errorIcon = (
 
 export default function Contact() {
   const [form, setForm] = useState<FormState>({
-    name: '', email: '', whatsapp: '', company: '', service: '', timeline: '', message: '',
+    name: '', email: '', whatsapp: '', company: '',
+    facilityType: '', facilitySize: '', currentBms: '',
+    priority: '', timeline: '', notes: '',
   })
   const [touched, setTouched] = useState<TouchedState>({
-    name: false, email: false, company: false, message: false,
+    name: false, email: false, company: false,
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading]     = useState(false)
@@ -103,12 +162,15 @@ export default function Contact() {
   const errors  = validate(form)
   const isValid = Object.keys(errors).length === 0
 
+  const set = (field: keyof FormState) => (v: string) =>
+    setForm(f => ({ ...f, [field]: v }))
+
   const handleBlur = (field: keyof TouchedState) =>
-    setTouched((t) => ({ ...t, [field]: true }))
+    setTouched(t => ({ ...t, [field]: true }))
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setTouched({ name: true, email: true, company: true, message: true })
+    setTouched({ name: true, email: true, company: true })
     if (!isValid) return
     setLoading(true)
     try {
@@ -129,7 +191,7 @@ export default function Contact() {
   const fieldClass = (field: keyof TouchedState) =>
     `w-full border rounded-xl px-4 py-3 text-sm text-navy placeholder-slate-400
      focus:outline-none focus:ring-2 transition-all duration-200 bg-white ${
-       touched[field] && errors[field]
+       touched[field] && errors[field as keyof typeof errors]
          ? 'border-red-300 focus:border-red-400 focus:ring-red-100'
          : 'border-slate-border focus:border-accent focus:ring-accent/10 hover:border-slate-text/30'
      }`
@@ -153,15 +215,15 @@ export default function Contact() {
           {/* ── Left: contact info ─────────────────────────────── */}
           <AnimateIn>
             <span className="inline-flex items-center gap-2 text-accent text-xs font-bold tracking-widest uppercase mb-5">
-              <span className="w-4 h-px bg-accent/50" />Contact Us
+              <span className="w-4 h-px bg-accent/50" />Site Survey Request
             </span>
             <h2 className="font-display text-3xl lg:text-4xl font-bold text-white leading-tight tracking-tight mb-5">
-              Ready to Transform{' '}
-              <span className="text-accent">Your Facility?</span>
+              Tell Us About{' '}
+              <span className="text-accent">Your Facility</span>
             </h2>
             <p className="text-white/55 text-base leading-relaxed mb-10">
-              Speak with our engineering team to discover how Al Taqa Technical
-              can elevate your building&apos;s intelligence, efficiency, and sustainability.
+              Fill in what you know — our engineers use this to prepare before
+              they call, so the first conversation is already a consultation.
             </p>
 
             <div className="space-y-4">
@@ -196,7 +258,7 @@ export default function Contact() {
           <AnimateIn delay={120}>
             <div className="rounded-2xl p-8 bg-white" style={{ boxShadow: '0 24px 64px rgba(0,0,0,0.3)' }}>
               {submitted ? (
-                <div className="text-center py-12">
+                <div className="text-center py-10">
                   <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center
                                   mx-auto mb-5 border border-green-100">
                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -204,203 +266,146 @@ export default function Contact() {
                             strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
-                  <h3 className="font-display text-navy font-bold text-xl mb-2">Message Sent</h3>
+                  <h3 className="font-display text-navy font-bold text-xl mb-2">Survey Request Received</h3>
                   <p className="text-slate-500 text-sm leading-relaxed max-w-xs mx-auto">
-                    Thank you for reaching out. Our team will be in touch within 24 hours.
+                    Our engineers will review your facility details and call you within one business day — prepared.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                  <div className="mb-6">
+                  <div className="mb-1">
                     <h3 className="font-display text-navy font-bold text-xl mb-1">
-                      Send Us a Message
+                      Request a Site Survey
                     </h3>
-                    <p className="text-slate-400 text-xs">Fields marked * are required</p>
+                    <p className="text-slate-400 text-xs">
+                      Takes 60 seconds · * required
+                    </p>
                   </div>
 
-                  {/* Service selector */}
-                  <div>
-                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
-                      Service Required
-                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {SERVICE_OPTIONS.map(opt => {
-                        const active = form.service === opt.value
-                        return (
-                          <button
-                            key={opt.value}
-                            type="button"
-                            onClick={() => setForm({ ...form, service: active ? '' : opt.value })}
-                            className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150 cursor-pointer"
-                            style={active ? {
-                              background: `${opt.color}18`,
-                              borderColor: opt.color,
-                              color: opt.color,
-                            } : {
-                              background: 'transparent',
-                              borderColor: '#e2e8f0',
-                              color: '#94a3b8',
-                            }}
-                          >
-                            {opt.label}
-                          </button>
-                        )
-                      })}
+                  {/* Row 1: Name + Company */}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="c-name"
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        Full Name *
+                      </label>
+                      <input id="c-name" type="text" value={form.name}
+                        onChange={e => set('name')(e.target.value)}
+                        onBlur={() => handleBlur('name')}
+                        placeholder="Ahmed Al Rashidi"
+                        className={fieldClass('name')} />
+                      {touched.name && errors.name && (
+                        <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                          {errorIcon}{errors.name}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label htmlFor="c-company"
+                        className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
+                        Company / Facility *
+                      </label>
+                      <input id="c-company" type="text" value={form.company}
+                        onChange={e => set('company')(e.target.value)}
+                        onBlur={() => handleBlur('company')}
+                        placeholder="Aldar Properties"
+                        className={fieldClass('company')} />
+                      {touched.company && errors.company && (
+                        <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+                          {errorIcon}{errors.company}
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  {/* Name */}
-                  <div>
-                    <label htmlFor="contact-name"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Full Name *
-                    </label>
-                    <input
-                      id="contact-name"
-                      type="text"
-                      value={form.name}
-                      onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      onBlur={() => handleBlur('name')}
-                      placeholder="Ahmed Al Rashidi"
-                      className={fieldClass('name')}
-                    />
-                    {touched.name && errors.name && (
-                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        {errorIcon}{errors.name}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Email + WhatsApp side by side */}
+                  {/* Row 2: Email + WhatsApp */}
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="contact-email"
+                      <label htmlFor="c-email"
                         className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                        Email Address *
+                        Work Email *
                       </label>
-                      <input
-                        id="contact-email"
-                        type="email"
-                        value={form.email}
-                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      <input id="c-email" type="email" value={form.email}
+                        onChange={e => set('email')(e.target.value)}
                         onBlur={() => handleBlur('email')}
                         placeholder="ahmed@company.ae"
-                        className={fieldClass('email')}
-                      />
+                        className={fieldClass('email')} />
                       {touched.email && errors.email && (
-                        <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+                        <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
                           {errorIcon}{errors.email}
                         </p>
                       )}
                     </div>
-
                     <div>
-                      <label htmlFor="contact-whatsapp"
+                      <label htmlFor="c-whatsapp"
                         className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                        WhatsApp Number
-                        <span className="text-slate-400 font-normal ml-1">(optional)</span>
+                        WhatsApp <span className="text-slate-400 font-normal">(optional)</span>
                       </label>
                       <div className="relative">
-                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none">
-                          +971
-                        </span>
-                        <input
-                          id="contact-whatsapp"
-                          type="tel"
-                          value={form.whatsapp}
-                          onChange={(e) => setForm({ ...form, whatsapp: e.target.value })}
+                        <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none">+971</span>
+                        <input id="c-whatsapp" type="tel" value={form.whatsapp}
+                          onChange={e => set('whatsapp')(e.target.value)}
                           placeholder="50 123 4567"
                           className="w-full border border-slate-border rounded-xl pl-12 pr-4 py-3 text-sm text-navy
-                                     placeholder-slate-400 focus:outline-none focus:ring-2 transition-all duration-200
-                                     bg-white focus:border-accent focus:ring-accent/10 hover:border-slate-text/30"
-                        />
+                                     placeholder-slate-400 focus:outline-none focus:ring-2 bg-white
+                                     focus:border-accent focus:ring-accent/10 hover:border-slate-text/30 transition-all duration-200" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Company */}
-                  <div>
-                    <label htmlFor="contact-company"
-                      className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Company / Organisation *
-                    </label>
-                    <input
-                      id="contact-company"
-                      type="text"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      onBlur={() => handleBlur('company')}
-                      placeholder="Facility name or company"
-                      className={fieldClass('company')}
-                    />
-                    {touched.company && errors.company && (
-                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        {errorIcon}{errors.company}
-                      </p>
-                    )}
-                  </div>
+                  {/* Divider */}
+                  <div className="border-t border-slate-100 pt-1">
+                    <p className="text-[11px] text-slate-400 uppercase tracking-widest font-semibold mb-3">
+                      Facility details — helps us prepare
+                    </p>
 
-                  {/* Project Timeline */}
-                  <div>
-                    <label className="block text-navy text-xs font-semibold mb-3 tracking-wide uppercase">
-                      Project Timeline
-                      <span className="text-slate-400 font-normal ml-1">(optional)</span>
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      {TIMELINE_OPTIONS.map(opt => {
-                        const active = form.timeline === opt.value
-                        return (
-                          <button
-                            key={opt.value}
-                            type="button"
-                            onClick={() => setForm({ ...form, timeline: active ? '' : opt.value })}
-                            className="text-xs font-semibold px-3 py-1.5 rounded-full border transition-all duration-150 cursor-pointer"
-                            style={active ? {
-                              background: 'rgba(47,128,237,0.1)',
-                              borderColor: '#2F80ED',
-                              color: '#2F80ED',
-                            } : {
-                              background: 'transparent',
-                              borderColor: '#e2e8f0',
-                              color: '#94a3b8',
-                            }}
-                          >
-                            {opt.label}
-                          </button>
-                        )
-                      })}
+                    <div className="space-y-4">
+                      <ChipGroup label="Facility Type"
+                        options={FACILITY_TYPES}
+                        value={form.facilityType}
+                        onChange={set('facilityType')} />
+
+                      <ChipGroup label="Approximate Size"
+                        options={FACILITY_SIZES}
+                        value={form.facilitySize}
+                        onChange={set('facilitySize')}
+                        color="#2F80ED" />
+
+                      <ChipGroup label="Current BMS"
+                        options={BMS_OPTIONS}
+                        value={form.currentBms}
+                        onChange={set('currentBms')}
+                        color="#8B5CF6" />
+
+                      <ChipGroup label="What do you need?"
+                        options={PRIORITY_OPTIONS}
+                        value={form.priority}
+                        onChange={set('priority')} />
+
+                      <ChipGroup label="Timeline"
+                        options={TIMELINE_OPTIONS}
+                        value={form.timeline}
+                        onChange={set('timeline')}
+                        color="#10B981" />
                     </div>
                   </div>
 
-                  {/* Message */}
+                  {/* Notes */}
                   <div>
-                    <label htmlFor="contact-message"
+                    <label htmlFor="c-notes"
                       className="block text-navy text-xs font-semibold mb-1.5 tracking-wide uppercase">
-                      Message *
+                      Additional Notes <span className="text-slate-400 font-normal">(optional)</span>
                     </label>
-                    <textarea
-                      id="contact-message"
-                      rows={4}
-                      value={form.message}
-                      onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      onBlur={() => handleBlur('message')}
-                      placeholder="Describe your facility, current BMS setup, or project requirements..."
-                      className={`${fieldClass('message')} resize-none`}
-                    />
-                    {touched.message && errors.message && (
-                      <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
-                        {errorIcon}{errors.message}
-                      </p>
-                    )}
+                    <textarea id="c-notes" rows={3} value={form.notes}
+                      onChange={e => set('notes')(e.target.value)}
+                      placeholder="Anything else we should know — existing issues, specific areas, access constraints…"
+                      className="w-full border border-slate-border rounded-xl px-4 py-3 text-sm text-navy
+                                 placeholder-slate-400 focus:outline-none focus:ring-2 resize-none bg-white
+                                 focus:border-accent focus:ring-accent/10 hover:border-slate-text/30 transition-all duration-200" />
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full btn-primary justify-center py-4 text-sm
-                               disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
+                  <button type="submit" disabled={loading}
+                    className="w-full btn-primary justify-center py-4 text-sm disabled:opacity-70 disabled:cursor-not-allowed">
                     {loading ? (
                       <>
                         <svg className="animate-spin" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -411,7 +416,7 @@ export default function Contact() {
                       </>
                     ) : (
                       <>
-                        Send Message
+                        Request Site Survey
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
                                 strokeLinecap="round" strokeLinejoin="round"/>
@@ -419,6 +424,10 @@ export default function Contact() {
                       </>
                     )}
                   </button>
+
+                  <p className="text-slate-400 text-[11px] text-center">
+                    No obligation · Our engineer calls you within one business day
+                  </p>
                 </form>
               )}
             </div>

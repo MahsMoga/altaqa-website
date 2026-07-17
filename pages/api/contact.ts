@@ -8,9 +8,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).json({ error: 'RESEND_API_KEY is not configured' })
   }
 
-  const { name, email, company, message } = req.body as Record<string, string>
+  const {
+    name, email, company, whatsapp,
+    facilityType, facilitySize, currentBms, priority, timeline, notes,
+  } = req.body as Record<string, string>
 
-  if (!name || !email || !company || !message) {
+  if (!name || !email || !company) {
     return res.status(400).json({ error: 'Missing required fields' })
   }
 
@@ -31,14 +34,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         from,
         to: [to],
         reply_to: [email],
-        subject: `Website Enquiry — ${name} (${company})`,
-        text: [`Name:    ${name}`, `Email:   ${email}`, `Company: ${company}`, '', message].join('\n'),
+        subject: `Site Survey Request — ${name} (${company})`,
+        text: [
+          `Name:          ${name}`,
+          `Email:         ${email}`,
+          `WhatsApp:      ${whatsapp || '—'}`,
+          `Company:       ${company}`,
+          '',
+          `Facility Type: ${facilityType || '—'}`,
+          `Facility Size: ${facilitySize || '—'}`,
+          `Current BMS:   ${currentBms || '—'}`,
+          `Priority:      ${priority || '—'}`,
+          `Timeline:      ${timeline || '—'}`,
+          '',
+          `Notes: ${notes || '—'}`,
+        ].join('\n'),
         html: `
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-          <p><strong>Company:</strong> ${company}</p>
-          <hr/>
-          <p>${message.replace(/\n/g, '<br/>')}</p>
+          <h2 style="color:#1e3a5f;margin-bottom:4px">Site Survey Request</h2>
+          <table cellpadding="6" cellspacing="0" style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
+            <tr><td style="color:#64748b;padding-right:16px"><strong>Name</strong></td><td>${name}</td></tr>
+            <tr><td style="color:#64748b"><strong>Email</strong></td><td><a href="mailto:${email}">${email}</a></td></tr>
+            <tr><td style="color:#64748b"><strong>WhatsApp</strong></td><td>${whatsapp ? `+971 ${whatsapp}` : '—'}</td></tr>
+            <tr><td style="color:#64748b"><strong>Company</strong></td><td>${company}</td></tr>
+          </table>
+          <hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0"/>
+          <table cellpadding="6" cellspacing="0" style="font-family:sans-serif;font-size:14px;border-collapse:collapse">
+            <tr><td style="color:#64748b;padding-right:16px"><strong>Facility Type</strong></td><td>${facilityType || '—'}</td></tr>
+            <tr><td style="color:#64748b"><strong>Facility Size</strong></td><td>${facilitySize || '—'}</td></tr>
+            <tr><td style="color:#64748b"><strong>Current BMS</strong></td><td>${currentBms || '—'}</td></tr>
+            <tr><td style="color:#64748b"><strong>Priority</strong></td><td>${priority || '—'}</td></tr>
+            <tr><td style="color:#64748b"><strong>Timeline</strong></td><td>${timeline || '—'}</td></tr>
+          </table>
+          ${notes ? `<hr style="margin:16px 0;border:none;border-top:1px solid #e2e8f0"/><p style="font-family:sans-serif;font-size:14px"><strong>Notes:</strong><br/>${notes.replace(/\n/g, '<br/>')}</p>` : ''}
         `,
       }),
     })
