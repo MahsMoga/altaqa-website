@@ -69,11 +69,28 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                 {/* Top bar */}
                 <div style={{ height: '3px', background: `linear-gradient(90deg, ${cfg.color}, ${cfg.color}44, transparent)` }} />
 
-                {/* Product image */}
+                {/* Product image — corner bracket frame */}
                 {variant.image && (
-                  <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
-                    <div className="relative w-full overflow-hidden" style={{ height: '200px', background: '#ffffff', borderRadius: '6px' }}>
-                      <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                  <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '16px' }}>
+                    <div className="relative w-full" style={{ height: '200px' }}>
+                      {/* Corner brackets */}
+                      {(['tl','tr','bl','br'] as const).map(pos => (
+                        <div key={pos} className="absolute z-10" style={{
+                          top:    pos.startsWith('t') ? 0 : undefined,
+                          bottom: pos.startsWith('b') ? 0 : undefined,
+                          left:   pos.endsWith('l')   ? 0 : undefined,
+                          right:  pos.endsWith('r')   ? 0 : undefined,
+                          width: 18, height: 18,
+                          borderTop:    pos.startsWith('t') ? `2px solid ${cfg.color}` : undefined,
+                          borderBottom: pos.startsWith('b') ? `2px solid ${cfg.color}` : undefined,
+                          borderLeft:   pos.endsWith('l')   ? `2px solid ${cfg.color}` : undefined,
+                          borderRight:  pos.endsWith('r')   ? `2px solid ${cfg.color}` : undefined,
+                        }} />
+                      ))}
+                      {/* Image box */}
+                      <div className="absolute inset-0 overflow-hidden" style={{ background: '#ffffff', borderRadius: '4px' }}>
+                        <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -173,11 +190,26 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                   >
                     <div style={{ height: '2px', background: 'linear-gradient(90deg, #34d399, #34d39944, transparent)' }} />
 
-                    {/* Product image */}
+                    {/* Product image — corner bracket frame */}
                     {variant.image && (
-                      <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
-                        <div className="relative w-full overflow-hidden" style={{ height: '200px', background: '#ffffff', borderRadius: '6px' }}>
-                          <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                      <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '16px' }}>
+                        <div className="relative w-full" style={{ height: '200px' }}>
+                          {(['tl','tr','bl','br'] as const).map(pos => (
+                            <div key={pos} className="absolute z-10" style={{
+                              top:    pos.startsWith('t') ? 0 : undefined,
+                              bottom: pos.startsWith('b') ? 0 : undefined,
+                              left:   pos.endsWith('l')   ? 0 : undefined,
+                              right:  pos.endsWith('r')   ? 0 : undefined,
+                              width: 18, height: 18,
+                              borderTop:    pos.startsWith('t') ? '2px solid #34d399' : undefined,
+                              borderBottom: pos.startsWith('b') ? '2px solid #34d399' : undefined,
+                              borderLeft:   pos.endsWith('l')   ? '2px solid #34d399' : undefined,
+                              borderRight:  pos.endsWith('r')   ? '2px solid #34d399' : undefined,
+                            }} />
+                          ))}
+                          <div className="absolute inset-0 overflow-hidden" style={{ background: '#ffffff', borderRadius: '4px' }}>
+                            <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                          </div>
                         </div>
                       </div>
                     )}
