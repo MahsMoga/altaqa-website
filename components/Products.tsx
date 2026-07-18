@@ -47,30 +47,30 @@ export default function Products() {
                   el.style.transform = 'translateY(0)'
                 }}
               >
-                {/* Image zone — generous height, light neutral bg */}
+                {/* Image zone — dark navy bg, colored strip at top */}
                 <div className="relative overflow-hidden flex-shrink-0"
-                     style={{ height: '210px', background: '#f4f6fa' }}>
+                     style={{ height: '210px', background: '#0f1c35' }}>
+                  {/* Colored accent strip at top */}
+                  <div className={`absolute top-0 left-0 right-0 h-[3px] z-10 ${product.strip}`} />
+
                   {product.image ? (
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
                       className="object-contain transition-transform duration-500 group-hover:scale-[1.06]"
-                      style={{ padding: '24px' }}
+                      style={{ padding: '28px' }}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (
                     <div className="h-full flex items-center justify-center">
                       <div className="w-20 h-20 rounded-2xl flex items-center justify-center
                                       group-hover:scale-110 transition-transform duration-300"
-                           style={{ background: 'rgba(47,128,237,0.08)', border: '1px solid rgba(47,128,237,0.15)' }}>
+                           style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
                         {product.icon}
                       </div>
                     </div>
                   )}
-
-                  {/* Colored accent strip at bottom of image */}
-                  <div className={`absolute bottom-0 left-0 right-0 h-[3px] ${product.strip}`} />
                 </div>
 
                 {/* Content */}
