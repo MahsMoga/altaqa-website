@@ -8,10 +8,10 @@ import { products } from '@/data/products'
 const CATEGORIES = ['All', 'Metering', 'Sensors', 'Automation', 'Valves & Controls']
 
 const CATEGORY_MAP: Record<string, string[]> = {
-  Metering:          ['btu-meters', 'water-meters', 'lorawan-sensors'],
-  Sensors:           ['lorawan-sensors', 'gas-sensors'],
+  Metering:          ['btu-meters', 'smart-water-meters', 'mbus-gateways'],
+  Sensors:           ['lorawan-sensors'],
   Automation:        ['plc-control-systems'],
-  'Valves & Controls': ['control-valves', 'actuators'],
+  'Valves & Controls': ['smart-shutoff-valves'],
 }
 
 export default function Products() {
