@@ -76,7 +76,7 @@ export default function Products() {
               >
                 {/* Image zone — dark navy, no white box */}
                 <Link href={`/products/${product.slug}`} className="block flex-shrink-0 relative overflow-hidden"
-                      style={{ height: '210px', background: '#0f1c35' }}>
+                      style={{ height: '210px', background: '#f4f6fa' }}>
                   <div className={`absolute top-0 left-0 right-0 h-[3px] z-10 ${product.strip}`} />
                   {product.image ? (
                     <Image
@@ -84,14 +84,14 @@ export default function Products() {
                       alt={product.name}
                       fill
                       className="object-contain transition-transform duration-500 group-hover:scale-[1.06]"
-                      style={{ padding: '28px', mixBlendMode: 'screen' }}
+                      style={{ padding: '28px' }}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                   ) : (
                     <div className="h-full flex items-center justify-center">
                       <div className="w-20 h-20 rounded-2xl flex items-center justify-center
                                       group-hover:scale-110 transition-transform duration-300"
-                           style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.15)' }}>
+                           style={{ background: 'rgba(47,128,237,0.08)', border: '1px solid rgba(47,128,237,0.15)' }}>
                         {product.icon}
                       </div>
                     </div>
