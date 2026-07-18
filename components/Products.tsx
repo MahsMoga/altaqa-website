@@ -44,10 +44,6 @@ export default function Products() {
             </span>
             <span className="flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              Stocked locally in Abu Dhabi
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
               M&amp;V support &amp; commissioning included
             </span>
           </div>
@@ -141,7 +137,7 @@ export default function Products() {
                   {/* Availability */}
                   <div className="flex items-center gap-1.5 mt-2 mb-3">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block flex-shrink-0" />
-                    <span className="text-[11px] text-emerald-700 font-semibold">Available in UAE · Pricing in 24h</span>
+                    <span className="text-[11px] text-emerald-700 font-semibold">Available in UAE · Pricing in 24–48 working hours</span>
                   </div>
 
                   {/* CTA row */}
