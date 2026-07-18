@@ -42,10 +42,6 @@ export default function Products() {
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
               Official distributor — QUNDIS, Micronics &amp; smarty7 in UAE
             </span>
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              M&amp;V support &amp; commissioning included
-            </span>
           </div>
         </AnimateIn>
 
