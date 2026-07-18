@@ -36,13 +36,6 @@ export default function Products() {
             Purpose-built hardware for BMS, energy metering, industrial automation, and
             air quality monitoring — all available through Al Taqa Technical.
           </p>
-          {/* Trust bar */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-[12px] font-semibold text-slate-500">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block" />
-              Official distributor — QUNDIS, Micronics &amp; smarty7 in UAE
-            </span>
-          </div>
         </AnimateIn>
 
         {/* Category filter */}
