@@ -149,17 +149,6 @@ export default function Products() {
           ))}
         </div>
 
-        {/* View all link */}
-        <div className="mt-12 flex justify-center">
-          <Link href="/products"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-[13px] font-bold border transition-all hover:shadow-md"
-            style={{ borderColor: '#0f1c35', color: '#0f1c35' }}>
-            View All Products
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </Link>
-        </div>
 
       </div>
     </section>
