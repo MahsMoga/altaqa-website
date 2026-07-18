@@ -1042,7 +1042,7 @@ export default function ProductDetailPage({ slug }: PageProps) {
               <AnimateIn className="max-w-xl mb-12">
                 <span className="label-tag">Models in This Range</span>
                 <h2 className="heading-section">
-                  Compare <span className="text-accent">Models</span>
+                  All Variants <span className="text-accent">&amp; Sizes</span>
                 </h2>
                 <p className="body-lead">
                   Both models are available through Al Taqa Technical. Contact us for pricing,
