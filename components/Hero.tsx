@@ -80,7 +80,7 @@ export default function Hero() {
       {/* Hero background image */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80"
+          src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1920&q=80"
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover object-center"
