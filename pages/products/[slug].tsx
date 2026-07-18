@@ -72,39 +72,39 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                 {/* Product image */}
                 {variant.image && (
                   <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
-                    <div className="relative w-full overflow-hidden" style={{ height: '148px', background: '#ffffff', borderRadius: '6px' }}>
-                      <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '16px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                    <div className="relative w-full overflow-hidden" style={{ height: '200px', background: '#ffffff', borderRadius: '6px' }}>
+                      <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
                     </div>
                   </div>
                 )}
 
-                <div className="p-5 flex-1 flex flex-col gap-4">
+                <div className="px-4 pt-3 pb-1 flex-1 flex flex-col gap-2">
                   {/* Model badge row */}
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-black tracking-widest uppercase px-3 py-1 rounded-full"
+                    <span className="text-[10px] font-black tracking-widest uppercase px-2.5 py-0.5 rounded-full"
                           style={{ color: cfg.color, background: cfg.bg, border: `1px solid ${cfg.border}` }}>
                       {cfg.badge}
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">IEC 61131-3</span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">IEC 61131-3</span>
                   </div>
 
                   {/* Name */}
-                  <h4 className="font-display font-bold text-sm leading-snug text-navy">
+                  <h4 className="font-display font-bold text-[12px] leading-snug text-navy">
                     {variant.name}
                   </h4>
 
                   {/* Key differentiator */}
-                  <div className="rounded-xl px-4 py-3 flex items-start gap-2.5"
+                  <div className="rounded-lg px-3 py-2 flex items-start gap-2"
                        style={{ background: cfg.bg, border: `1px solid ${cfg.border}` }}>
-                    <svg className="mt-0.5 shrink-0" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <svg className="mt-0.5 shrink-0" width="10" height="10" viewBox="0 0 12 12" fill="none">
                       <circle cx="6" cy="6" r="5" stroke={cfg.color} strokeWidth="1.2"/>
                       <path d="M4 6l1.5 1.5L8 4.5" stroke={cfg.color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    <span className="text-[11px] leading-relaxed font-medium" style={{ color: cfg.color }}>{cfg.highlight}</span>
+                    <span className="text-[10px] leading-relaxed font-medium" style={{ color: cfg.color }}>{cfg.highlight}</span>
                   </div>
 
                   {/* Protocols */}
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-1">
                     {protos.map(p => (
                       <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
                             style={{ background: 'rgba(0,0,0,0.05)', color: '#64748b', border: '1px solid rgba(0,0,0,0.08)' }}>
@@ -176,24 +176,24 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                     {/* Product image */}
                     {variant.image && (
                       <div className="flex-shrink-0 flex items-center justify-center" style={{ background: '#0f1c35', padding: '12px' }}>
-                        <div className="relative w-full overflow-hidden" style={{ height: '128px', background: '#ffffff', borderRadius: '6px' }}>
-                          <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '14px' }} sizes="(max-width: 640px) 100vw, 33vw" />
+                        <div className="relative w-full overflow-hidden" style={{ height: '200px', background: '#ffffff', borderRadius: '6px' }}>
+                          <Image src={variant.image} alt={variant.name} fill className="object-contain" style={{ padding: '20px' }} sizes="(max-width: 640px) 100vw, 33vw" />
                         </div>
                       </div>
                     )}
 
-                    <div className="p-4 flex-1 flex flex-col gap-3">
-                      {/* Model number — hero element */}
+                    <div className="px-4 pt-3 pb-1 flex-1 flex flex-col gap-2">
+                      {/* Model number */}
                       <div>
-                        <div className="text-[9px] font-bold tracking-widest uppercase mb-1 text-slate-400">Model</div>
-                        <div className="font-mono font-bold text-base" style={{ color: '#059669' }}>{modelNum}</div>
+                        <div className="text-[9px] font-bold tracking-widest uppercase mb-0.5 text-slate-400">Model</div>
+                        <div className="font-mono font-bold text-[13px]" style={{ color: '#059669' }}>{modelNum}</div>
                       </div>
 
                       {/* Protocols */}
                       {protos.length > 0 && (
                         <div>
-                          <div className="text-[9px] font-bold tracking-widest uppercase mb-1.5 text-slate-400">Protocols</div>
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className="text-[9px] font-bold tracking-widest uppercase mb-1 text-slate-400">Protocols</div>
+                          <div className="flex flex-wrap gap-1">
                             {protos.map(p => (
                               <span key={p} className="text-[9px] font-bold px-2 py-0.5 rounded-full"
                                     style={{ background: 'rgba(5,150,105,0.08)', color: '#059669', border: '1px solid rgba(5,150,105,0.18)' }}>
@@ -205,7 +205,7 @@ function PlcVariants({ variants }: { variants: ProductVariant[] }) {
                       )}
 
                       {/* Form factor */}
-                      <div className="text-[10px] font-medium text-slate-400">
+                      <div className="text-[9px] font-medium text-slate-400">
                         Drive-mounted · Powered from host drive
                       </div>
                     </div>
