@@ -8,8 +8,8 @@ import { products } from '@/data/products'
 const CATEGORIES = ['All', 'Metering', 'Sensors', 'Automation', 'Valves & Controls']
 
 const CATEGORY_MAP: Record<string, string[]> = {
-  Metering:          ['btu-meters', 'smart-water-meters', 'mbus-gateways'],
-  Sensors:           ['lorawan-sensors'],
+  Metering:          ['btu-meters', 'smart-water-meters'],
+  Sensors:           ['lorawan-sensors', 'mbus-gateways'],
   Automation:        ['plc-control-systems'],
   'Valves & Controls': ['smart-shutoff-valves'],
 }
@@ -57,9 +57,8 @@ export default function Products() {
 
         {/* Product grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-7">
-          {filtered.map((product, idx) => (
-            <AnimateIn key={product.slug} delay={idx * 60}>
-              <div className="group flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-300"
+          {filtered.map((product) => (
+            <div key={product.slug} className="group flex flex-col h-full rounded-2xl overflow-hidden transition-all duration-300"
                 style={{ background: '#ffffff', border: '1px solid #e8ecf2', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
                 onMouseEnter={e => {
                   const el = e.currentTarget as HTMLDivElement
@@ -145,7 +144,6 @@ export default function Products() {
                   </div>
                 </div>
               </div>
-            </AnimateIn>
           ))}
         </div>
 
