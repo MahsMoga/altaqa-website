@@ -1,4 +1,4 @@
-import { useState, FormEvent, useMemo } from 'react'
+import { useState, useEffect, FormEvent, useMemo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -804,6 +804,13 @@ export default function ProductDetailPage({ slug }: PageProps) {
   const product = getProductBySlug(slug) as Product
   const pageUrl = `${SITE_URL}/products/${product.slug}`
   const ogImage = `${SITE_URL}/al-taqa-logo.png`
+  const [showSticky, setShowSticky] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setShowSticky(window.scrollY > 420)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <>
@@ -860,6 +867,38 @@ export default function ProductDetailPage({ slug }: PageProps) {
       </Head>
 
       <Navbar />
+
+      {/* Sticky quote bar */}
+      <div className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
+           style={{
+             transform: showSticky ? 'translateY(0)' : 'translateY(-100%)',
+             background: '#0f1c35',
+             borderBottom: '1px solid rgba(255,255,255,0.08)',
+             boxShadow: '0 4px 24px rgba(0,0,0,0.3)',
+           }}>
+        <div className="container-narrow flex items-center justify-between py-3 gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <span className="text-white font-bold text-sm truncate">{product.name}</span>
+            <span className="hidden sm:flex items-center gap-1.5 text-emerald-400 text-xs font-semibold flex-shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
+              Available in UAE
+            </span>
+          </div>
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <a href="#downloads" className="hidden sm:inline-flex text-white/70 text-xs font-semibold hover:text-white transition-colors">
+              View Models
+            </a>
+            <a href="#inquiry"
+               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-[13px] font-bold text-navy transition-all hover:opacity-90"
+               style={{ background: '#f59e0b' }}>
+              Get Quote
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
 
       <main>
         {/* ── Hero ─────────────────────────────────────────────────── */}
